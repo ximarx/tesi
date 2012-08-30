@@ -1,0 +1,41 @@
+\documentclass[a4paper,%
+				12pt,%
+				oneside%
+				]{book}
+				
+\usepackage[english,italian]{babel}
+
+%\usepackage[T1]{fontenc} % Riga da togliere se si compila con PDFLaTeX
+\usepackage[utf8]{inputenc} % Consente l'uso caratteri accentati italiani
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage[backend=bibtex]{biblatex}
+
+\bibliography{Bibliografia}
+
+\input{Configs}                  % file con le impostazioni personali
+
+				
+\begin{document}
+
+\pagenumbering{roman}
+\pagestyle{plain}
+
+\input{Sezioni/Frontespizio}
+
+\pagestyle{fancy}
+
+\input{Sezioni/Dedica}
+\input{Sezioni/Indici}
+\input{Sezioni/Ringraziamenti}
+
+\mainmatter
+\input{Capitoli/capitolo-1}
+
+\appendix
+\input{Sezioni/Bibliografia}
+
+\end{document}

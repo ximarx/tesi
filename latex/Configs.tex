@@ -1,0 +1,34 @@
+
+
+\frenchspacing % forza LaTeX ad una spaziatura non inglese
+\hoffset + 0.5cm
+
+\renewcommand{\sectionmark}[1]{%
+\markboth{\MakeUppercase{%
+\thesection. \ #1}}{}}
+
+\rhead{\thesection \sectionmark}
+\lfoot{}%\emph{Francesco Capozzo}}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+\renewcommand{\contentsname}{Sommario}
+\renewcommand{\listfigurename}{List of Figures}
+\renewcommand{\listtablename}{List of Tables}
+\renewcommand{\bibname}{Bibliografia}
+\renewcommand{\indexname}{Indice}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tavola}
+\renewcommand{\partname}{Parte}
+\renewcommand{\chaptername}{Capitolo}
+\renewcommand{\appendixname}{Appendice}
+\renewcommand{\today}{\ifcase\month\or
+  Gennaio\or Febbraio\or Marzo\or Aprile\or Maggio\or Giugno\or
+  Luglio\or Agosto\or Settembre\or Ottobre\or Novembre\or Dicembre\fi
+  \space\number\day, \number\year}
+  
+  
+
