@@ -108,14 +108,68 @@ La definizione offerta da \emph{R. H. Richens}, ideatore delle \emph{reti semant
 \end{quote}
 
 \subsection{Frame}
+Il concetto di ereditarietà introdotto tramite l'utilizzo delle \emph{reti semantiche} viene ulteriormente esteso tramite l'utilizzo del concetto di \emph{Frame}. 
+\begin{quote}
+''Un \emph{frame} è una struttura dati per la rappresentazione di situazioni stereotipate. [\dots] Diverse tipologie di informazioni vengono collegate a ciascun frame. Alcune di queste informazioni riguardano l'utilizzo dello stesso. Altre sono a proposito di quello che ci si può attendere. Altre riguardano cosa fare se queste attese non sono confermate. \cite{minsky1974}''
+\end{quote}
+
+La struttura dei \emph{frame} può essere immaginata come una rete di nodi e relazioni. I nodi principali, posti alla testa della gerarchia, sono fissi e rappresentano concetti ed informazioni che sono assiomaticamente veri in una situazione. A questi nodi vengono collegati, nei livelli via via più bassi, diversi \emph{terminali}. Questi ultimi rappresentano \emph{slot} che devono essere riempiti da specifiche istanze o dati. Ogni terminale ha la possibilità di specificare condizioni che devono risultare verificare per permettere la modifica o l'accesso ai dati contenuti negli slot. 
+
+Le forme più semplici di condizioni possono richiedere l'intervento dell'utente per fornire dati da assegnare a specifici slot, condizioni più complesse possono invece essere utilizzate per collegare fra loro informazioni disponibili in diversi altri terminali. 
+
+Il contenuto degli slot può essere un informazione atomica, così come un'ulteriore sotto struttura \emph{frame}. L'utilizzo di strutture innestate permette la creazione di ulteriori livelli gerarchici con estrema facilità. \cite{minsky1974} 
 
 \subsection{Oggetti}
+Gli oggetti nell'approccio \emph{object-oriented} alla rappresentazione della conoscenza descrivono una strategia di rappresentazione derivata da quella dei \emph{frame}. Dal quest'ultima eredita i concetti di relazione, slot e l'organizzazione gerarchica fra gli elementi stessi \cite{holsapple1994object}.
+
+L'innovazione introdotta dall'approccio basato su oggetti è quella consentire la comunicazione fra gli oggetti stessi attraverso un protocollo basato sullo scambio di messaggi: in seguito alla ricezione di un messaggio, un oggetto attiva una appropriata procedura e valuta se propagare o meno il messaggio ad altri oggetti con cui lo stesso è in relazione \cite{development1993}. 
+
+Il paradigma basato su oggetti realizza una modalità generale di rappresentazione della conoscenza e per la sua manipolazione. La sua importanza è data sia dalla capacità di caratterizzazione della conoscenza, sia dalla varietà di tecniche che questo tipo di formalismo consente di integrare all'interno di ogni genere di sistema \cite{holsapple1994object}.
 
 \section{Meccanismi di inferenza}
+La componente principale di un qualsiasi strumento di sviluppo per sistemi esperti, sia esso un linguaggi classico di programmazione, sia esso una \emph{shell} o un \emph{environment}, risiede nel motore inferenziale.
+
+Esso può essere descritto come il cuore di ogni sistema esperto: è il componente con il compito di contenere e gestire la conoscenza necessaria al raggiungimento della soluzione del problema che il sistema esperto punta a risolvere, oltre che gestire l'ordine con il quale applicare la conoscenza di dominio al servizio del raggiungimento di un obiettivo.
+
+Il componente genericamente identificato come \emph{motore inferenziale} è in realtà una sintesi del lavoro svolto da due componenti separate interne allo stesso: l'\emph{interprete} e lo \emph{scheduler}\cite{development1993}.
+
+\paragraph{Interprete} Il ruolo dell'interprete può essere descritto nei termini del ciclo \emph{recognize-act}. Lo stesso è un processo iterato suddiviso in tre fasi consecutive ed eseguito con l'obiettivo di manipolare la descrizione del problema contenuta nella memoria di lavoro. Le fasi che costituiscono il ciclo \emph{recognize-act} possono essere riassunte nelle seguenti:
+\begin{list}{}{}
+	\item[(1)] \emph{Confrontare} gli elementi della memoria di lavoro (la descrizione parziale dello stato del problema) con l'elenco dei \emph{Pattern} presenti nella porzione \emph{LHS} di ogni regola disponibile nel \emph{rules-set}.
+	\item[(2)] Valutare l'elenco delle regole le cui condizioni risultano completamente soddisfatte e selezionarne una\footnote{La restrizione di selezione di una singola regola fra quelle applicabili può anche essere sostituita da strategie di gestione dei conflitti che prevedono la selezione di un gruppo di regole fra le applicabili, come mostrato da \cite{Doorenbos95productionmatching}} da applicare.
+	\item[(3)] Applicare la regola: l'applicazione consiste nell'esecuzione di ognuna delle azioni contenute nella porzione \emph{RHS} della regola
+\end{list}
+
+La fase (2) dell'interprete è delegata alle funzioni dello \emph{Scheduler}. 
+
+\paragraph{Scheduler} Le funzioni svolte dallo \emph{Scheduler} sono quelle di decidere l'ordine di applicazione di porzioni di conoscenza di dominio \cite{development1993}. Facendo riferimento ad un ipotetico motore inferenziale che utilizza una strategia di controllo basata su regole, questo componente utilizza una serie di criteri eseguendo una selezione fra le attivazioni disponibili. Le euristiche utilizzate per la selezione possono essere incluse in origine nell'ambiente di sviluppo o richiedere l'intervento dello sviluppatore per essere specificate.
+
+\'E questo l'elemento a creare la differenza fra logiche di controllo \emph{globali} e \emph{locali}. 
+
+\subparagraph{Logiche globali} Le prime rappresentano un gruppo di strategie indipendenti dal dominio applicativo, normalmente incluse negli ambienti di sviluppo, e che non richiedono l'intervento dello sviluppatore. L'unica possibilità offerta è quella di scegliere una fra diverse strategie, ammesso che più di una venga fornita dal sistema. La personalizzazione della sequenza di esecuzione viene quindi delegata ad apposite strategie di controllo basate su rappresentazioni specifiche dei dati nella \emph{working memory}. Un esempio di \emph{environment} ad utilizzare questo genere di strategie globali è CLIPS.
+
+Spesso, le strategie di controllo della catena di inferenza sono il sunto della combinazione di differenti meccanismi di base, ognuno dei quali si basa su differenti proprietà. Le buone prestazioni di un sistema esperto spesso dipendono da proprietà chiave di questi regimi di controllo \cite{jackson1999}, come la \emph{sensibilità} o la \emph{stabilità}.
+\begin{quote}
+	''Un sistema a produzioni il quale dimostri reattività alle necessità del suo ambiente si può affermare che dimostri \emph{sensibilità}. Uno che è capace di mantenere una continuità nei suoi comportamenti, può essere detto che mostri \emph{stablità}.''\cite{McDermott:1977:PSC:1045343.1045364}
+\end{quote} 
+La prima indica la capacità di una logica di adattarsi con rapidità a modifiche dell'ambiente che si riflettono nelle descrizioni nella memoria di lavoro, la seconda indica il grado di coerenza nella linea di ragionamento.\cite{jackson1999}
+
+Nonostante i meccanismi di risoluzione dei conflitti variano molto da sistema a sistema, la popolarità di alcune caratteristiche presenti in molti di essi richiede un approfondimento:
+
+\begin{itemize}
+	\item \emph{Refrattarietà}: proprietà che non consente ad una attivazione di essere eseguita più di una volta sullo stesso gruppo di dati. Se più attivazioni con gli medesimi dati vengono riscontrate, sono semplicemente ignorate.
+	\item \emph{Attualità}: agli elementi all'interno della memoria di lavoro vengono applicati delle etichette temporali. Le attivazioni vengono successivamente selezionate utilizzando i tag applicati.
+	\item \emph{Specificità}: le attivazioni vengono selezionate in base a criteri legati alla specificità dei pattern che trovano riscontro con la descrizione presente nella memoria di lavoro
+\end{itemize}
+
+\subparagraph{Logiche locali} Le strategie di controllo \emph{locali} offrono un più alto grado di personalizzazione allo sviluppatore, ma con esso anche maggiori responsabilità. \'E infatti responsabilità dei designer quella di specificare un apposito insieme di \emph{meta-regole} che consentano la discriminazione delle attivazioni in cerca della più opportuna da attivare per ogni stato del sistema. La selezione viene eseguita basandosi sulla conoscenza di dominio inserita all'interno delle \emph{meta-regole}. Un esempio di sistema ad utilizzare questa tipologia di \emph{Scheduler} è MYCIN.
 
 \subsection{Controllo basato su regole}
+Storicamente, i primi ambienti per lo sviluppo ad essere implementati si basavano sulla specifica degli elementi di conoscenza attraverso la codifica in formato di regole di produzione.
 
-\paragraph{Forward chaining}
+Le strategie di ricerca sviluppate per il controllo dell'inferenza in questa categoria di sistemi si basano spesso su metodi come il \emph{Forward Chaining} e il \emph{Backward Chaining}.
+
+\paragraph{Forward chaining} La concatenazione di regole in avanti 
 
 \paragraph{Backward chaining}
 
