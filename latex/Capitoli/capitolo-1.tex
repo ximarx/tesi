@@ -184,10 +184,23 @@ L'algoritmo di concatenazione all'indietro, o \emph{Backward chaining}, parte da
 La concatenazione all'indietro è una forma di ragionamento basato sugli obiettivi. Spesso il costo dell'utilizzo di questa strategia di inferenza è inferiore rispetto a quello tramite l'utilizzo della \emph{forward chaining} in quanto il processo coinvolge solo i fatti rilevanti. \cite{russellnorvig2009}
 
 \subsection{RETE: matching fra regole e stato}
+L'algoritmo di \emph{Forward chaining} rappresenta una modalità di inferenza progettata per risultare di facile comprensione ed utilizzo. Porta con se però tre criticità di grande rilevanza: \cite{russellnorvig2009}
+\begin{itemize}
+	\item il ciclo interno dell'algoritmo prevede la ricerca di tutti gli unificatori tali che una la premessa di una regola possa trovare riscontro con un insieme adeguato di dati presenti nella \emph{working memory}. Questa operazione è definitia \emph{Pattern Matching}.
+	\item per ogni iterazione, la ricerca nel \emph{rules-set} deve essere ripetuta completamente anche nei casi in cui le modifiche alla \emph{working memory} sono di piccola entità.
+	\item l'impostazione stessa dell'algoritmo comporta il rischio di generazione di un grande numero di dati irrilevanti per il raggiungimento dell'obiettivo.
+\end{itemize}
+
+Prendendo in esame una ipotetica configurazione di una regola in cui la precondizione sia costituita da un singolo \emph{pattern}, la verifica dell'applicabilità della regola prevede la ricerca all'interno della \emph{working memory} di un singolo elemento in grado di verificare la condizione. L'operazione, se eseguita in un base di conoscenza opportunamente indicizzata, può essere eseguita in tempo costante per ogni fatto \cite{russellnorvig2009}
+
+
+
 
 \section{Lo scenario attuale}
 
 \subsection{CLIPS}
+CLIPS è l'acronimo di C Language Integrated Production System: un linguaggio di programmazione sviluppato al NASA Johnson Space Center nella metà del 1980. Prende spunto da tool come OPS5 e ART, supportandone le caratteristiche di maggior importanza e introducendone di nuove come le funzionalità relative alla programmazione procedurale, derivato dalla sintassi LISP. Lo sviluppo iniziò in un contesto in cui erano emergenti, ma ancora costose, soluzioni di environment basati su linguaggio C. Il risultato è il sistema meno costoso e di maggiore reperibilità al mondo, non meno efficiente di soluzioni commerciali alternative disponibili. La prima versione non integrava funzionalità chiave introdotte solo successivamente, come il linguaggio procedurale e il paradigma di programmazione ad oggetti.
+
 
 \subsection{Integrazione}
 
