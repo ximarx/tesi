@@ -191,10 +191,43 @@ L'algoritmo di \emph{Forward chaining} rappresenta una modalità di inferenza pr
 	\item l'impostazione stessa dell'algoritmo comporta il rischio di generazione di un grande numero di dati irrilevanti per il raggiungimento dell'obiettivo.
 \end{itemize}
 
-Prendendo in esame una ipotetica configurazione di una regola in cui la precondizione sia costituita da un singolo \emph{pattern}, la verifica dell'applicabilità della regola prevede la ricerca all'interno della \emph{working memory} di un singolo elemento in grado di verificare la condizione. L'operazione, se eseguita in un base di conoscenza opportunamente indicizzata, può essere eseguita in tempo costante per ogni fatto \cite{russellnorvig2009}
+Prendendo in esame una ipotetica configurazione di una regola in cui la precondizione sia costituita da un singolo \emph{pattern}, la verifica dell'applicabilità della regola prevede la ricerca all'interno della \emph{working memory} di un singolo elemento in grado di verificare la condizione. L'operazione, se eseguita in un base di conoscenza opportunamente indicizzata, può essere completata in tempo costante per ogni fatto. \cite{russellnorvig2009}
 
+Aumentando il numero di pattern presenti all'interno della porzione \emph{LHS} di una regola, il confronto va eseguito per ogni pattern individualmente. In seguito, qualora sia necessario eseguire dei test di coerenza per verificare il binding delle variabili comuni a più pattern, l'operazione di confronto va ripetuta per ogni possibile combinazione dei fatti individuati dalle singole condizioni.
 
+L'algoritmo RETE si propone come una soluzione efficiente per il problema di pattern matching. Proposto per la prima volta nel 1979 dal C. L. Forgy \cite{forgy1979} \cite{forgy1982}, l'algoritmo affronta il problema partendo da una semplice considerazione: l'applicazione di una regola genera piccoli cambiamenti nello stato del sistema e spesso questi cambiamenti minimi non richiedono una valutazione completa dell'intero \emph{rules-set}. Le criticità principali di una formulazione na\"{\i}ve di un algoritmo di matching derivano proprio dalla necessità di eseguire una scansione completa dell'intera base di conoscenza e dell'intera memoria di lavoro per ogni cambiamento dello stato del sistema.
 
+La soluzione propone i miglioramenti sintetizzandoli in due cambiamenti principali:
+\begin{itemize}
+	\item evitare di scansionare l'intera \emph{working memory} per trovare nuovi riscontri per i singoli pattern
+	\item evitare di scansionare l'intero \emph{rules-set} per trovare nuove attivazioni
+\end{itemize}
+
+La scansione dell'intera \emph{working memory} viene evitata memorizzando in una unità di memoria dedicata per ogni pattern la lista di elementi che risultano coerenti con il pattern stesso. Queste unità di memoria vengono aggiornate in linea con i cambiamenti della \emph{working memory}.
+
+Quando un nuovo elemento viene asserito e quindi entra a far parte della descrizione dello stato fornita dalla \emph{working memory}, l'algoritmo esegue una valutazione di ogni pattern singolarmente per il nuovo elemento aggiunto ed, solo in caso di verifica positiva, l'elemento stesso viene inserito all'interno dell'unità di memoria locale \cite{forgy1982}.
+
+Quando un elemento fuoriesce dalla \emph{working memory}, lo stesso viene rimosso da tutte le unità di memoria locali dei pattern in cui l'elemento è memorizzato. Il processo di ricerca può avvenire ripetendo nuovamente le verifiche per i singoli pattern \cite{forgy1982} oppure, più efficientemente, tenendo in una porzione di memoria separata una lista di riferimenti fra elementi e le memorie in cui essi sono contenuti \cite{Doorenbos95productionmatching}.
+
+La scansione dell'intero \emph{rules-set} viene evitata attraverso l'utilizzo di una struttura a grafo per la rappresentazione delle regole. In seguito ad una fase di compilazione, la porzione \emph{LHS} delle regole viene scomposta nei singoli pattern. Per ognuno di essi viene realizzata, qualora non fosse possibile condividere una struttura analoga creata precedentemente, un circuito di nodi in grado di eseguire dei test su singoli elementi della \emph{working memory}. Come ultimo elemento del circuito viene aggiunta una unità di memoria locale, denominata \emph{Alpha-Memory}, la quale accoglierà l'insieme di elementi che, singolarmente, hanno verificato l'elenco di condizioni che il circuito descrive \cite{Doorenbos95productionmatching}.
+
+L'insieme di circuiti derivanti dalla compilazione dei singoli pattern prende il nome di \emph{Alpha-Network}.
+
+Una seconda porzione della rete è quella nota con il nome di \emph{Beta-Network}. In questa sezione vengono eseguiti i test di coerenza sul binding delle variabili fra le condizioni. Durante la fase di compilazione, una volta create le porzioni \emph{alpha} di ogni singolo pattern, quelli appartenenti alla stessa \emph{LSH} vengono collegati fra loro attraverso l'uso di speciali nodi, chiamati \emph{Join-Node}. Questi nodi, oltre a riunire singoli pattern in una catena che rappresenti l'intera \emph{LHS}, hanno il compito di eseguire l'insieme di test necessari alle verifiche di coerenza sul binding delle variabili, dove necessario. Qualora i test eseguiti in questi nodi a due input risultino positivi, viene creata una struttura che contiene i due elementi della memoria di lavoro che sono risultati coerenti e la stessa memorizzata all'interno di una unità di memoria agganciata direttamente al \emph{Join-Node}. La struttura prende il nome di \emph{Token}\footnote{Nella formulazione dell'algoritmo proposto originariamente in \cite{forgy1979} e \cite{forgy1982} con il termine \emph{Token} si faceva riferimento a una descrizione di un cambiamento nella \emph{working memory}, notificato ai nodi componenti la rete tramite l'uso di \emph{tag}. La formulazione proposta in \cite{Doorenbos95productionmatching} utilizza l'appellativo per indicare una sequenza di \emph{working memory elements} che abbiano verificato una porzione della \emph{beta-network}. Il concetto di tag, usati nella prima formulazione per indicare il tipo di modifica che il \emph{token} rappresentava, nella seconda formulazione è completamente assente}.
+
+L'utilizzo di un ulteriore tipo di memoria nella \emph{Beta-Network}, chiamata appunto \emph{Beta-Memory}, consente di memorizzare attivazioni parziali che risultano valide solo per una porzione della regola in attesa che, tramite l'asserzione di ulteriori fatti, l'intera regola risulti attivabile.
+
+Il processo di trasformazione delle regole porta a due benefici sostanziali:
+\begin{itemize}
+	\item la compilazione dei singoli pattern eseguita per la formazione dell'\emph{alpha-network} consente di partizionare la working-memory in frammenti di minore dimensioni. Questo si traduce in un minor numero di confronti durante i test di coerenza. Inoltre, pattern simili presenti in più regole vengono accorpati e rappresentati da un unico circuito \emph{alpha}. La fase di valutazione verrà eseguita soltanto una volta per tipo di pattern.
+	\item gruppi di pattern simili, analogamento a quanto descritto nel punto precedente, vengono accorpati in un solo circuito \emph{beta}, riducendo ulteriormente i costi delle verifiche per i test di coerenza.
+\end{itemize}
+
+Il processo di creazione della rete può avvenire attraverso un reale processo di compilazione \cite{forgy1982} che prevede la conversione dell'intero \emph{rules-set} in una sequenza di istruzioni ed espressioni che rappresentino le varie condizioni (implementazione \emph{compilata}), oppure attraverso un processo di creazione di una rappresentazione esplicita di grafo nelle modalità citate poc'anzi (implementazione \emph{interpretata}). 
+
+Il vantaggio della prima variante è la maggiore velocità, in contrasto al maggior consumo di memoria e alla difficoltà di implementazioni di procedure in grado di alterare la struttura della rete durante l'esecuzione attraverso l'aggiunta o la rimozione di produzioni \cite{Doorenbos95productionmatching}.
+
+La seconda variante rende più semplice l'implementazione di procedure di manipolazione della rete e risulta di globalmente di più facile implementazione e comprensione. Purtroppo questi vantaggi prevedono un \emph{trade-off} di tipo prestazionale \cite{Doorenbos95productionmatching}.
 
 \section{Lo scenario attuale}
 
