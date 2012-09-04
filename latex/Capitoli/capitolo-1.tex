@@ -213,7 +213,16 @@ La scansione dell'intero \emph{rules-set} viene evitata attraverso l'utilizzo di
 
 L'insieme di circuiti derivanti dalla compilazione dei singoli pattern prende il nome di \emph{Alpha-Network}.
 
-Una seconda porzione della rete è quella nota con il nome di \emph{Beta-Network}. In questa sezione vengono eseguiti i test di coerenza sul binding delle variabili fra le condizioni. Durante la fase di compilazione, una volta create le porzioni \emph{alpha} di ogni singolo pattern, quelli appartenenti alla stessa \emph{LSH} vengono collegati fra loro attraverso l'uso di speciali nodi, chiamati \emph{Join-Node}. Questi nodi, oltre a riunire singoli pattern in una catena che rappresenti l'intera \emph{LHS}, hanno il compito di eseguire l'insieme di test necessari alle verifiche di coerenza sul binding delle variabili, dove necessario. Qualora i test eseguiti in questi nodi a due input risultino positivi, viene creata una struttura che contiene i due elementi della memoria di lavoro che sono risultati coerenti e la stessa memorizzata all'interno di una unità di memoria agganciata direttamente al \emph{Join-Node}. La struttura prende il nome di \emph{Token}\footnote{Nella formulazione dell'algoritmo proposto originariamente in \cite{forgy1979} e \cite{forgy1982} con il termine \emph{Token} si faceva riferimento a una descrizione di un cambiamento nella \emph{working memory}, notificato ai nodi componenti la rete tramite l'uso di \emph{tag}. La formulazione proposta in \cite{Doorenbos95productionmatching} utilizza l'appellativo per indicare una sequenza di \emph{working memory elements} che abbiano verificato una porzione della \emph{beta-network}. Il concetto di tag, usati nella prima formulazione per indicare il tipo di modifica che il \emph{token} rappresentava, nella seconda formulazione è completamente assente}.
+Una seconda porzione della rete è quella nota con il nome di \emph{Beta-Network}. In questa sezione vengono eseguiti i test di coerenza sul binding delle variabili fra le condizioni. Durante la fase di compilazione, una volta create le porzioni \emph{alpha} di ogni singolo pattern, quelli appartenenti alla stessa \emph{LSH} vengono collegati fra loro attraverso l'uso di speciali nodi, chiamati \emph{Join-Node}. Questi nodi, oltre a riunire singoli pattern in una catena che rappresenti l'intera \emph{LHS}, hanno il compito di eseguire l'insieme di test necessari alle verifiche di coerenza sul binding delle variabili, dove necessario. Qualora i test eseguiti in questi nodi a due input risultino positivi, viene creata una struttura che contiene i due elementi della memoria di lavoro che sono risultati coerenti e la stessa memorizzata all'interno di una unità di memoria agganciata direttamente al \emph{Join-Node}. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{Immagini/Capitolo1/grafico-regola-rete.png}
+\caption{Grafico ottenuto dalla compilazione di una regola}\label{fig:grafico-regola}
+\end{figure}
+
+
+La struttura prende il nome di \emph{Token}\footnote{Nella formulazione dell'algoritmo proposto originariamente in \cite{forgy1979} e \cite{forgy1982} con il termine \emph{Token} si faceva riferimento a una descrizione di un cambiamento nella \emph{working memory}, notificato ai nodi componenti la rete tramite l'uso di \emph{tag}. La formulazione proposta in \cite{Doorenbos95productionmatching} utilizza l'appellativo per indicare una sequenza di \emph{working memory elements} che abbiano verificato una porzione della \emph{beta-network}. Il concetto di tag, usati nella prima formulazione per indicare il tipo di modifica che il \emph{token} rappresentava, nella seconda formulazione è completamente assente}.
 
 L'utilizzo di un ulteriore tipo di memoria nella \emph{Beta-Network}, chiamata appunto \emph{Beta-Memory}, consente di memorizzare attivazioni parziali che risultano valide solo per una porzione della regola in attesa che, tramite l'asserzione di ulteriori fatti, l'intera regola risulti attivabile.
 
@@ -230,11 +239,25 @@ Il vantaggio della prima variante è la maggiore velocità, in contrasto al magg
 La seconda variante rende più semplice l'implementazione di procedure di manipolazione della rete e risulta di globalmente di più facile implementazione e comprensione. Purtroppo questi vantaggi prevedono un \emph{trade-off} di tipo prestazionale \cite{Doorenbos95productionmatching}.
 
 \section{Lo scenario attuale}
+Il numero soluzioni commerciali e libere per lo sviluppo di sistemi esperto è estremamente elevato. Nonostante questo, nell'ambito dello sviluppo accademico le soluzioni individuate con maggior frequenza si restringono a due sistemi: CLIPS e JESS \cite{laerhoven1999}.
 
 \subsection{CLIPS}
-CLIPS è l'acronimo di C Language Integrated Production System: un linguaggio di programmazione sviluppato al NASA Johnson Space Center nella metà del 1980. Prende spunto da tool come OPS5 e ART, supportandone le caratteristiche di maggior importanza e introducendone di nuove come le funzionalità relative alla programmazione procedurale, derivato dalla sintassi LISP. Lo sviluppo iniziò in un contesto in cui erano emergenti, ma ancora costose, soluzioni di environment basati su linguaggio C. Il risultato è il sistema meno costoso e di maggiore reperibilità al mondo, non meno efficiente di soluzioni commerciali alternative disponibili. La prima versione non integrava funzionalità chiave introdotte solo successivamente, come il linguaggio procedurale e il paradigma di programmazione ad oggetti.
+CLIPS è l'acronimo di C Language Integrated Production System: un linguaggio di programmazione sviluppato al NASA Johnson Space Center nella metà del 1980. Prende spunto da tool come OPS5 e ART, supportandone le caratteristiche di maggior importanza e introducendone di nuove come le funzionalità relative alla programmazione procedurale, supportanto una sintassi simile a quella LISP. Lo sviluppo iniziò in un contesto in cui erano emergenti, ma ancora costose, soluzioni di environment basati su linguaggio C. Il risultato è il sistema meno costoso e di maggiore reperibilità al mondo, non meno efficiente di soluzioni commerciali alternative disponibili. La prima versione non integrava funzionalità chiave introdotte solo successivamente, come il linguaggio procedurale e il paradigma di programmazione ad oggetti \cite{jackson1999}.
 
+\subsection{JESS}
+Nato originariamente come un clone di CLIPS, JESS è un environment per sistemi esperti scritto in Java con l'obiettivo di estendere l'ambito di utilizzo dell'environment verso l'integrazione con tecnologie per il web basate su Java, come gli applet. Il numero di funzionalità originariamente offerte era un set limitato di quelle offerte da CLIPS, con il tempo lo sviluppo si è diretto verso l'aggiunta di funzionalità originali in maniera indipendente dal progetto padre, separando in questo modo i due progetti.
 
 \subsection{Integrazione}
+Le possibilità di integrazione fra environment per sistemi esperti e applicazioni tradizionali è un ambito non ancora completamente esplorato. Se prendiamo in considerazione ambiti orientati al Web, queste possibilità di ricerca si espandono ulteriormente.
 
-\section{Obiettivi}
+Le possibilità offerte dall'utilizzo di un linguaggio tanto versatile quanto lo è Java, hanno mostrato nuovi scenari di integrazione non ancora esplorati fino a questo momento.
+
+Solo prendendo in esame l'ambito dello sviluppo orientato ai servizi per il web, lo scenario attuale mostra un ridotto numero di sistemi disponibili rispetto a quelli tradizionali individuabili \cite{dokas2005}.
+
+Purtroppo, l'architettura e il linguaggio di programmazione utilizzati da CLIPS rendono l'integrazione con applicazioni scritte in linguaggi di alto livello o orientate al web di difficile utilizzo. Sebbene JESS sia una alternativa più comoda in questo ambito, restrizioni di licenza ne limitano l'utilizzo.
+
+\section{Obiettivi di questa tesi}
+Questa tesi si prefigge l'obiettivo di progettare e quindi implementare un environment per sistemi esperti basato su linguaggio interpretato Python e che offra un set di funzionalità simili a quelle offerte da CLIPS.
+
+Allo scopo di valutarne le possibilità di integrazione in scenari differenti, verrà inoltre progettata un'interfaccia di utilizzo dello stesso utilizzando il protocollo XMLRPC.
+
