@@ -248,16 +248,16 @@ CLIPS è l'acronimo di C Language Integrated Production System: un linguaggio di
 Nato originariamente come un clone di CLIPS, JESS è un environment per sistemi esperti scritto in Java con l'obiettivo di estendere l'ambito di utilizzo dell'environment verso l'integrazione con tecnologie per il web basate su Java, come gli applet. Il numero di funzionalità originariamente offerte era un set limitato di quelle offerte da CLIPS, con il tempo lo sviluppo si è diretto verso l'aggiunta di funzionalità originali in maniera indipendente dal progetto padre, separando in questo modo i due progetti.
 
 \subsection{Integrazione}
-Le possibilità di integrazione fra environment per sistemi esperti e applicazioni tradizionali è un ambito non ancora completamente esplorato. Se prendiamo in considerazione ambiti orientati al Web, queste possibilità di ricerca si espandono ulteriormente.
+Le possibilità di integrazione fra environment per sistemi esperti e applicazioni tradizionali è un ambito non ancora completamente esplorato. Se prendiamo in considerazione scenari di utilizzo orientati al Web, queste possibilità di ricerca si espandono ulteriormente .
 
-Le possibilità offerte dall'utilizzo di un linguaggio tanto versatile quanto lo è Java, hanno mostrato nuovi scenari di integrazione non ancora esplorati fino a questo momento.
+Solo prendendo in esame l'ambito dello sviluppo orientato ai servizi per il web, lo scenario attuale mostra un ridotto numero di sistemi disponibili rispetto a quelli tradizionali individuabili \cite{dokas2005} per lo sviluppo tradizionare.
 
-Solo prendendo in esame l'ambito dello sviluppo orientato ai servizi per il web, lo scenario attuale mostra un ridotto numero di sistemi disponibili rispetto a quelli tradizionali individuabili \cite{dokas2005}.
+Purtroppo, l'architettura e il linguaggio di programmazione utilizzati da CLIPS rendono l'integrazione con applicazioni scritte in linguaggi di alto livello o orientate al web di difficile utilizzo. L'integrazione fra applicazioni in linguaggi Java e CLIPS avviene attraverso l'utilizzo di una libreria basata su Java JNI, ma non sono ancora disponibili versioni stabili della stessa.
 
-Purtroppo, l'architettura e il linguaggio di programmazione utilizzati da CLIPS rendono l'integrazione con applicazioni scritte in linguaggi di alto livello o orientate al web di difficile utilizzo. Sebbene JESS sia una alternativa più comoda in questo ambito, restrizioni di licenza ne limitano l'utilizzo.
+Sebbene JESS sia una alternativa più comoda in questo ambito, restrizioni di licenza ne limitano l'utilizzo.
 
 \section{Obiettivi di questa tesi}
-Questa tesi si prefigge l'obiettivo di progettare e quindi implementare un environment per sistemi esperti basato su linguaggio interpretato Python e che offra un set di funzionalità simili a quelle offerte da CLIPS.
+Questa tesi si prefigge l'obiettivo di progettare e quindi implementare un environment per sistemi esperti flessibile che offra un set di funzionalità simili a quelle offerte da CLIPS. A questo scopo, il linguaggio scelto per la realizzazione è Python.
 
-Allo scopo di valutarne le possibilità di integrazione in scenari differenti, verrà inoltre progettata un'interfaccia di utilizzo dello stesso utilizzando il protocollo XMLRPC.
+Con la finalità di valutarne le possibilità di integrazione in scenari differenti, verrà inoltre progettata un'interfaccia di utilizzo dello stesso utilizzando il protocollo XMLRPC.
 
