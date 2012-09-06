@@ -1,16 +1,27 @@
 \chapter{Environment per Sistemi Esperti}
 
-
-
 \section{Sistemi esperti}
+I sistemi esperti sono applicazioni progettate per rendere disponibili alcune abilità di esperti di un dominio anche a utenti non esperti. Siccome questo genere di programmi tentano di emulare gli schemi mentali e i modi di pensare di un esperto, è naturale che le prime ricerche in questo ambito siano state effettuate nel campo dell'intelligenza artificiale.
 
-Blablablabl
+Il primi sistemi esperti mai prodotto furono Dendral (1965), con lo scopo di determinare la struttura molecolare partendo da dati provenienti da uno spettrometro di massa; R1, usato per configurare sistemi computerizzati; e MYCIN (1976) per assistere la diagnosi di infezioni da batteri e proporre piani terapeutici per il trattamento degli stessi.
+
+Dalla metà del 1960 ad oggi un gran numero di sistemi esperti sono stati creati con ambiti di utilizzo che spaziano da quello aerospaziale, per agevolare operazioni nello spazio, a quello ospedaliero, nell'assistenza alla monitoraggio dei parametri dei pazienti nelle unità di terapia intensiva, passando da quello finanziario.
+
+La conoscenza umana può essere raggruppata genericamente in \emph{conoscenza dichiarativa}, una forma di conoscenza esplicita rappresentante fatti, eventi ed esperienze consolidate nella forma di elementi memorizzabili; e \emph{conoscenza procedurale}. La seconda rappresenta l'insieme di abilità e conoscenze nell'utilizzo della \emph{conoscenza dichiarativa} per lo svolgimento di una attività di qualche genere.
+
+Esiste una grande varietà di tecniche tramite le quali il problema della creazione di programmi in grado di esporre un comportamento paragonabile a quello di un esperto possono essere approcciato \cite{jackson1999}.
+
+Le prime impiegavano sistemi basati su regole, i quali tramite l'utilizzo di regole \emph{If-then} erano in grado di rappresentare la \emph{conoscenza procedurale} di uno esperto ed i suoi processi di ragionamento. Ulteriori approcci come l'uso di \emph{reti semantiche o associative}, \emph{frame} e \emph{reti neruali} sono stati proposti successivamente.
 
 \section{Rappresentazione della conoscenza}
-Con il termine \emph{Rappresentazione della conoscenza} ci si riferisce alle modalità con le quali la conoscenza è strutturata ed organizzata in un sistema. Fra le modalità di rappresentazione più note supportate dai tool di sviluppo per sistemi esperti sono annoverabili \emph{Regole}, \emph{Reti semantiche}, \emph{Frame} e \emph{Oggetti}. Ognuna di queste tecniche presenta vantaggi e svantaggi: alcune permettono una estrema facilità di modifica e comprensione dei sistemi, mentre altre consentono un'alta efficienza d'uso della memoria. Un ideale environment per sistemi esperti dovrebbe provvedere a supportare il maggior numero possibile di queste tecniche di rappresentazione della conoscenza \cite{development1993}, per offrire una più ampia possibilità di scelta agli sviluppatori durante le fasi di design dei sistemi.
+Con il termine \emph{Rappresentazione della conoscenza} ci si riferisce alle modalità con le quali la conoscenza è strutturata ed organizzata in un sistema. Fra le modalità di rappresentazione più note supportate dai tool di sviluppo per sistemi esperti sono annoverabili \emph{Regole}, \emph{Reti semantiche}, \emph{Frame} e \emph{Oggetti}. Ognuna di queste tecniche presenta vantaggi e svantaggi: alcune permettono una estrema facilità di modifica e comprensione dei sistemi, mentre altre consentono un'alta efficienza d'uso della memoria. Una approccio ideale allo sviluppo di un sistema esperto dovrebbe prevedere la possibilità di utilizzare il maggior numero possibile di queste tecniche di rappresentazione \cite{development1993}, per offrire una più ampia possibilità di scelta agli sviluppatori durante le fasi di design.
 
 \subsection{Regole}
 La più nota forma di rappresentazione della conoscenza è quella basata su regole. \'E probabilmente un assioma dell'intelligenza artificiale, e della moderna psicologia, che comportamenti ritenuti intelligenti siano governati da regole. Anche nel mondo, le persone tendono ad associare intelligenza con coerenza nei comportamenti, e spesso il concetto di comportamento viene spiegato facendo riferimento a quello di regolarità. \cite{jackson1999}
+
+Inoltre, un forte gruppo di esponenti di spicco nell'ambito delle scienze cognitive ha postulato sulla possibilità di rappresentare grande parte del ragionamento umano stesso nella forma di regole. \cite{anderson1993rules}
+
+Questi presupposti hanno reso le \emph{regole} una delle tecniche di maggiore interesse nell'ambito dello sviluppo dei sistemi.
 
 Le \emph{regole di produzione} sono un formalismo utilizzato, in origine, nello studio delle macchine astratte, delle grammatiche formali e nella progettazione dei linguaggi di programmazione. Successivamente il loro utilizzo è approdato nell'ambito dei sistemi esperti e dell'intelligenza artificiale. Nella letteratura tecnica sono anche identificate come \emph{Regole condizione-azione} o \emph{Regole situazione-azione}. Questa nomenclatura risulta appropriata in quanto le regole sono spesso utilizzate per rappresentare, in forma codificata, associazioni fra \emph{Pattern}\footnote{Con il termine \emph{Pattern} si fa riferimento schemi di caratteristiche richieste ad un insieme di elementi} di dati presenti nel sistema e sequenze di azioni che il sistema stesso dovrebbe eseguire come conseguenza di un riscontro. Conseguentemente la funzione delle regole è precisamente quella di specificare regole di comportamento: forniti insiemi di dati (astraendo dalla particolare interpretazione), determinano i risultati da concretizzare.
 
@@ -78,7 +89,7 @@ La definizione offerta da \emph{R. H. Richens}, ideatore delle \emph{reti semant
 \subsection{Frame}
 Il concetto di ereditarietà introdotto tramite l'utilizzo delle \emph{reti semantiche} viene ulteriormente esteso tramite l'utilizzo del concetto di \emph{Frame}. 
 \begin{quote}
-''Un \emph{frame} è una struttura dati per la rappresentazione di situazioni stereotipate. [\dots] Diverse tipologie di informazioni vengono collegate a ciascun frame. Alcune di queste informazioni riguardano l'utilizzo dello stesso. Altre sono a proposito di quello che ci si può attendere. Altre riguardano cosa fare se queste attese non sono confermate. \cite{minsky1974}''
+''Un \emph{frame} è una struttura dati per la rappresentazione di situazioni stereotipate. [\dots] Diverse tipologie di informazioni vengono collegate a ciascun frame. Alcune di queste informazioni riguardano l'utilizzo dello stesso. Altre sono a proposito di quello che ci si può attendere. Altre riguardano cosa fare se queste attese non sono confermate.'' \cite{minsky1974}
 \end{quote}
 
 La struttura dei \emph{frame} può essere immaginata come una rete di nodi e relazioni. I nodi principali, posti alla testa della gerarchia, sono fissi e rappresentano concetti ed informazioni che sono assiomaticamente veri in una situazione. A questi nodi vengono collegati, nei livelli via via più bassi, diversi \emph{terminali}. Questi ultimi rappresentano \emph{slot} che devono essere riempiti da specifiche istanze o dati. Ogni terminale ha la possibilità di specificare condizioni che devono risultare verificare per permettere la modifica o l'accesso ai dati contenuti negli slot. 
@@ -88,11 +99,11 @@ Le forme più semplici di condizioni possono richiedere l'intervento dell'utente
 Il contenuto degli slot può essere un informazione atomica, così come un'ulteriore sotto struttura \emph{frame}. L'utilizzo di strutture innestate permette la creazione di ulteriori livelli gerarchici con estrema facilità. \cite{minsky1974} 
 
 \subsection{Oggetti}
-Gli oggetti nell'approccio \emph{object-oriented} alla rappresentazione della conoscenza descrivono una strategia di rappresentazione derivata da quella dei \emph{frame}. Dal quest'ultima eredita i concetti di relazione, slot e l'organizzazione gerarchica fra gli elementi stessi \cite{holsapple1994object}.
+Gli oggetti nell'approccio \emph{object-oriented} alla rappresentazione della conoscenza descrivono una strategia di rappresentazione derivata da quella dei \emph{frame}. Da quest'ultima eredita i concetti di relazione, slot e l'organizzazione gerarchica fra gli elementi stessi \cite{holsapple1994object}.
 
-L'innovazione introdotta dall'approccio basato su oggetti è quella consentire la comunicazione fra gli oggetti stessi attraverso un protocollo basato sullo scambio di messaggi: in seguito alla ricezione di un messaggio, un oggetto attiva una appropriata procedura e valuta se propagare o meno il messaggio ad altri oggetti con cui lo stesso è in relazione \cite{development1993}. 
+L'innovazione introdotta dall'approccio basato su oggetti è quella consentire la comunicazione fra gli oggetti stessi attraverso un protocollo basato sullo scambio di messaggi: in seguito alla ricezione di un messaggio, un oggetto attiva una appropriata procedura e valuta se propagare o meno ad altri oggetti con cui lo stesso è in relazione il segnale originale o una sua versione modificata. \cite{development1993}
 
-Il paradigma basato su oggetti realizza una modalità generale di rappresentazione della conoscenza e per la sua manipolazione. La sua importanza è data sia dalla capacità di caratterizzazione della conoscenza, sia dalla varietà di tecniche che questo tipo di formalismo consente di integrare all'interno di ogni genere di sistema \cite{holsapple1994object}.
+Il paradigma basato su oggetti realizza una modalità generale di rappresentazione della conoscenza e per la sua manipolazione. La sua importanza è data sia dalla capacità di caratterizzazione della conoscenza, sia dalla varietà di tecniche che questo tipo di formalismo consente di integrare all'interno di ogni genere di sistema. \cite{holsapple1994object}
 
 \section{Meccanismi di inferenza}
 La componente principale di un qualsiasi strumento di sviluppo per sistemi esperti, sia esso un linguaggi classico di programmazione, sia esso una \emph{shell} o un \emph{environment}, risiede nel motore inferenziale.
