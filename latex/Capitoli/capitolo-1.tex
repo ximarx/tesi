@@ -15,22 +15,84 @@ L'ambito di utilizzo di \emph{sistema esperto} può essere quello di sostituire 
 
 I sistemi esperti sono applicazioni progettate per rendere disponibili alcune abilità di esperti di un dominio anche a utenti non esperti. Siccome questo genere di programmi tentano di emulare gli schemi mentali e i modi di pensare di un esperto, è naturale che le prime ricerche in questo ambito siano state effettuate nel campo dell'\emph{intelligenza artificiale}: una branca delle Scienze Informatiche correlate con la progettazione e la realizzazione di applicazioni in grado di emulare le abilità cognitive umane nel campo della soluzione di problemi, la percezione e la comprensione del linguaggio.
 
-Dalla metà del 1960 ad oggi un gran numero di sistemi esperti sono stati creati con ambiti di utilizzo che spaziano da quello aerospaziale, per agevolare operazioni nello spazio, a quello ospedaliero, nell'assistenza alla monitoraggio dei parametri dei pazienti nelle unità di terapia intensiva, passando da quello finanziario.
+Ciò che differenzia un'applicazione convenzionale da un \emph{sistema esperto} può essere sintetizzato in tre caratteristiche fondamentali: perché ragiona; su cosa ragiona; come ragiona.
+
+L'obiettivo di un sistema esperto è quella di simulare un ragionamento umano nell'ambito di un dominio, piuttosto che simulare il dominio stesso. Le applicazioni convenzionali lavorano su problematiche attraverso la realizzazione di un modello matematico al fine emulare le abilità dell'esperto nella soluzione del problema. I sistemi esperti invece focalizzano l'attenzione sull'emulazione degli schemi di ragionamento che l'esperto adotta per ottenere delle soluzioni e tentano di emulare il processo di ragionamento e non semplicemente il risultato allo specifico problema.
+
+Un altro fattore discriminante fra applicazioni e sistemi esperti riguarda il tipo di informazioni sulla quale i due sistemi lavorano: le applicazioni tradizionali utilizzano modelli per rappresentare il problema, applicano algoritmi per la manipolazione dei dati ed infine calcolano soluzioni. Nei sistemi esperti, invece, l'intero processo di ragionamento viene eseguito lavorando su rappresentazioni della conoscenza umana. Queste rappresentazioni vengono codificate utilizzando linguaggi specificatamente sviluppati e che permettono di separare la rappresentazione della conoscenza di dominio dalle porzioni del sistema che invece rappresentano le dinamiche di ragionamento. Queste due porzioni dei sistemi esperti vengono definite con i nomi di \emph{base di conoscenza} e \emph{motore inferenziale}.
+
+Le meccaniche di soluzione rappresentano infine l'ultimo fattore di differenza: se le applicazioni tradizionali risolvono problematiche offrendo soluzioni algoritmiche a problemi per i quali è stato individuato un modello, i sistemi esperti ottengono soluzioni applicando metodi approssimati o \emph{euristiche}\footnote{L’\emph{euristica} è una strategia cognitiva, una scorciatoia di pensiero, una tecnica basata su esperienze, che permette più rapidamente di elaborare giudizi, ricavare inferenze dal contesto, attribuire significato alle situazioni e prendere decisioni a fronte di problemi complessi o di informazioni incomplete.} spesso utilizzando conoscenza incerta o incompleta.
+
+Proprio a causa della natura dinamica e incerta del ragionamento alla base dei \emph{sistemi esperti}, a questa classe di sistemi viene richiesta la capacità di interagire con l'utente (sia esso un esperto o no) in modo da illustrare e spiegare il metodo di ragionamento adottato per ottenere delle soluzioni e giustificare in questo modo il suo operato; e più genericamente interagire con il mondo esterno tramite specifici protocolli, in modo da rendere possibile il reperimento di informazioni aggiuntive qualora queste risultassero necessarie durante il processo di ragionamento.
+
+\begin{quotation}
+''La \emph{vera} intelligenza richiede l'abilità di imparare, di ragionare sull'esperienza, d'agire d'istinto\footnote{NdT: l'espressione originale usava la forma gergale \emph{''to shoot from the hip''} la cui traduzione letterale rimanda al movimento dei cowboy di sparare velocemente dal fianco senza mirare con precisione.}, di usare conoscenza generale, di fare inferenza usando intuizioni \emph{viscerali}. I sistemi esperti non fanno niente di tutto ciò, Non migliorano i risultati sulla base dell'esperienza. Loro [i sistemi esperti] sanno soltanto spostarsi da una regola \emph{if/then} all'altra.'' \cite{schank1984ia} 
+\end{quotation}
+
+La capacità di apprendimento, che per Schank \cite{schank1984ia} è uno dei fattori determinanti per poter attribuire al ragionamento dei sistemi esperti l'attributo di \emph{intelligente}, rappresenta un'ulteriore componente chiave nella definizione di sistemi esperti. Alcune tecniche basate sull'aggiunta di nuovi elementi nella base di conoscenza o sull'aggiunta di nuove euristiche hanno permesso di integrare meccanismi di apprendimento automatico all'interno dei sistemi esperti. \cite{nasa1988flops}
+
+Dalla metà del 1960 ad oggi un gran numero di sistemi esperti sono stati creati con ambiti di utilizzo che spaziano da quello aerospaziale, per agevolare operazioni nello spazio, a quello ospedaliero, nell'assistenza al monitoraggio dei parametri dei pazienti nelle unità di terapia intensiva, passando da quello finanziario. \cite{jackson1999}
 
 Il primi sistemi esperti mai prodotti furono Dendral (1965), con lo scopo di determinare la struttura molecolare partendo da dati provenienti da uno spettrometro di massa; R1 (1978), usato per configurare sistemi computerizzati; e MYCIN (1976) per assistere nella diagnosi di infezioni da batteri e proporre piani terapeutici per il trattamento delle stesse.
 
-% QUESTO SOTTO RIGUARDA LA CONOSCENZA, NON I SISTEMI ESPERTI!
+\paragraph{Le componenti di un sistema esperto} 
+
+\begin{figure}[h]
+\centering
+\includegraphics[viewport=19 667 329 824]{Immagini/Capitolo1/Architettura-SE.pdf}
+\caption{Architettura semplificata di un generico Sistema Esperto}\label{fig:architettura-se}
+\end{figure}
+
+La struttura di un sistema esperto può essere sinteticamente descritta come composta da quattro moduli principali, come mostrato in \figurename~\ref{fig:architettura-se}:
+\begin{itemize}
+	\item \emph{La base di conoscenza}: raccoglie tutta la conoscenza di dominio acquisita. La fonte principale d'informazione è rappresentata dall'esperto che, interrogato da un ingegnere della conoscenza, fornisce in maniera più o meno completa la conoscenza di cui dispone.
+	\item \emph{Il motore inferenziale}: raccoglie i processi di ragionamento sulla base dei quali il sistema, lavorando usando congiuntamente la base di conoscenza e ulteriori (ed eventuali) informazioni ottenute dall'interazione diretta con l'utente, è in grado di dedurre nuove conoscenza.
+	\item \emph{L'interfaccia utente}: permette l'interazione fra l'utente e il sistema. L'interazione può essere orientata verso la spiegazione del processo logico alla base di una soluzione o una scelta (attività svolta dal \emph{modulo di spiegazione}), oppure per ottenere ulteriori informazioni e far proseguire il ragionamento.
+	\item \emph{Modulo di aggiornamento della conoscenza}: permette di modificare ed integrare quanto presente nella \emph{base di conoscenza} tramite processi automatici o che richiedono l'intervento di un esperto.
+\end{itemize}
+
+\subsection{Il processo di sviluppo di un Sistema Esperto}
+Come il processo di sviluppo di software tradizionale può essere scandito in fasi e rappresentato all'interno dei vari modelli di sviluppo, anche la produzione di sistemi esperti può essere semplificata attraverso un modello suddiviso in step successivi. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[viewport=16 607 346 801]{Immagini/Capitolo1/Fasi-acquisizione.pdf}
+\caption{Le fasi di estrazione della conoscenza e sviluppo di un \emph{Sistema Esperto}}\label{fig:fasi-progettazione}
+\end{figure}
+
+
+Sebbene la corrispondenza fra lo sviluppo di software tradizionale e quello di sistemi basati su conoscenza possa mostrare punti di contatto, le somiglianze sono solamente superficiali ed un'analisi approfondita rivelerebbe profonde differenze dettate dalle specifiche caratteristiche del tipo di artefatto in produzione. \cite{esposito2012icse}
+
+Alla figura già descritta dell'esperto di dominio viene affiancata quella dell'\emph{ingegnere della conoscenza}: esperto informatico addetto alla compilazione di una base di conoscenza.
+
+Come mostrato in \figurename~\ref{fig:fasi-progettazione} e suggerito in \cite{buchanan1983}, il processo può essere diviso in cinque fasi:
+\begin{itemize}
+	\item \emph{Identificazione}: la fase è orientata all'identificazione della classe di problemi che il sistema dovrà risolvere, dei dati con i quali il sistema dovrà lavorare e dei criteri che le soluzioni dovranno soddisfare.
+	\item \emph{Concettualizzazione}: la fase ha la finalità di scoprire i concetti chiave e le relazioni che intercorrono fra loro. Questa fase dovrebbe includere la caratterizzazione delle varie tipologie di dati, il flusso delle informazioni e la delineazione delle strutture del dominio del problema.
+	\item \emph{Formalizzazione}: le conoscenze e le relazioni fra le entità individuate ed organizzate nelle fasi precedenti vengono concretizzate tramite l'uso di un formalismo concordato dai membri appartenenti al team di sviluppo del sistema. In questa fase vengono eseguite le scelte relative alla tipologia di rappresentazione della conoscenza da adottare e gli strumenti da adoperare.
+	\item \emph{Implementazione}: gli elementi ottenuti nei passi precedenti vengono convertiti in un artefatto completo.
+	\item \emph{Testing}: l'artefatto viene sottoposto alla valutazione dell'esperto di dominio. Ne vengono valutate l'utilità e le prestazioni e verificata la corrispondenza con i requisiti fissati nelle fasi precedenti. In questa fase viene infine valutata la possibilità apportare modifiche, correggere difetti o integrare nuovi elementi nella strategia di controllo o nella base di conoscenza.
+\end{itemize}
+
+Il processo di acquisizione della conoscenza e sviluppo del sistema, sebbene possa sembrare rigoroso, non è affatto un processo lineare. Ad ogni fase viene associata un'attività di verifica e raffinamento eseguita tramite la consultazione dell'esperto di dominio.
+
+L'attività di estrazione della conoscenza eseguita nelle fasi iniziali dello sviluppo non è un processo accurato o esente da errori: durante le interviste condotte dagli ingegneri della conoscenza, spesso, elementi importanti nell'ambito del dominio del problema vengono trasferiti dall'esperto in maniera imprecisa, errata o non esplicitati affatto (più o meno consapevolmente). \cite{jackson1999} \cite{schank1984ia} \cite{buchanan1983}
+
+Inoltre, la natura stessa del sistema prodotto (un prodotto nel quale il ragionamento, chiave del funzionamento, viene portato avanti tramite euristiche e l'approssimazione dei modelli di ragionamento umani) lo rende un artefatto perennemente incompiuto: sarà sempre possibile integrare nuova conoscenza proveniente dall'esperto nella forma di nuovi concetti, relazioni o nuove dinamiche di controllo; sarà sempre possibile modificare componenti del sistema per incrementare le prestazioni; sarà sempre possibile migliorare l'affidabilità del sistema aggiungendo nuove euristiche in grado di comprendere situazioni particolari che generavano risultati errati in versioni precedenti.
+
+\subsection{Rappresentazione della conoscenza}
 
 La conoscenza umana può essere raggruppata genericamente in \emph{conoscenza dichiarativa}, una forma di conoscenza esplicita rappresentante fatti, eventi ed esperienze consolidate nella forma di elementi memorizzabili; e \emph{conoscenza procedurale}. La seconda rappresenta l'insieme di abilità e conoscenze nell'utilizzo della \emph{conoscenza dichiarativa} per lo svolgimento di una attività di qualche genere.
 
-Esiste una grande varietà di tecniche tramite le quali il problema della creazione di programmi in grado di esporre un comportamento paragonabile a quello di un esperto possono essere approcciato \cite{jackson1999}.
+%Esiste una grande varietà di tecniche che permettono di approcciare il problema dello sviluppo di sistemi esperti. \cite{jackson1999}
 
-Le prime impiegavano sistemi basati su regole, i quali tramite l'utilizzo di regole \emph{If-then} erano in grado di rappresentare la \emph{conoscenza procedurale} di uno esperto ed i suoi processi di ragionamento. Ulteriori approcci come l'uso di \emph{reti semantiche o associative}, \emph{frame} e \emph{reti neruali} sono stati proposti successivamente.
+%Le prime impiegavano sistemi basati su regole, i quali tramite l'utilizzo di regole \emph{If-then} erano in grado di rappresentare la \emph{conoscenza procedurale} di uno esperto ed i suoi processi di ragionamento. Ulteriori approcci come l'uso di \emph{reti semantiche o associative}, \emph{frame} e \emph{reti neruali} sono stati proposti successivamente.
 
-\section{Rappresentazione della conoscenza}
-Con il termine \emph{Rappresentazione della conoscenza} ci si riferisce alle modalità con le quali la conoscenza è strutturata ed organizzata in un sistema. Fra le modalità di rappresentazione più note supportate dai tool di sviluppo per sistemi esperti sono annoverabili \emph{Regole}, \emph{Reti semantiche}, \emph{Frame} e \emph{Oggetti}. Ognuna di queste tecniche presenta vantaggi e svantaggi: alcune permettono una estrema facilità di modifica e comprensione dei sistemi, mentre altre consentono un'alta efficienza d'uso della memoria. Una approccio ideale allo sviluppo di un sistema esperto dovrebbe prevedere la possibilità di utilizzare il maggior numero possibile di queste tecniche di rappresentazione \cite{development1993}, per offrire una più ampia possibilità di scelta agli sviluppatori durante le fasi di design.
+Con il termine \emph{Rappresentazione della conoscenza} ci si riferisce alle modalità con le quali la conoscenza è strutturata ed organizzata in un sistema. Fra le modalità di rappresentazione più note supportate dai tool di sviluppo per sistemi esperti sono annoverabili \emph{Regole}, \emph{Reti semantiche}, \emph{Frame} e \emph{Oggetti}. Ognuna di queste tecniche presenta vantaggi e svantaggi: alcune permettono una estrema facilità di modifica e comprensione dei sistemi, mentre altre consentono un'alta efficienza d'uso della memoria.
 
-\subsection{Regole}
+Un approccio ideale allo sviluppo di un sistema esperto dovrebbe prevedere la possibilità di utilizzare il maggior numero possibile di queste tecniche di rappresentazione \cite{development1993}, per offrire una più ampia possibilità di scelta agli sviluppatori durante le fasi di design.
+
+\paragraph{Regole}
 La più nota forma di rappresentazione della conoscenza è quella basata su regole. \'E probabilmente un assioma dell'intelligenza artificiale, e della moderna psicologia, che comportamenti ritenuti intelligenti siano governati da regole. Anche nel mondo, le persone tendono ad associare intelligenza con coerenza nei comportamenti, e spesso il concetto di comportamento viene spiegato facendo riferimento a quello di regolarità. \cite{jackson1999}
 
 Inoltre, un forte gruppo di esponenti di spicco nell'ambito delle scienze cognitive ha postulato sulla possibilità di rappresentare grande parte del ragionamento umano stesso nella forma di regole. \cite{anderson1993rules}
@@ -46,7 +108,7 @@ Le produzioni sono realmente regole per la manipolazione di stringhe di simboli,
 	\item un insieme di stringhe considerati come \emph{assiomi}
 	\item un insieme di produzioni nella forma: 
 	\[
-	\alpha_1\$_1 \cdots \alpha_m\$_m \rightarrow \beta_1\$_1^{'} \cdots \beta_n\$_n^{'}
+	\alpha_1\$_1 \dots \alpha_m\$_m \rightarrow \beta_1\$_1^{'} \dots \beta_n\$_n^{'}
 	\]	
 	dove
 	\begin{itemize}
@@ -80,27 +142,27 @@ Un sistema a produzioni consiste di un \emph{rules-set} (spesso anche definito c
 
 Schematicamente questo processo può essere descritto nella forma generale
 \[
-C_1, \cdots, C_n \rightarrow A_1, \cdots, A_n
+C_1, \dots, C_n \rightarrow A_1, \dots, A_n
 \]
 interpretabile come:
 \begin{quote}
-	{\bfseries [if]} le condizioni $C_1$ e $\cdots$ e $C_n$ sono vere,\\
-	{\bfseries [then]} esegui le azioni $A_1$ e $\cdots$ e $A_n$.
+	{\bfseries [if]} le condizioni $C_1$ e $\dots$ e $C_n$ sono vere,\\
+	{\bfseries [then]} esegui le azioni $A_1$ e $\dots$ e $A_n$.
 \end{quote}
 
 Con i termini \emph{left-hand side} e \emph{right-hand side} si è soliti indicare rispettivamente la porzione di condizione e quella di azione di una regola.
 
-\subsection{Reti semantiche}
+\paragraph{Reti semantiche}
 Un'altra tecnica di rappresentazione della conoscenza usa reti di strutture chiamate appunto \emph{reti semantiche}. I nodi di queste reti sono costituiti da eventi, oggetti o concetti, che possono essere relazionati fra loro, tramite l'uso di archi di varia natura, per stabilire strutture gerarchie fra i concetti stessi. \cite{development1993}
 
 Due relazioni molto comuni in questo tipo di rappresentazione sono quelle di tipo \emph{is-a} e \emph{has-part}. L'utilizzo di questa forma di rappresentazione permette una memorizzazione efficiente delle proprietà dei concetti in quanto, data la natura gerarchica implicitamente indotta dalle relazioni di ereditarietà, i nodi posti al più basso livello della rete eviteranno la ridefinizione di proprietà già deducibili dai concetti ai quali questi ultimi sono relazionati.
 
 La definizione offerta da \emph{R. H. Richens}, ideatore delle \emph{reti semantiche}, spiega le stesse come
 \begin{quote}
-''una \emph{interlingua} nella quale tutte le peculiarità strutturali del linguaggio di base sono rimosse e siamo lasciati con solo quello che io chiamo una \emph{rete semantica} di \emph{idee spoglie}. In questa rete gli elementi rappresentano cose, qualità o relazioni $\cdots$[ o] punti di collegamento fra cose verso le proprie qualità o relazioni, o da qualità e relazioni verso un'ulteriore qualificazione''\cite{richens1956}
+''una \emph{interlingua} nella quale tutte le peculiarità strutturali del linguaggio di base sono rimosse e siamo lasciati con solo quello che io chiamo una \emph{rete semantica} di \emph{idee spoglie}. In questa rete gli elementi rappresentano cose, qualità o relazioni $\dots$[ o] punti di collegamento fra cose verso le proprie qualità o relazioni, o da qualità e relazioni verso un'ulteriore qualificazione.'' \cite{richens1956}
 \end{quote}
 
-\subsection{Frame}
+\paragraph{Frame}
 Il concetto di ereditarietà introdotto tramite l'utilizzo delle \emph{reti semantiche} viene ulteriormente esteso tramite l'utilizzo del concetto di \emph{Frame}. 
 \begin{quote}
 ''Un \emph{frame} è una struttura dati per la rappresentazione di situazioni stereotipate. [\dots] Diverse tipologie di informazioni vengono collegate a ciascun frame. Alcune di queste informazioni riguardano l'utilizzo dello stesso. Altre sono a proposito di quello che ci si può attendere. Altre riguardano cosa fare se queste attese non sono confermate.'' \cite{minsky1974}
@@ -112,14 +174,14 @@ Le forme più semplici di condizioni possono richiedere l'intervento dell'utente
 
 Il contenuto degli slot può essere un informazione atomica, così come un'ulteriore sotto struttura \emph{frame}. L'utilizzo di strutture innestate permette la creazione di ulteriori livelli gerarchici con estrema facilità. \cite{minsky1974} 
 
-\subsection{Oggetti}
+\paragraph{Oggetti}
 Gli oggetti nell'approccio \emph{object-oriented} alla rappresentazione della conoscenza descrivono una strategia di rappresentazione derivata da quella dei \emph{frame}. Da quest'ultima eredita i concetti di relazione, slot e l'organizzazione gerarchica fra gli elementi stessi \cite{holsapple1994object}.
 
 L'innovazione introdotta dall'approccio basato su oggetti è quella consentire la comunicazione fra gli oggetti stessi attraverso un protocollo basato sullo scambio di messaggi: in seguito alla ricezione di un messaggio, un oggetto attiva una appropriata procedura e valuta se propagare o meno ad altri oggetti con cui lo stesso è in relazione il segnale originale o una sua versione modificata. \cite{development1993}
 
 Il paradigma basato su oggetti realizza una modalità generale di rappresentazione della conoscenza e per la sua manipolazione. La sua importanza è data sia dalla capacità di caratterizzazione della conoscenza, sia dalla varietà di tecniche che questo tipo di formalismo consente di integrare all'interno di ogni genere di sistema. \cite{holsapple1994object}
 
-\section{Meccanismi di inferenza}
+\subsection{Meccanismi di inferenza}
 La componente principale di un qualsiasi strumento di sviluppo per sistemi esperti, sia esso un linguaggi classico di programmazione, sia esso una \emph{shell} o un \emph{environment}, risiede nel motore inferenziale.
 
 Esso può essere descritto come il cuore di ogni sistema esperto: è il componente con il compito di contenere e gestire la conoscenza necessaria al raggiungimento della soluzione del problema che il sistema esperto punta a risolvere, oltre che gestire l'ordine con il quale applicare la conoscenza di dominio al servizio del raggiungimento di un obiettivo.
