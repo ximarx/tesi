@@ -7,17 +7,17 @@
 
 Sembra ragionevole la scelta di attribuire l'aggettivo di \emph{esperto umano} a una persona in possesso di qualità e caratteristiche che ne attestino una conoscenza focalizzata in uno specifico ambito di dominio e che sia in grado di risolvere direttamente problemi o fornire possibili soluzioni in seguito ad una attività di ragionamento.
 
-Realizzando un parallelismo, è possibile considerare l'assegnazione dell'attributo di \emph{esperto} ad un sistema in grado di esibire un comportamento paragonabile a quello di uno esperto umano all'interno di un ambito di dominio focalizzato.
+Realizzando un parallelismo, è possibile considerare l'assegnazione dell'attributo di \emph{esperto} ad un sistema in grado di esibire un comportamento paragonabile a quello di un esperto umano all'interno di un ambito di dominio focalizzato.
 
 La definizione fornita in \cite{jackson1999} spiega il \emph{sistema esperto} come un applicazione che rappresenta e ragiona con conoscenza di tipo specialistico con l'obiettivo di risolvere problematiche o fornire consigli su come risolverle.
 
 L'ambito di utilizzo di \emph{sistema esperto} può essere quello di sostituire completamente l'intervento umano durante lo svolgimento di un'attività o di fornire supporto ad un esperto durante l'atto di prendere una decisione, giocando un ruolo di assistenza. Altre possibili applicazioni possono riguardare la formazione o il perfezionamento della conoscenza posseduta da un esperto tramite l'interazione diretta con il sistema a titolo di confronto o consultazione.
 
-I sistemi esperti sono applicazioni progettate per rendere disponibili alcune abilità di esperti di un dominio anche a utenti non esperti. Siccome questo genere di programmi tentano di emulare gli schemi mentali e i modi di pensare di un esperto, è naturale che le prime ricerche in questo ambito siano state effettuate nel campo dell'\emph{intelligenza artificiale}: una branca delle Scienze Informatiche correlate con la progettazione e la realizzazione di applicazioni in grado di emulare le abilità cognitive umane nel campo della soluzione di problemi, la percezione e la comprensione del linguaggio.
+I sistemi esperti sono applicazioni progettate per rendere disponibili alcune abilità di esperti di un dominio anche a utenti non esperti. Siccome questo genere di programmi tentano di emulare gli schemi mentali e i modi di pensare di un esperto, è naturale che le prime ricerche in questo ambito siano state effettuate nel campo dell'\emph{intelligenza artificiale}: una branca delle Scienze Informatiche correlate con la progettazione e la realizzazione di applicazioni in grado di emulare le abilità cognitive umane nel campo della soluzione di problemi, la percezione e la comprensione del linguaggio. \cite{feigenbaum1981ia}
 
 Ciò che differenzia un'applicazione convenzionale da un \emph{sistema esperto} può essere sintetizzato in tre caratteristiche fondamentali: perché ragiona; su cosa ragiona; come ragiona.
 
-L'obiettivo di un sistema esperto è quella di simulare un ragionamento umano nell'ambito di un dominio, piuttosto che simulare il dominio stesso. Le applicazioni convenzionali lavorano su problematiche attraverso la realizzazione di un modello matematico al fine emulare le abilità dell'esperto nella soluzione del problema. I sistemi esperti invece focalizzano l'attenzione sull'emulazione degli schemi di ragionamento che l'esperto adotta per ottenere delle soluzioni e tentano di emulare il processo di ragionamento e non semplicemente il risultato allo specifico problema.
+L'obiettivo di un sistema esperto è quello di simulare un ragionamento umano nell'ambito di un dominio, piuttosto che simulare il dominio stesso. Le applicazioni convenzionali lavorano su problematiche attraverso la realizzazione di un modello matematico al fine emulare le abilità dell'esperto nella soluzione del problema. I sistemi esperti invece focalizzano l'attenzione sull'emulazione degli schemi di ragionamento che l'esperto adotta per ottenere delle soluzioni e tentano di emulare il processo di ragionamento e non semplicemente il risultato allo specifico problema.
 
 Un altro fattore discriminante fra applicazioni e sistemi esperti riguarda il tipo di informazioni sulla quale i due sistemi lavorano: le applicazioni tradizionali utilizzano modelli per rappresentare il problema, applicano algoritmi per la manipolazione dei dati ed infine calcolano soluzioni. Nei sistemi esperti, invece, l'intero processo di ragionamento viene eseguito lavorando su rappresentazioni della conoscenza umana. Queste rappresentazioni vengono codificate utilizzando linguaggi specificatamente sviluppati e che permettono di separare la rappresentazione della conoscenza di dominio dalle porzioni del sistema che invece rappresentano le dinamiche di ragionamento. Queste due porzioni dei sistemi esperti vengono definite con i nomi di \emph{base di conoscenza} e \emph{motore inferenziale}.
 
@@ -88,20 +88,30 @@ La conoscenza umana può essere raggruppata genericamente in \emph{conoscenza di
 
 %Le prime impiegavano sistemi basati su regole, i quali tramite l'utilizzo di regole \emph{If-then} erano in grado di rappresentare la \emph{conoscenza procedurale} di uno esperto ed i suoi processi di ragionamento. Ulteriori approcci come l'uso di \emph{reti semantiche o associative}, \emph{frame} e \emph{reti neruali} sono stati proposti successivamente.
 
-Con il termine \emph{Rappresentazione della conoscenza} ci si riferisce alle modalità con le quali la conoscenza è strutturata ed organizzata in un sistema. Fra le modalità di rappresentazione più note supportate dai tool di sviluppo per sistemi esperti sono annoverabili \emph{Regole}, \emph{Reti semantiche}, \emph{Frame} e \emph{Oggetti}. Ognuna di queste tecniche presenta vantaggi e svantaggi: alcune permettono una estrema facilità di modifica e comprensione dei sistemi, mentre altre consentono un'alta efficienza d'uso della memoria.
+Nell'ambito dell'ingegneria della conoscenza e dei sistemi esperti, con l'espressione \emph{Rappresentazione della conoscenza} si è soliti riferirsi alle modalità con le quali grandi quantità di informazioni utili possono essere descritte \emph{formalmente} con la finalità di essere sottoposte ad un qualche genere di \emph{manipolazione simbolica}. \cite{jackson1999}
+
+La \emph{descrizione formale} impone l'uso di un linguaggio o una notazione non ambigua donata di:
+\begin{itemize}
+	\item una \emph{sintassi} ben definita che governa le forme di espressione;
+	\item una \emph{semantica} ben definita che riveli il significa delle espressioni in virtù della forma sintattica con la quale sono codificate.
+\end{itemize}
+
+Il processo di elaborazione di simboli e strutture simboliche rappresentanti varie concetti e relazioni fra gli stessi è definito \emph{computazione simbolica}.
+
+Fra le modalità di codifica della conoscenza suggerite negli anni sono annoverabili le \emph{Regole di produzione} \cite{davisking1975}, \emph{Reti semantiche} \cite{richens1956}, \emph{Frame} \cite{minsky1974} e \emph{Oggetti} \cite{holsapple1994object} \cite{holsapple1994operations}. Ognuna di queste tecniche presenta vantaggi e svantaggi: alcune permettono una estrema facilità di modifica e comprensione dei sistemi, mentre altre consentono un'alta efficienza d'uso della memoria.
 
 Un approccio ideale allo sviluppo di un sistema esperto dovrebbe prevedere la possibilità di utilizzare il maggior numero possibile di queste tecniche di rappresentazione \cite{development1993}, per offrire una più ampia possibilità di scelta agli sviluppatori durante le fasi di design.
 
-\paragraph{Regole}
+\paragraph{Regole di produzione}
 La più nota forma di rappresentazione della conoscenza è quella basata su regole. \'E probabilmente un assioma dell'intelligenza artificiale, e della moderna psicologia, che comportamenti ritenuti intelligenti siano governati da regole. Anche nel mondo, le persone tendono ad associare intelligenza con coerenza nei comportamenti, e spesso il concetto di comportamento viene spiegato facendo riferimento a quello di regolarità. \cite{jackson1999}
 
 Inoltre, un forte gruppo di esponenti di spicco nell'ambito delle scienze cognitive ha postulato sulla possibilità di rappresentare grande parte del ragionamento umano stesso nella forma di regole. \cite{anderson1993rules}
 
 Questi presupposti hanno reso le \emph{regole} una delle tecniche di maggiore interesse nell'ambito dello sviluppo dei sistemi.
 
-Le \emph{regole di produzione} sono un formalismo utilizzato, in origine, nello studio delle macchine astratte, delle grammatiche formali e nella progettazione dei linguaggi di programmazione. Successivamente il loro utilizzo è approdato nell'ambito dei sistemi esperti e dell'intelligenza artificiale. Nella letteratura tecnica sono anche identificate come \emph{Regole condizione-azione} o \emph{Regole situazione-azione}. Questa nomenclatura risulta appropriata in quanto le regole sono spesso utilizzate per rappresentare, in forma codificata, associazioni fra \emph{Pattern}\footnote{Con il termine \emph{Pattern} si fa riferimento schemi di caratteristiche richieste ad un insieme di elementi} di dati presenti nel sistema e sequenze di azioni che il sistema stesso dovrebbe eseguire come conseguenza di un riscontro. Conseguentemente la funzione delle regole è precisamente quella di specificare regole di comportamento: forniti insiemi di dati (astraendo dalla particolare interpretazione), determinano i risultati da concretizzare.
+Le \emph{regole di produzione} sono un formalismo utilizzato, in origine, nello studio delle macchine astratte, delle grammatiche formali e nella progettazione dei linguaggi di programmazione. Successivamente il loro utilizzo è approdato nell'ambito dei sistemi esperti e dell'intelligenza artificiale. Nella letteratura tecnica sono anche identificate come \emph{Regole condizione-azione} o \emph{Regole situazione-azione}. Questa nomenclatura risulta appropriata in quanto le regole sono spesso utilizzate per rappresentare, in forma codificata, associazioni fra \emph{pattern}\footnote{Schemi di caratteristiche individuate su un insieme di elementi} di dati presenti nel sistema e sequenze di azioni che il sistema stesso dovrebbe eseguire come conseguenza di un riscontro. Conseguentemente la funzione delle regole è precisamente quella di specificare regole di comportamento: forniti insiemi di dati (astraendo dalla particolare interpretazione), determinano i risultati da concretizzare.
 
-Le produzioni sono realmente regole per la manipolazione di stringhe di simboli, chiamate spesso regole di riscrittura. Post ha studiato le proprietà dei sistemi a regole basati su produzioni, che lui stesso ha chiamato \emph{Sistemi Canonici}. Questi ultimi sono definiti come un tipo di sistemi formali basato su:
+Le produzioni sono realmente regole per la manipolazione di stringhe di simboli, chiamate spesso regole di riscrittura. Post \cite{post1943} ha studiato le proprietà dei sistemi a regole basati su produzioni, che lui stesso ha chiamato \emph{Sistemi Canonici}. Questi ultimi sono definiti come un tipo di sistemi formali basato su:
 
 \begin{itemize}
 	\item un \emph{alfabeto} A per la creazione di stringhe
@@ -134,7 +144,7 @@ Conseguentemente l'alfabeto dei \emph{sistemi canonici} è rimpiazzato da un voc
 	\item un insieme $V$ di valori che questi attributi possono assumere.
 \end{itemize}
 
-Generalmente la grammatica utilizzata prevede la specifica di triple \emph{oggetto-attributo-valore}, ma questo assunto non lede la possibilità di specifiche più espressive.
+Generalmente la grammatica utilizzata prevede la specifica di triple \emph{oggetto-attributo-valore}, ma questo assunto non lede la possibilità di specifiche più espressive. \cite{jackson1999}
 
 Una volta descritto un vocabolario di simboli e una grammatica per la generazione di strutture simboliche, è possibile generare una codifica della descrizione di uno stato iniziale di un problema di interesse. Questa descrizione, costituita da strutture simboliche, corrisponderà esattamente agli assiomi previsti nella definizione di \emph{sistema canonico}. La descrizione originale del problema verrà progressivamente riscritta tramite una serie di applicazioni.
 
@@ -172,7 +182,7 @@ La struttura dei \emph{frame} può essere immaginata come una rete di nodi e rel
 
 Le forme più semplici di condizioni possono richiedere l'intervento dell'utente per fornire dati da assegnare a specifici slot, condizioni più complesse possono invece essere utilizzate per collegare fra loro informazioni disponibili in diversi altri terminali. 
 
-Il contenuto degli slot può essere un informazione atomica, così come un'ulteriore sotto struttura \emph{frame}. L'utilizzo di strutture innestate permette la creazione di ulteriori livelli gerarchici con estrema facilità. \cite{minsky1974} 
+Il contenuto degli slot può essere un'informazione atomica, così come un'ulteriore sotto struttura \emph{frame}. L'utilizzo di strutture innestate permette la creazione di ulteriori livelli gerarchici con estrema facilità. \cite{minsky1974} 
 
 \paragraph{Oggetti}
 Gli oggetti nell'approccio \emph{object-oriented} alla rappresentazione della conoscenza descrivono una strategia di rappresentazione derivata da quella dei \emph{frame}. Da quest'ultima eredita i concetti di relazione, slot e l'organizzazione gerarchica fra gli elementi stessi \cite{holsapple1994object}.
@@ -181,17 +191,26 @@ L'innovazione introdotta dall'approccio basato su oggetti è quella consentire l
 
 Il paradigma basato su oggetti realizza una modalità generale di rappresentazione della conoscenza e per la sua manipolazione. La sua importanza è data sia dalla capacità di caratterizzazione della conoscenza, sia dalla varietà di tecniche che questo tipo di formalismo consente di integrare all'interno di ogni genere di sistema. \cite{holsapple1994object}
 
-\subsection{Meccanismi di inferenza}
-La componente principale di un qualsiasi strumento di sviluppo per sistemi esperti, sia esso un linguaggi classico di programmazione, sia esso una \emph{shell} o un \emph{environment}, risiede nel motore inferenziale.
+\subsection{Ragionamento basato su regole}
 
-Esso può essere descritto come il cuore di ogni sistema esperto: è il componente con il compito di contenere e gestire la conoscenza necessaria al raggiungimento della soluzione del problema che il sistema esperto punta a risolvere, oltre che gestire l'ordine con il quale applicare la conoscenza di dominio al servizio del raggiungimento di un obiettivo.
+\subsubsection{L'inferenza e il motore inferenziale}
 
-Il componente genericamente identificato come \emph{motore inferenziale} è in realtà una sintesi del lavoro svolto da due componenti separate interne allo stesso: l'\emph{interprete} e lo \emph{scheduler}\cite{development1993}.
+L'inferenza è un processo logico che consente di derivare da premesse accolte come vere  ulteriori proposizioni la cui veridicità è dedotta dalle prime.
 
-\paragraph{Interprete} Il ruolo dell'interprete può essere descritto nei termini del ciclo \emph{recognize-act}. Lo stesso è un processo iterato suddiviso in tre fasi consecutive ed eseguito con l'obiettivo di manipolare la descrizione del problema contenuta nella memoria di lavoro. Le fasi che costituiscono il ciclo \emph{recognize-act} possono essere riassunte nelle seguenti:
+Il processo di inferenza viene regolato da meccanismi logici detti \emph{regole di inferenza}. Un esempio classico di è quello offerto dalla regola di inferenza nota con il nome di \emph{modus ponens}.
+
+Nella logica, il \emph{modus ponens} è una regola di inferenza riassumibile con: \begin{quote}
+Se \emph{p implica q} è una proposizione vera e anche la premessa \emph{p} è vera, allora la conseguenza \emph{q} è vera.
+\end{quote}
+
+Il \emph{motore inferenziale} rappresenta il nucleo centrale di ogni sistema esperto: è il componente con il compito di contenere e gestire l'ordine di applicazione della conoscenza procedurale al fine del raggiungimento dell'obiettivo che il sistema è progettato per risolvere. Il nome attribuito a questo componente deriva proprio dal fatto che il suo obiettivo è quello di simulare il ragionamento umano attraverso l'applicazione di regole di inferenza e derivare \emph{risposte} dalla \emph{base di conoscenza}.
+
+Le sue attività sono in realtà una sintesi del lavoro svolto da due componenti distinte che esso comprende al suo interno: l'\emph{interprete} e lo \emph{scheduler}.~\cite{development1993}
+
+\paragraph{Interprete} Il ruolo dell'interprete può essere riassunto nei termini del ciclo \emph{recognize-act}. Lo stesso è un processo iterato suddiviso in tre fasi consecutive ed eseguito con l'obiettivo di manipolare la descrizione del problema contenuta nella memoria di lavoro. Le fasi che costituiscono il ciclo \emph{recognize-act} possono essere riassunte nelle seguenti:
 \begin{list}{}{}
-	\item[(1)] \emph{Confrontare} gli elementi della memoria di lavoro (la descrizione parziale dello stato del problema) con l'elenco dei \emph{Pattern} presenti nella porzione \emph{LHS} di ogni regola disponibile nel \emph{rules-set}.
-	\item[(2)] Valutare l'elenco delle regole le cui condizioni risultano completamente soddisfatte e selezionarne una\footnote{La restrizione di selezione di una singola regola fra quelle applicabili può anche essere sostituita da strategie di gestione dei conflitti che prevedono la selezione di un gruppo di regole fra le applicabili, come mostrato da \cite{Doorenbos95productionmatching}} da applicare.
+	\item[(1)] \emph{Confrontare} la descrizione dello stato presente nella memoria di lavoro (la descrizione parziale dello stato del problema) con l'insieme di premesse disponibili.
+	\item[(2)] Valutare l'elenco delle regole le cui premesse risultano completamente soddisfatte e selezionarne una\footnote{La restrizione di selezione di una singola regola fra quelle applicabili può anche essere sostituita da strategie di gestione dei conflitti che prevedono la selezione di un gruppo di regole fra le applicabili, come mostrato da \cite{Doorenbos95productionmatching}} da applicare.
 	\item[(3)] Applicare la regola: l'applicazione consiste nell'esecuzione di ognuna delle azioni contenute nella porzione \emph{RHS} della regola
 \end{list}
 
@@ -201,35 +220,36 @@ La fase (2) dell'interprete è delegata alle funzioni dello \emph{Scheduler}.
 
 \'E questo l'elemento a creare la differenza fra logiche di controllo \emph{globali} e \emph{locali}. 
 
-\subparagraph{Logiche globali} Le prime rappresentano un gruppo di strategie indipendenti dal dominio applicativo, normalmente incluse negli ambienti di sviluppo, e che non richiedono l'intervento dello sviluppatore. L'unica possibilità offerta è quella di scegliere una fra diverse strategie, ammesso che più di una venga fornita dal sistema. La personalizzazione della sequenza di esecuzione viene quindi delegata ad apposite strategie di controllo basate su rappresentazioni specifiche dei dati nella \emph{working memory}. Un esempio di \emph{environment} ad utilizzare questo genere di strategie globali è CLIPS.
+\subparagraph{Logiche globali} Le prime rappresentano un gruppo di strategie indipendenti dal dominio applicativo, normalmente incluse in origine nel motore inferenziale, e che non richiedono l'intervento dello sviluppatore per essere specificate. L'unica possibilità offerta è quella di scegliere una fra diverse strategie, ammesso che più di una venga fornita dal sistema. La personalizzazione della sequenza di esecuzione viene quindi delegata ad apposite strategie di controllo basate su rappresentazioni specifiche dei dati nella \emph{working memory}.
 
 Spesso, le strategie di controllo della catena di inferenza sono il sunto della combinazione di differenti meccanismi di base, ognuno dei quali si basa su differenti proprietà. Le buone prestazioni di un sistema esperto spesso dipendono da proprietà chiave di questi regimi di controllo \cite{jackson1999}, come la \emph{sensibilità} o la \emph{stabilità}.
 \begin{quote}
-	''Un sistema a produzioni il quale dimostri reattività alle necessità del suo ambiente si può affermare che dimostri \emph{sensibilità}. Uno che è capace di mantenere una continuità nei suoi comportamenti, può essere detto che mostri \emph{stablità}.''\cite{McDermott:1977:PSC:1045343.1045364}
+	''Un sistema che dimostri reattività alle necessità del suo ambiente si può affermare che dimostri \emph{sensibilità}. Uno che è capace di mantenere una continuità nei suoi comportamenti, può essere detto che mostri \emph{stablità}.''~\cite{McDermott:1977:PSC:1045343.1045364}
 \end{quote} 
-La prima indica la capacità di una logica di adattarsi con rapidità a modifiche dell'ambiente che si riflettono nelle descrizioni nella memoria di lavoro, la seconda indica il grado di coerenza nella linea di ragionamento.\cite{jackson1999}
+La prima indica la capacità di una logica di adattarsi con rapidità a modifiche dell'ambiente che si riflettono nelle descrizioni nella memoria di lavoro, la seconda indica il grado di coerenza nella linea di ragionamento.~\cite{jackson1999}
 
 Nonostante i meccanismi di risoluzione dei conflitti variano molto da sistema a sistema, la popolarità di alcune caratteristiche presenti in molti di essi richiede un approfondimento:
 
 \begin{itemize}
-	\item \emph{Refrattarietà}: proprietà che non consente ad una attivazione di essere eseguita più di una volta sullo stesso gruppo di dati. Se più attivazioni con gli medesimi dati vengono riscontrate, sono semplicemente ignorate.
-	\item \emph{Attualità}: agli elementi all'interno della memoria di lavoro vengono applicati delle etichette temporali. Le attivazioni vengono successivamente selezionate utilizzando i tag applicati.
+	\item \emph{Refrattarietà}: proprietà che non consente ad una attivazione di essere eseguita più di una volta sullo stesso gruppo di dati. Se più attivazioni con i medesimi dati vengono riscontrate, sono semplicemente ignorate.
+	\item \emph{Attualità}: agli elementi all'interno della memoria di lavoro vengono applicati delle etichette temporali. L'inferenza verrà quindi sviluppata tenendo conto dell'attualità degli elementi.
 	\item \emph{Specificità}: le attivazioni vengono selezionate in base a criteri legati alla specificità dei pattern che trovano riscontro con la descrizione presente nella memoria di lavoro
 \end{itemize}
 
-\subparagraph{Logiche locali} Le strategie di controllo \emph{locali} offrono un più alto grado di personalizzazione allo sviluppatore, ma con esso anche maggiori responsabilità. \'E infatti responsabilità dei designer quella di specificare un apposito insieme di \emph{meta-regole} che consentano la discriminazione delle attivazioni in cerca della più opportuna da attivare per ogni stato del sistema. La selezione viene eseguita basandosi sulla conoscenza di dominio inserita all'interno delle \emph{meta-regole}. Un esempio di sistema ad utilizzare questa tipologia di \emph{Scheduler} è MYCIN.
+\subparagraph{Logiche locali} Le strategie di controllo \emph{locali} offrono un più alto grado di personalizzazione allo sviluppatore, ma con esso anche maggiori responsabilità. \'E infatti onere dei designer quella di specificare un apposito insieme di \emph{meta-regole} che consentano la discriminazione delle attivazioni in cerca della più opportuna da attivare per ogni stato del sistema. La selezione viene eseguita basandosi sulla conoscenza di dominio inserita all'interno delle \emph{meta-regole}.
 
-\subsection{Controllo basato su regole}
-Storicamente, i primi ambienti per lo sviluppo ad essere implementati si basavano sulla specifica degli elementi di conoscenza attraverso la codifica in formato di regole di produzione.
+\subsubsection{Sistemi basati su regole di produzione}
+
+La descrizione appena proposta di \emph{motore inferenziale} può essere ulteriormente specificata focalizzando la descrizione all'interno dell'ambito di sistemi basati su regole di produzione.
+
+I \emph{sistemi basati su regole di produzione} rappresentano la prima, e probabilmente la più semplice, modalità di sviluppo di sistemi inferenziali. La rappresentazione della conoscenza all'interno di questa classe di sistemi viene affidata al formalismo basato su regole di produzione.
 
 Le strategie di ricerca sviluppate per il controllo dell'inferenza in questa categoria di sistemi si basano spesso su metodi come il \emph{Forward Chaining} e il \emph{Backward Chaining}.
 
 \paragraph{Forward chaining}
-Il \emph{forward chaining} può essere descritto come applicazione ripetuta del \emph{modus ponens}\footnote{Nella logica, il Modus ponens è una regola di inferenza riassumibile con: \begin{quote}
-Se \emph{p implica q} è una proposizione vera e anche la premessa \emph{p} è vera, allora la conseguenza \emph{q} è vera.
-\end{quote}}. Partendo da una serie di condizioni la cui validità è assiomatica o appurata, il sistema crea una catena di inferenza estraendo nuova conoscenza da quella disponibile fino a quando una descrizione della soluzione non viene individuata, un obiettivo non è stato raggiunto o non è possibile effettuare ulteriore inferenza.
+Il \emph{forward chaining} può essere descritto come applicazione ripetuta del \emph{modus ponens}. Partendo da una serie di condizioni la cui validità è assiomatica o appurata, il sistema crea una catena di inferenza estraendo nuova conoscenza da quella disponibile fino a quando una descrizione della soluzione non viene individuata, un obiettivo non è stato raggiunto o non è possibile effettuare ulteriore inferenza.
 
-Nei motori inferenziali che utilizzano questa strategia di controllo, il \emph{rules-set} viene scansionato alla ricerca di regole la cui parte \emph{condizione} (o \emph{LHS}) non risulti verificata dalla descrizione dello stato disponibile nella memoria di lavoro. Una volta identificato almeno un riscontro, è possibile logicamente concludere che la parte conseguente (la porzione \emph{RHS}) risulterà anch'essa verificata nella descrizione dello stato. L'applicazione della parte \emph{azione} produrrà una modifica della descrizione dello stato\footnote{La modifica dello stato avviene solitamente attraverso l'asserzione o la ritrattazione di fatti nella \emph{working memory}.}.
+Nei motori inferenziali che utilizzano questa strategia di controllo, il \emph{rules-set} viene scansionato alla ricerca di regole la cui parte \emph{condizione} (o \emph{LHS}) risulti verificata dalla descrizione dello stato disponibile nella memoria di lavoro. Una volta identificato almeno un riscontro, è possibile logicamente concludere che la parte conseguente (la porzione \emph{RHS}) risulterà anch'essa verificata nella descrizione dello stato. L'applicazione della parte \emph{azione} produrrà una modifica della descrizione dello stato\footnote{La modifica dello stato avviene solitamente attraverso l'asserzione o la ritrattazione di fatti nella \emph{working memory}.}.
 
 La concatenazione in avanti è un esempio del concetto generale di \emph{ragionamento guidato dai dati}, un tipo di ragionamento in cui l'attenzione parte dai fatti conosciuti. Ogni volta che nuova informazioni viene aggiunta, una certa quantità di ragionamento viene generato e guidato dai dati aggiunti. Il maggior pericolo derivante da questo tipo di inferenza è che un enorme numero di conseguenze irrilevanti possa distogliere l'attenzione da un numero ridotto di conseguenze invece rilevanti e indispensabili per giungere ad una soluzione del problema. \cite{russellnorvig2009}
 
@@ -239,9 +259,12 @@ L'algoritmo di concatenazione all'indietro, o \emph{Backward chaining}, parte da
 La concatenazione all'indietro è una forma di ragionamento basato sugli obiettivi. Spesso il costo dell'utilizzo di questa strategia di inferenza è inferiore rispetto a quello tramite l'utilizzo della \emph{forward chaining} in quanto il processo coinvolge solo i fatti rilevanti. \cite{russellnorvig2009}
 
 \subsection{RETE: matching fra regole e stato}
-L'algoritmo di \emph{Forward chaining} rappresenta una modalità di inferenza progettata per risultare di facile comprensione ed utilizzo. Porta con se però tre criticità di grande rilevanza: \cite{russellnorvig2009}
+
+Il $90\%$ dello sforzo elaborativo svolto da un sistema esperto basato su regole di produzione è concentrato nelle attività svolte dall'\emph{interprete}~\cite{forgy1982}. L'operazione di verificare quali regole siano applicabili e per quali descrizioni è una operazione di grande impatto in quanto necessità di confrontare spesso grandi quantità di conoscenza con un grande numero di elementi presenti nella \emph{working memory}.
+
+L'algoritmo di \emph{Forward chaining} rappresenta una modalità di controllo dell'inferenza progettata per risultare di facile comprensione ed utilizzo. Porta con se però tre criticità di grande rilevanza: \cite{russellnorvig2009}
 \begin{itemize}
-	\item il ciclo interno dell'algoritmo prevede la ricerca di tutti gli unificatori tali che una la premessa di una regola possa trovare riscontro con un insieme adeguato di dati presenti nella \emph{working memory}. Questa operazione è definitia \emph{Pattern Matching}.
+	\item il ciclo interno dell'algoritmo prevede la ricerca di tutti gli unificatori tali che le premesse di una regola possano trovare riscontro con un insieme adeguato di dati presenti nella \emph{working memory}. Questa operazione è definitia \emph{pattern matching}.
 	\item per ogni iterazione, la ricerca nel \emph{rules-set} deve essere ripetuta completamente anche nei casi in cui le modifiche alla \emph{working memory} sono di piccola entità.
 	\item l'impostazione stessa dell'algoritmo comporta il rischio di generazione di un grande numero di dati irrilevanti per il raggiungimento dell'obiettivo.
 \end{itemize}
@@ -250,21 +273,27 @@ Prendendo in esame una ipotetica configurazione di una regola in cui la precondi
 
 Aumentando il numero di pattern presenti all'interno della porzione \emph{LHS} di una regola, il confronto va eseguito per ogni pattern individualmente. In seguito, qualora sia necessario eseguire dei test di coerenza per verificare il binding delle variabili comuni a più pattern, l'operazione di confronto va ripetuta per ogni possibile combinazione dei fatti individuati dalle singole condizioni.
 
-L'algoritmo RETE si propone come una soluzione efficiente per il problema di pattern matching. Proposto per la prima volta nel 1979 dal C. L. Forgy \cite{forgy1979} \cite{forgy1982}, l'algoritmo affronta il problema partendo da una semplice considerazione: l'applicazione di una regola genera piccoli cambiamenti nello stato del sistema e spesso questi cambiamenti minimi non richiedono una valutazione completa dell'intero \emph{rules-set}. Le criticità principali di una formulazione na\"{\i}ve di un algoritmo di matching derivano proprio dalla necessità di eseguire una scansione completa dell'intera base di conoscenza e dell'intera memoria di lavoro per ogni cambiamento dello stato del sistema.
+L'algoritmo RETE si propone come una soluzione efficiente per il problema di \emph{pattern matching}. Proposto per la prima volta nel 1979 dal C. L. Forgy \cite{forgy1979} \cite{forgy1982}, l'algoritmo affronta il problema partendo da una semplice considerazione: l'applicazione di una regola genera piccoli cambiamenti nello stato del sistema e spesso questi cambiamenti minimi non richiedono una valutazione completa dell'intero \emph{rules-set}. Le criticità principali di una formulazione na\"{\i}ve di un algoritmo di matching derivano proprio dalla necessità di eseguire una scansione completa dell'intera base di conoscenza e dell'intera memoria di lavoro per ogni cambiamento dello stato del sistema.
 
 La soluzione propone i miglioramenti sintetizzandoli in due cambiamenti principali:
 \begin{itemize}
-	\item evitare di scansionare l'intera \emph{working memory} per trovare nuovi riscontri per i singoli pattern
-	\item evitare di scansionare l'intero \emph{rules-set} per trovare nuove attivazioni
+	\item evitare di scansionare l'intera \emph{working memory} per trovare nuovi riscontri per i singoli pattern;
+	\item evitare di scansionare l'intero \emph{rules-set} per trovare nuove attivazioni.
 \end{itemize}
 
-La scansione dell'intera \emph{working memory} viene evitata memorizzando in una unità di memoria dedicata per ogni pattern la lista di elementi che risultano coerenti con il pattern stesso. Queste unità di memoria vengono aggiornate in linea con i cambiamenti della \emph{working memory}.
+La scansione dell'intera \emph{working memory} viene evitata memorizzando in unità di memoria dedicate per ogni pattern la lista di elementi che risultano coerenti con il pattern stesso. Queste unità di memoria vengono aggiornate in linea con i cambiamenti della \emph{working memory}.
 
-Quando un nuovo elemento viene asserito e quindi entra a far parte della descrizione dello stato fornita dalla \emph{working memory}, l'algoritmo esegue una valutazione di ogni pattern singolarmente per il nuovo elemento aggiunto ed, solo in caso di verifica positiva, l'elemento stesso viene inserito all'interno dell'unità di memoria locale \cite{forgy1982}.
+\begin{figure}[h]
+\centering
+\includegraphics[viewport=70 545 416 812]{Immagini/Capitolo1/Asserzione.pdf}
+\caption{Asserzione di un nuovo elemento della \emph{working memory} e valutazione tramite algoritmo RETE}\label{fig:asserzione}
+\end{figure}
 
-Quando un elemento fuoriesce dalla \emph{working memory}, lo stesso viene rimosso da tutte le unità di memoria locali dei pattern in cui l'elemento è memorizzato. Il processo di ricerca può avvenire ripetendo nuovamente le verifiche per i singoli pattern \cite{forgy1982} oppure, più efficientemente, tenendo in una porzione di memoria separata una lista di riferimenti fra elementi e le memorie in cui essi sono contenuti \cite{Doorenbos95productionmatching}.
+Quando un nuovo elemento viene asserito (\figurename~\ref{fig:asserzione}) e quindi entra a far parte della descrizione dello stato fornita dalla \emph{working memory}, l'algoritmo esegue una valutazione di ogni pattern singolarmente per il nuovo elemento aggiunto e, solo in caso di verifica positiva, l'elemento stesso viene inserito all'interno dell'unità di memoria locale.~\cite{forgy1982}
 
-La scansione dell'intero \emph{rules-set} viene evitata attraverso l'utilizzo di una struttura a grafo per la rappresentazione delle regole. In seguito ad una fase di compilazione, la porzione \emph{LHS} delle regole viene scomposta nei singoli pattern. Per ognuno di essi viene realizzata, qualora non fosse possibile condividere una struttura analoga creata precedentemente, un circuito di nodi in grado di eseguire dei test su singoli elementi della \emph{working memory}. Come ultimo elemento del circuito viene aggiunta una unità di memoria locale, denominata \emph{Alpha-Memory}, la quale accoglierà l'insieme di elementi che, singolarmente, hanno verificato l'elenco di condizioni che il circuito descrive \cite{Doorenbos95productionmatching}.
+Quando un elemento fuoriesce dalla \emph{working memory}, lo stesso viene rimosso da tutte le unità di memoria locali dei pattern in cui l'elemento è memorizzato. Il processo di ricerca può avvenire ripetendo nuovamente le verifiche per i singoli pattern~\cite{forgy1982} oppure, più efficientemente, tenendo in una porzione di memoria separata una lista di riferimenti fra elementi e le memorie in cui essi sono contenuti.~\cite{Doorenbos95productionmatching}
+
+La scansione dell'intero \emph{rules-set} viene evitata attraverso l'utilizzo di una struttura a grafo per la rappresentazione delle regole. In seguito ad una fase di compilazione, la porzione \emph{LHS} delle regole viene scomposta nei singoli pattern. Per ognuno di essi viene realizzata, qualora non fosse possibile condividere una struttura analoga creata precedentemente, un circuito di nodi in grado di eseguire dei test su singoli elementi della \emph{working memory}. Come ultimo elemento del circuito viene aggiunta una unità di memoria locale, denominata \emph{Alpha-Memory}, la quale accoglierà l'insieme di elementi che, singolarmente, hanno verificato l'elenco di condizioni che il circuito descrive.~\cite{Doorenbos95productionmatching}
 
 L'insieme di circuiti derivanti dalla compilazione dei singoli pattern prende il nome di \emph{Alpha-Network}.
 
@@ -289,9 +318,9 @@ Il processo di trasformazione delle regole porta a due benefici sostanziali:
 
 Il processo di creazione della rete può avvenire attraverso un reale processo di compilazione \cite{forgy1982} che prevede la conversione dell'intero \emph{rules-set} in una sequenza di istruzioni ed espressioni che rappresentino le varie condizioni (implementazione \emph{compilata}), oppure attraverso un processo di creazione di una rappresentazione esplicita di grafo nelle modalità citate poc'anzi (implementazione \emph{interpretata}). 
 
-Il vantaggio della prima variante è la maggiore velocità, in contrasto al maggior consumo di memoria e alla difficoltà di implementazioni di procedure in grado di alterare la struttura della rete durante l'esecuzione attraverso l'aggiunta o la rimozione di produzioni \cite{Doorenbos95productionmatching}.
+Il vantaggio della prima variante è la maggiore velocità, in contrasto al maggior consumo di memoria e alla difficoltà di implementazioni di procedure in grado di alterare la struttura della rete durante l'esecuzione attraverso l'aggiunta o la rimozione di produzioni.~\cite{Doorenbos95productionmatching}
 
-La seconda variante rende più semplice l'implementazione di procedure di manipolazione della rete e risulta di globalmente di più facile implementazione e comprensione. Purtroppo questi vantaggi prevedono un \emph{trade-off} di tipo prestazionale \cite{Doorenbos95productionmatching}.
+La seconda variante rende più semplice l'implementazione di procedure di manipolazione della rete e risulta di globalmente di più facile implementazione e comprensione. Purtroppo questi vantaggi prevedono un \emph{trade-off} di tipo prestazionale.~\cite{Doorenbos95productionmatching}
 
 
 \section{Strumenti di sviluppo}
