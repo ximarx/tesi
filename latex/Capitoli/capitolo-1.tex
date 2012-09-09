@@ -293,7 +293,7 @@ Quando un nuovo elemento viene asserito (\figurename~\ref{fig:asserzione}) e qui
 
 Quando un elemento fuoriesce dalla \emph{working memory}, lo stesso viene rimosso da tutte le unità di memoria locali dei pattern in cui l'elemento è memorizzato. Il processo di ricerca può avvenire ripetendo nuovamente le verifiche per i singoli pattern~\cite{forgy1982} oppure, più efficientemente, tenendo in una porzione di memoria separata una lista di riferimenti fra elementi e le memorie in cui essi sono contenuti.~\cite{Doorenbos95productionmatching}
 
-La scansione dell'intero \emph{rules-set} viene evitata attraverso l'utilizzo di una struttura a grafo per la rappresentazione delle regole. In seguito ad una fase di compilazione, la porzione \emph{LHS} delle regole viene scomposta nei singoli pattern. Per ognuno di essi viene realizzata, qualora non fosse possibile condividere una struttura analoga creata precedentemente, un circuito di nodi in grado di eseguire dei test su singoli elementi della \emph{working memory}. Come ultimo elemento del circuito viene aggiunta una unità di memoria locale, denominata \emph{Alpha-Memory}, la quale accoglierà l'insieme di elementi che, singolarmente, hanno verificato l'elenco di condizioni che il circuito descrive.~\cite{Doorenbos95productionmatching}
+La scansione dell'intero \emph{rules-set} viene evitata attraverso l'utilizzo di una struttura a grafo per la rappresentazione delle regole. In seguito ad una fase di compilazione (\figurename~\ref{fig:grafo-regola}), la porzione \emph{LHS} delle regole viene scomposta nei singoli pattern. Per ognuno di essi viene realizzata, qualora non fosse possibile condividere una struttura analoga creata precedentemente, un circuito di nodi in grado di eseguire dei test su singoli elementi della \emph{working memory}. Come ultimo elemento del circuito viene aggiunta una unità di memoria locale, denominata \emph{Alpha-Memory}, la quale accoglierà l'insieme di elementi che, singolarmente, hanno verificato l'elenco di condizioni che il circuito descrive.~\cite{Doorenbos95productionmatching}
 
 L'insieme di circuiti derivanti dalla compilazione dei singoli pattern prende il nome di \emph{Alpha-Network}.
 
@@ -301,8 +301,8 @@ Una seconda porzione della rete è quella nota con il nome di \emph{Beta-Network
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.7]{Immagini/Capitolo1/grafico-regola-rete.png}
-\caption{Grafico ottenuto dalla compilazione di una regola}\label{fig:grafico-regola}
+\includegraphics[viewport=14 446 312 829]{Immagini/Capitolo1/RETE-regola.pdf}
+\caption{Rappresentazione esplicita del grafo ottenuto dalla compilazione di una regola: vengono creati circuiti alpha per ogni \emph{pattern} e in seguito congiunti valutando la coerenza del valore della variabile $x$ fra i riscontri.}\label{fig:grafo-regola}
 \end{figure}
 
 
@@ -320,55 +320,94 @@ Il processo di creazione della rete può avvenire attraverso un reale processo d
 
 Il vantaggio della prima variante è la maggiore velocità, in contrasto al maggior consumo di memoria e alla difficoltà di implementazioni di procedure in grado di alterare la struttura della rete durante l'esecuzione attraverso l'aggiunta o la rimozione di produzioni.~\cite{Doorenbos95productionmatching}
 
-La seconda variante rende più semplice l'implementazione di procedure di manipolazione della rete e risulta di globalmente di più facile implementazione e comprensione. Purtroppo questi vantaggi prevedono un \emph{trade-off} di tipo prestazionale.~\cite{Doorenbos95productionmatching}
+La seconda variante rende più semplice l'implementazione di procedure di manipolazione della rete e risulta globalmente di più facile implementazione e comprensione. Purtroppo questi vantaggi prevedono un \emph{trade-off} di tipo prestazionale.~\cite{Doorenbos95productionmatching}
 
 
 \section{Strumenti di sviluppo}
 
-Il numero di ambienti di sviluppo per sistemi esperti è cresciuto negli anni e con esso il numero e la tipologia di funzionalità offerte. Le prime \emph{shell} erano semplici metodi di rappresentazione della conoscenza basata sull'uso delle regole, con il supporto di strumenti di inferenza piuttosto limitati. Con gli anni, la lista e la tipologia di funzionalità offerte si è arricchita introducendo una varietà di possibilità per la rappresentazione della conoscenza, strategie di ricerca, meccanismi specializzati di inferenza e strumenti di supporto allo sviluppo dei sistemi.
+Gli strumenti di sviluppo per sistemi esperti sono orientati tutti quanti al supporto alla creazione di \emph{prototipi}. Un prototipo rappresenta un modello funzionante le cui funzionalità sono equivalenti ad una porzione ridotta di quelle del prodotto finale. \cite{jackson1999}
 
-L'evoluzione di questi sistemi è stata motivata con il tempo e la quantità di sforzo richiesto per la costruzione di sistemi esperti usando linguaggi tradizionali e sistemi strettamente vincolati all'uso della regole per la rappresentazione della conoscenza.
+L'idea è quella di sviluppare, nelle prime fasi del progetto, dei ''\emph{proof of concept} che possono essere valutati e criticati da esperti e utenti e che siano in grado di risolvere parti del problema. Questa attività è svolta soprattutto come un'opportunità per definire meglio requisiti e individuare criticità, verificando inoltre l'effettiva trattabilità di problematiche prima di effettuare investimenti eccessivi.
 
-L'obiettivo inseguito con l'evoluzione degli ambienti di sviluppo era quello di ridurre i tempi ed i costi di sviluppo dei sistemi esperti. Inoltre l'uso di questi strumenti ha garantito:
+Una possibilità è che gli artefatti prodotti vengano quindi scartati al termine delle valutazioni, ma gli approcci verificati con la produzione dei prototipi stessi vengono conservati e riapplicati durante la fare di sviluppo reale del prodotto. Altre modalità prevedono l'accorpamento e sviluppo incrementale delle funzionalità del prodotto finale tramite fasi reiterate di produzione di \emph{protitipi} e valutazione.
+
+%Un problema derivante dallo sviluppo incrementale di sistemi esperti tramite prototipi successivi consiste nell'attività di integrazione delle nuove funzionalità sviluppate all'interno del prototipo rappresentante la versione precedente.
+
+%Per risolvere questo genere di problematica, gli ambienti di sviluppo per sistemi esperti forniscono la possibilità di rappresentare la conoscenza in forme partizionate in moduli indipendenti.
+
+Il numero di ambienti di sviluppo per sistemi esperti è cresciuto negli anni e con esso il numero e la tipologia di funzionalità offerte.
+
+%I primi strumenti erano semplici metodi di rappresentazione della conoscenza basata sull'uso delle regole, con il supporto di strumenti di inferenza piuttosto limitati. Con gli anni, la lista e la tipologia di funzionalità offerte si è arricchita introducendo una varietà di possibilità per la rappresentazione della conoscenza, strategie di ricerca, meccanismi specializzati di inferenza e strumenti di supporto allo sviluppo dei sistemi.
+
+L'evoluzione di questi sistemi è stata motivata con il tempo e la quantità di sforzo richiesto per la costruzione di sistemi esperti. % usando linguaggi tradizionali e sistemi strettamente vincolati all'uso della regole per la rappresentazione della conoscenza.
+
+Lo sviluppo si è focalizzato in molte aree di interesse, spaziando dall'ambito delle modalità di rappresentazione della conoscenza a quello dei meccanismi di inferenza, dai meccanismi di controllo a ricerca nell'ambito dei linguaggi di specifica. Ma indipendentemente dalle modalità con i quali è stato tentato il miglioramento, lo slancio evolutivo era ad ogni modo focalizzati nell'ambito di:
 \begin{itemize}
-	\item un miglioramento generale della qualità e l'affidabilità dei sistemi prodotti
-	\item di astrarre l'attività di sviluppo del sistema esperto da quelle relative allo sviluppo dell'ambiente di base
-	\item agli ingegneri della conoscenza la possibilità di focalizzarsi sugli aspetti correlati alla modellazione degli elementi del dominio del sistema esperto
-	\item di utilizzare strumenti rapidi per l'acquisizione e la modifica della conoscenza dei sistemi esperti
+	\item ridurre tempi e costi di sviluppo dei sistemi esperti
+	\item migliorare l'affidabilità e la qualità generale dei sistemi prodotti
+	\item focalizzare le attività delle varie figure professionali interessate nello sviluppo negli ambiti di propria competenza.
+	\item separare le attività di analisi della conoscenza da quelle legate allo sviluppo del prodotto.
+	\item fornire strumenti per velocizzare e migliorare le attività di acquisizione e aggiornamento della conoscenza.
 \end{itemize}
 
-I miglioramenti hanno incrementato in questo modo le possibilità di successo nello sviluppo di sistemi esperti. Come ulteriore effetto, il ridursi della complessità generale delle operazioni realizzazione ha consentito di gestire e produrre soluzioni di sempre maggiore complessità.
+I miglioramenti hanno incrementato in questo modo le possibilità di successo nello sviluppo di sistemi esperti. Come ulteriore effetto, il ridursi della complessità generale delle operazioni di realizzazione ha consentito di gestire e produrre soluzioni di sempre maggiore complessità.
 
-Tornando indietro agli albori della produzione di sistemi esperti, i meccanismi di inferenza e le basi di conoscenza erano strettamente accoppiati fra loro. La prima generazione di sistemi non era altro che grandi applicazioni scritte in linguaggi come LISP. Nonostante tutti i linguaggi di programmazione possano essere utilizzati per la produzione di sistemi esperti, alcuni di essi offrivano caratteristiche che rendevano la stessa attività più agevole. Esempi di linguaggi largamente utilizzati per queste attività sono il linguaggio LISP e Prolog. Purtroppo, la quantità di tempo e sforzo richiesto per la produzione usando queste tipologie di linguaggi diventava rapidamente insostenibile con l'aumentare della complessità. Inoltre, l'accoppiamento fra funzionalità necessarie all'inferenza e quelle per la rappresentazione e la gestione della conoscenza non permetteva una distinzione di ruoli fra gli ingegneri di sistema e quelli della conoscenza.
+\subsection{L'evoluzione degli strumenti di sviluppo}
 
-\subsection{Expert System Shell}
+Tornando indietro agli albori della produzione di sistemi esperti, i meccanismi di inferenza e le basi di conoscenza erano strettamente accoppiati fra loro. La prima generazione di sistemi non era altro che grandi applicazioni scritte in linguaggi come LISP.~\cite{knowbel1993} 
 
-Questo approccio alla lavorazione venne superato nella successiva generazione. Durante la creazione di sistemi esperti di seconda generazione come MYCIN, i ricercatori si accorsero dell'importanza di implementare i sistemi in modo che fosse possibile una separazione, più o meno netta, fra la base di conoscenza e i meccanismi per la sua rappresentazione dalle funzionalità atte all'implementazione del motore inferenziale e i meccanismi dello stesso.
+Nonostante tutti i linguaggi di programmazione possano essere utilizzati per la produzione di sistemi esperti, alcuni di essi offrivano caratteristiche che rendevano la stessa attività più agevole. Rientrano in questa categoria linguaggi largamente utilizzati nelle prime fasi come il LISP e Prolog. 
 
-Rimuovendo la conoscenza di dominio da questi sistemi vennero realizzati i primi sistemi di tipo \emph{Skeletal Shell} o \emph{Expert System Shell} utilizzando gli strumenti sviluppati nel progetto originale e inserendo nuova conoscenza di dominio era possibile creare una grande verità di nuovi sistemi esperti con un sforzo relativamente ridotto. I sistemi di seconda generazione di maggior successo hanno dato vita a \emph{Shell} per lo sviluppo di sistemi esperti. Sono esempi EMYCIN, KAS e EXPERT: rispettivamente questi ultimi vennero prodotti rimuovendo le conoscenze di dominio da MYCIN, PROSPECTOR e CASNET.
+Purtroppo, la quantità di tempo e sforzo richiesto per la produzione usando queste tipologie di linguaggi diventava rapidamente insostenibile con l'aumentare della complessità. Inoltre, l'accoppiamento fra funzionalità necessarie all'inferenza e quelle per la rappresentazione e la gestione della conoscenza non permetteva una distinzione di ruoli fra gli ingegneri di sistema e quelli della conoscenza.~\cite{development1993}
 
-Sebbene l'utilizzo di questi strumenti velocizzasse la produzione di nuovi sistemi di diversi ordini di magnitudine, la necessità di attenersi alle strategie utilizzate nei sistemi originali rappresentava un limite alla flessibilità del sistema. Spesso le \emph{Shell} fornivano strumenti integrati e strutture che rendevano lo sviluppo dei sistemi molto più semplice ed immediato, ma limitavano le classi di problemi a cui potevano essere applicati e riducevano grandemente le scelte di design possibili per il realizzatore di sistemi esperti. \cite{development1993}
+Questo approccio alla lavorazione venne superato nella successiva generazione. Durante la creazione di sistemi di seconda generazione come MYCIN, i ricercatori si accorsero dell'importanza di implementare i sistemi in modo che fosse possibile una separazione fra la base di conoscenza e i meccanismi che realizzavano il ragionamento.
 
-\subsection{Expert System Environment}
+Rimuovendo la conoscenza di dominio da questi sistemi vennero realizzati i primi sistemi di tipo \emph{Skeletal Shell}: utilizzando gli strumenti sviluppati nel progetto originale e inserendo nuova conoscenza di dominio era possibile creare una grande verità di nuovi sistemi esperti con un sforzo relativamente ridotto. I sistemi di seconda generazione di maggior successo hanno dato vita a \emph{Shell} per lo sviluppo di sistemi esperti. Sono esempi EMYCIN, KAS e EXPERT: rispettivamente questi ultimi vennero prodotti rimuovendo le conoscenze di dominio da MYCIN, PROSPECTOR e CASNET.
 
-Il successivo passo negli strumenti di sviluppo per sistemi esperti è quello costituito dalla produzione delle prima serie di \emph{Environment per Sistemi Esperti}. L'idea alla base di questa generazione di tool era quella di realizzare delle \emph{Shell} che offrissero sistemi multipli per la rappresentazione della conoscenza, l'inferenza e il controllo insieme ad un completo ambiente di sviluppo \cite{development1993}, senza però limitare le scelte di design dei realizzatori.
+Sebbene l'utilizzo di questi strumenti velocizzasse la produzione di nuovi sistemi di diversi ordini di magnitudine, la necessità di attenersi alle strategie utilizzate nei sistemi originali rappresentava un limite alla flessibilità del sistema ed ai possibili ambiti di utilizzo. 
 
-Questi strumenti vennero ulteriormente arricchiti con l'integrazione di funzionalità orientate allo sviluppo come meccanismi di tracciamento delle regole e strutture per il debugging dei sistemi. Esempi di \emph{Environment} creati sono OPS5, OPS83, CLIPS, JESS.
+Il successivo passo evolutivo fu compiuto con l'introduzione di linguaggi di alto livello orientati alla realizzazione di sistemi esperti e gli ambienti di programmazione multi-paradigmatici.
 
-L'utilizzo di questi sistemi si poneva come punto d'incontro fra le due generazioni precedenti: come mostrato in \figurename~\ref{fig:classificazione-tools}, nonostante l'utilizzo degli \emph{Environment} facilitasse lo sviluppo dei sistemi esperti, non riduceva la flessibilità e le opzioni di design a disposizione dello sviluppatore come per gli strumenti di seconda generazione. Spesso lo sviluppo di questi sistemi richiedeva ancora un certo grado di esperienza nell'uso di linguaggi di programmazione e conoscenze sintattiche in quanto gli ambienti ereditavano sintassi e strutture già a disposizione nei linguaggi di prima generazione (la famiglia di environment OPS ereditava una sintassi simile a quella usata in LISP \cite{brownston1985}).
+I primi, introdotti negli anni '80, consentivano grande flessibilità e permettevano di svolgere attività di prototipazione rapida. Queste caratteristiche si traducevano con la possibilità di sperimentare  e valutare soluzioni progettuali con costi e tempi relativamente contenuti. Inoltre, per la natura stessa degli strumenti, il codice prodotto poteva essere testato in maniera incrementale durante la scrittura (possibilità offerta dal fatto che le interfacce \emph{runtime} e \emph{buildtime} erano prossime fra loro).~\cite{jackson1999}
+
+Spesso, ogni tipo di \emph{shell} limitava la propria offerta ad un particolare tipo di formalismo per la rappresentazione della conoscenza oppure un particolare regime di controllo. La flessibilità offerta dai linguaggi di alto livello risiedeva proprio nella possibilità, per il progettista, di accedere a diverse approcci differenti e in questo modo poter spaziare fra meccanismi differenti.
+
+Gli ambienti programmazione multi-paradigmatici o \emph{Expert System Environment} accoppiavano la filosofia alla base dei linguaggi di alto livello con la possibilità di usufruire di differenti modalità di rappresentazione della conoscenza, regimi di controllo e paradigmi di programmazione in base alle esigenze.
+
+Questo genere di strumenti permettevano ai programmatori di selezionare e combinare differenti moduli software. In assenza di un singolo linguaggio di rappresentazione della conoscenza che fosse valido per ogni applicazione, la soluzione era quella di fornire e rendere disponibile più di uno schema contemporaneamente.
+
+\begin{quote}
+''Sebbene non ci sia una teoria ben articolata sui sistemi basati su approccio ibrido, l'esperienza con schemi di rappresentazione e inferenza differenti ha mostrato che ognuno ha le sue debolezze; quindi la strategia di miscelare gli schemi tenta di giocare il più possibile con i loro punti di forza.''~\cite{jackson1999}
+\end{quote}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7, viewport=0 0 272 184]{Immagini/Capitolo1/LOOPS-logo.pdf}
+\caption[Il logo di LOOPS]{Il logo di LOOPS: illustra i differenti paradigmi disponibili nell'\emph{environment}. Immagine originale tratta da~\cite{loops1983aaai}.}\label{fig:logo-LOOPS}
+\end{figure}
+
+Il primo esempio di ambiente multi-paradigmatico fu LOOPS~(1983, \figurename~\ref{fig:logo-LOOPS}): fondeva insieme quattro paradigmi di programmazione (procedurale, basata su regole, orientata agli oggetti, orientata ai dati) all'interno di un'architettura basata sullo scambio di messaggi.~\cite{loops1983aaai}
+
+======= TUTTO DOPO DA CAMBIARE =======
+
+negli strumenti di sviluppo è quello costituito dalla produzione delle prima serie di \emph{Environment per Sistemi Esperti}. L'idea alla base di questa generazione di tool era quella di realizzare delle \emph{Shell} che racchiudessero al loro interno meccanismi multipli per la rappresentazione della conoscenza, l'inferenza e il controllo, uniti ad ambienti di sviluppo \cite{development1993} e integrassero modalità di programmazione procedurale classica. L'obiettivo era offrire la più grande liberta di scelta durante le fasi di design ai progettisti.
+
+Questi strumenti vennero ulteriormente arricchiti con l'integrazione di funzionalità orientate allo sviluppo come meccanismi di tracciamento delle regole e strutture per il debugging dei sistemi. Fanno parte di questa generazione di \emph{environment} sistemi come OPS5, OPS83, CLIPS, JESS e molti altri.
+
+Questa classe di sistemi si poneva come punto d'incontro fra le due generazioni precedenti: nonostante l'utilizzo degli \emph{environment} facilitasse lo sviluppo dei sistemi esperti, non riduceva la flessibilità e le opzioni di design a disposizione dello sviluppatore come per gli strumenti di seconda generazione. Spesso lo sviluppo di questi sistemi richiedeva ancora un certo grado di esperienza nell'uso di linguaggi di programmazione e conoscenze sintattiche in quanto gli ambienti ereditavano sintassi e strutture già a disposizione nei linguaggi di prima generazione (la famiglia di \emph{environment} OPS ereditava una sintassi simile a quella usata in LISP \cite{brownston1985}).
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.7]{Immagini/Capitolo1/classificazione-strumenti.png}
-\caption{Classificazione dei tool di sviluppo per sistemi esperti}\label{fig:classificazione-tools}
+\includegraphics[width=0.9\textwidth, viewport=28 650 440 824]{Immagini/Capitolo1/Classificazione-tools.pdf}
+\caption{Classificazione degli strumenti di sviluppo per sistemi esperti}\label{fig:classificazione-tools}
 \end{figure}
 
 
 \section{Lo scenario attuale}
-Il numero soluzioni commerciali e libere per lo sviluppo di sistemi esperto è estremamente elevato. Nonostante questo, nell'ambito dello sviluppo accademico le soluzioni individuate con maggior frequenza si restringono a due sistemi: CLIPS e JESS \cite{laerhoven1999}.
+Il numero soluzioni commerciali e libere per lo sviluppo di sistemi esperto è estremamente elevato. Nonostante questo, nell'ambito dello sviluppo accademico le soluzioni individuate con maggior frequenza si restringono a due sistemi: CLIPS e JESS.~\cite{laerhoven1999}
 
 \subsection{CLIPS}
-CLIPS è l'acronimo di C Language Integrated Production System: un linguaggio di programmazione sviluppato al NASA Johnson Space Center nella metà del 1980. Prende spunto da tool come OPS5 e ART, supportandone le caratteristiche di maggior importanza e introducendone di nuove come le funzionalità relative alla programmazione procedurale, supportanto una sintassi simile a quella LISP. Lo sviluppo iniziò in un contesto in cui erano emergenti, ma ancora costose, soluzioni di environment basati su linguaggio C. Il risultato è il sistema meno costoso e di maggiore reperibilità al mondo, non meno efficiente di soluzioni commerciali alternative disponibili. La prima versione non integrava funzionalità chiave introdotte solo successivamente, come il linguaggio procedurale e il paradigma di programmazione ad oggetti \cite{jackson1999}.
+CLIPS è l'acronimo di C Language Integrated Production System: un linguaggio di programmazione sviluppato al NASA Johnson Space Center nella metà del 1980. Prende spunto da tool come OPS5 e ART, supportandone le caratteristiche di maggior importanza e introducendone di nuove come le funzionalità relative alla programmazione procedurale, supportanto una sintassi simile a quella LISP. Lo sviluppo iniziò in un contesto in cui erano emergenti, ma ancora costose, soluzioni di environment basati su linguaggio C. Il risultato è il sistema meno costoso e di maggiore reperibilità al mondo, non meno efficiente di soluzioni commerciali alternative disponibili. La prima versione non integrava funzionalità chiave introdotte solo successivamente, come il linguaggio procedurale e il paradigma di programmazione ad oggetti.~\cite{jackson1999}
 
 \subsection{JESS}
 Nato originariamente come un clone di CLIPS, JESS è un environment per sistemi esperti scritto in Java con l'obiettivo di estendere l'ambito di utilizzo dell'environment verso l'integrazione con tecnologie per il web basate su Java, come gli applet. Il numero di funzionalità originariamente offerte era un set limitato di quelle offerte da CLIPS, con il tempo lo sviluppo si è diretto verso l'aggiunta di funzionalità originali in maniera indipendente dal progetto padre, separando in questo modo i due progetti.
