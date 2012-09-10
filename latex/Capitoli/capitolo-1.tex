@@ -244,7 +244,7 @@ La descrizione appena proposta di \emph{motore inferenziale} può essere ulterio
 
 I \emph{sistemi basati su regole di produzione} rappresentano la prima, e probabilmente la più semplice, modalità di sviluppo di sistemi inferenziali. La rappresentazione della conoscenza all'interno di questa classe di sistemi viene affidata al formalismo basato su regole di produzione.
 
-Le strategie di ricerca sviluppate per il controllo dell'inferenza in questa categoria di sistemi si basano spesso su metodi come il \emph{Forward Chaining} e il \emph{Backward Chaining}.
+I regimi di controllo dell'inferenza in questa categoria di sistemi si basano spesso su algoritmi come il \emph{Forward Chaining} e il \emph{Backward Chaining}.
 
 \paragraph{Forward chaining}
 Il \emph{forward chaining} può essere descritto come applicazione ripetuta del \emph{modus ponens}. Partendo da una serie di condizioni la cui validità è assiomatica o appurata, il sistema crea una catena di inferenza estraendo nuova conoscenza da quella disponibile fino a quando una descrizione della soluzione non viene individuata, un obiettivo non è stato raggiunto o non è possibile effettuare ulteriore inferenza.
@@ -327,7 +327,7 @@ La seconda variante rende più semplice l'implementazione di procedure di manipo
 
 Gli strumenti di sviluppo per sistemi esperti sono orientati tutti quanti al supporto alla creazione di \emph{prototipi}. Un prototipo rappresenta un modello funzionante le cui funzionalità sono equivalenti ad una porzione ridotta di quelle del prodotto finale. \cite{jackson1999}
 
-L'idea è quella di sviluppare, nelle prime fasi del progetto, dei ''\emph{proof of concept} che possono essere valutati e criticati da esperti e utenti e che siano in grado di risolvere parti del problema. Questa attività è svolta soprattutto come un'opportunità per definire meglio requisiti e individuare criticità, verificando inoltre l'effettiva trattabilità di problematiche prima di effettuare investimenti eccessivi.
+L'idea è quella di sviluppare, nelle prime fasi del progetto, dei ''\emph{proof of concept}'' che possono essere valutati e criticati da esperti e utenti e che siano in grado di risolvere parti del problema. Questa attività è utilizzata soprattutto come un'opportunità per definire meglio requisiti e individuare criticità, verificando inoltre l'effettiva trattabilità di problematiche prima di effettuare investimenti eccessivi.
 
 Una possibilità è che gli artefatti prodotti vengano quindi scartati al termine delle valutazioni, ma gli approcci verificati con la produzione dei prototipi stessi vengono conservati e riapplicati durante la fare di sviluppo reale del prodotto. Altre modalità prevedono l'accorpamento e sviluppo incrementale delle funzionalità del prodotto finale tramite fasi reiterate di produzione di \emph{protitipi} e valutazione.
 
@@ -341,7 +341,7 @@ Il numero di ambienti di sviluppo per sistemi esperti è cresciuto negli anni e 
 
 L'evoluzione di questi sistemi è stata motivata con il tempo e la quantità di sforzo richiesto per la costruzione di sistemi esperti. % usando linguaggi tradizionali e sistemi strettamente vincolati all'uso della regole per la rappresentazione della conoscenza.
 
-Lo sviluppo si è focalizzato in molte aree di interesse, spaziando dall'ambito delle modalità di rappresentazione della conoscenza a quello dei meccanismi di inferenza, dai meccanismi di controllo a ricerca nell'ambito dei linguaggi di specifica. Ma indipendentemente dalle modalità con i quali è stato tentato il miglioramento, lo slancio evolutivo era ad ogni modo focalizzati nell'ambito di:
+Lo sviluppo si è focalizzato in molte aree di interesse, spaziando dall'ambito delle modalità di rappresentazione della conoscenza a quello dei meccanismi di inferenza, dallo sviluppo di regimi controllo alla ricerca nell'ambito dei linguaggi di specifica. Ma indipendentemente dalle modalità con i quali è stato tentato il miglioramento, lo slancio evolutivo era ad ogni modo focalizzati nell'ambito di:
 \begin{itemize}
 	\item ridurre tempi e costi di sviluppo dei sistemi esperti
 	\item migliorare l'affidabilità e la qualità generale dei sistemi prodotti
@@ -358,17 +358,24 @@ Tornando indietro agli albori della produzione di sistemi esperti, i meccanismi 
 
 Nonostante tutti i linguaggi di programmazione possano essere utilizzati per la produzione di sistemi esperti, alcuni di essi offrivano caratteristiche che rendevano la stessa attività più agevole. Rientrano in questa categoria linguaggi largamente utilizzati nelle prime fasi come il LISP e Prolog. 
 
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth, viewport=28 650 440 824]{Immagini/Capitolo1/Classificazione-tools.pdf}
+\caption{Classificazione degli strumenti di sviluppo per sistemi esperti}\label{fig:classificazione-tools}
+\end{figure}
+
+
 Purtroppo, la quantità di tempo e sforzo richiesto per la produzione usando queste tipologie di linguaggi diventava rapidamente insostenibile con l'aumentare della complessità. Inoltre, l'accoppiamento fra funzionalità necessarie all'inferenza e quelle per la rappresentazione e la gestione della conoscenza non permetteva una distinzione di ruoli fra gli ingegneri di sistema e quelli della conoscenza.~\cite{development1993}
 
 Questo approccio alla lavorazione venne superato nella successiva generazione. Durante la creazione di sistemi di seconda generazione come MYCIN, i ricercatori si accorsero dell'importanza di implementare i sistemi in modo che fosse possibile una separazione fra la base di conoscenza e i meccanismi che realizzavano il ragionamento.
 
 Rimuovendo la conoscenza di dominio da questi sistemi vennero realizzati i primi sistemi di tipo \emph{Skeletal Shell}: utilizzando gli strumenti sviluppati nel progetto originale e inserendo nuova conoscenza di dominio era possibile creare una grande verità di nuovi sistemi esperti con un sforzo relativamente ridotto. I sistemi di seconda generazione di maggior successo hanno dato vita a \emph{Shell} per lo sviluppo di sistemi esperti. Sono esempi EMYCIN, KAS e EXPERT: rispettivamente questi ultimi vennero prodotti rimuovendo le conoscenze di dominio da MYCIN, PROSPECTOR e CASNET.
 
-Sebbene l'utilizzo di questi strumenti velocizzasse la produzione di nuovi sistemi di diversi ordini di magnitudine, la necessità di attenersi alle strategie utilizzate nei sistemi originali rappresentava un limite alla flessibilità del sistema ed ai possibili ambiti di utilizzo. 
+Sebbene l'utilizzo di questi strumenti velocizzasse la produzione di nuovi sistemi di diversi ordini di grandezza, la necessità di attenersi alle strategie utilizzate nei sistemi originali rappresentava un limite alla flessibilità del sistema ed ai possibili ambiti di utilizzo. 
 
 Il successivo passo evolutivo fu compiuto con l'introduzione di linguaggi di alto livello orientati alla realizzazione di sistemi esperti e gli ambienti di programmazione multi-paradigmatici.
 
-I primi, introdotti negli anni '80, consentivano grande flessibilità e permettevano di svolgere attività di prototipazione rapida. Queste caratteristiche si traducevano con la possibilità di sperimentare  e valutare soluzioni progettuali con costi e tempi relativamente contenuti. Inoltre, per la natura stessa degli strumenti, il codice prodotto poteva essere testato in maniera incrementale durante la scrittura (possibilità offerta dal fatto che le interfacce \emph{runtime} e \emph{buildtime} erano prossime fra loro).~\cite{jackson1999}
+I primi, introdotti nella seconda metà degli anni '70, consentivano grande flessibilità e permettevano di svolgere attività di prototipazione rapida. Queste caratteristiche si traducevano con la possibilità di sperimentare  e valutare soluzioni progettuali con costi e tempi relativamente contenuti. Inoltre, per la natura stessa degli strumenti, il codice prodotto poteva essere testato in maniera incrementale durante la scrittura (possibilità offerta dal fatto che le interfacce \emph{runtime} e \emph{buildtime} erano prossime fra loro).~\cite{jackson1999}
 
 Spesso, ogni tipo di \emph{shell} limitava la propria offerta ad un particolare tipo di formalismo per la rappresentazione della conoscenza oppure un particolare regime di controllo. La flessibilità offerta dai linguaggi di alto livello risiedeva proprio nella possibilità, per il progettista, di accedere a diverse approcci differenti e in questo modo poter spaziare fra meccanismi differenti.
 
@@ -386,56 +393,114 @@ Questo genere di strumenti permettevano ai programmatori di selezionare e combin
 \caption[Il logo di LOOPS]{Il logo di LOOPS: illustra i differenti paradigmi disponibili nell'\emph{environment}. Immagine originale tratta da~\cite{loops1983aaai}.}\label{fig:logo-LOOPS}
 \end{figure}
 
-Il primo esempio di ambiente multi-paradigmatico fu LOOPS~(1983, \figurename~\ref{fig:logo-LOOPS}): fondeva insieme quattro paradigmi di programmazione (procedurale, basata su regole, orientata agli oggetti, orientata ai dati) all'interno di un'architettura basata sullo scambio di messaggi.~\cite{loops1983aaai}
+Il primo esempio di ambiente multi-paradigmatico a quattro schemi fu LOOPS~(1983, \figurename~\ref{fig:logo-LOOPS}): fondeva insieme quattro paradigmi di programmazione (procedurale, basata su regole, orientata agli oggetti, orientata ai dati) all'interno di un'architettura basata sullo scambio di messaggi.~\cite{loops1983aaai}
 
-======= TUTTO DOPO DA CAMBIARE =======
+\subsection{Skeletal Shell}
+Le \emph{Shell} hanno l'obiettivo di consentire anche a persone senza una esperienza specifica di programmazione tradizionale di utilizzare gli sforzi compiuti nell'ambito della soluzione di problematiche simili.
 
-negli strumenti di sviluppo è quello costituito dalla produzione delle prima serie di \emph{Environment per Sistemi Esperti}. L'idea alla base di questa generazione di tool era quella di realizzare delle \emph{Shell} che racchiudessero al loro interno meccanismi multipli per la rappresentazione della conoscenza, l'inferenza e il controllo, uniti ad ambienti di sviluppo \cite{development1993} e integrassero modalità di programmazione procedurale classica. L'obiettivo era offrire la più grande liberta di scelta durante le fasi di design ai progettisti.
+\'E chiaro però che l'applicabilità dell'architettura di base non è di tipo universale, sebbene consentisse di realizzare sistemi in ambiti simili a quelli per il quale il progetto era concepito.
 
-Questi strumenti vennero ulteriormente arricchiti con l'integrazione di funzionalità orientate allo sviluppo come meccanismi di tracciamento delle regole e strutture per il debugging dei sistemi. Fanno parte di questa generazione di \emph{environment} sistemi come OPS5, OPS83, CLIPS, JESS e molti altri.
+\begin{quotation}
+''EMYCIN è progettato per aiutare la costruzione e l'esecuzione di programmi che forniscono consigli. [$\dots$]
 
-Questa classe di sistemi si poneva come punto d'incontro fra le due generazioni precedenti: nonostante l'utilizzo degli \emph{environment} facilitasse lo sviluppo dei sistemi esperti, non riduceva la flessibilità e le opzioni di design a disposizione dello sviluppatore come per gli strumenti di seconda generazione. Spesso lo sviluppo di questi sistemi richiedeva ancora un certo grado di esperienza nell'uso di linguaggi di programmazione e conoscenze sintattiche in quanto gli ambienti ereditavano sintassi e strutture già a disposizione nei linguaggi di prima generazione (la famiglia di \emph{environment} OPS ereditava una sintassi simile a quella usata in LISP \cite{brownston1985}).
+EMYCIN non è progettato per essere un linguaggio di rappresentazione \emph{general-purpose}. \'E completamente inadatto per alcuni problemi. Le limitazioni derivano in gran parte dal fatto che EMYCIN ha scelto un solo metodo per rappresentazione della conoscenza che fosse basilare, semplice da leggere e interpretare: regole di produzione applicate tramite un regisme di controllo basato sul \emph{backward-chaining}~[$\dots$]''~\cite{puff1982}
+\end{quotation}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.9\textwidth, viewport=28 650 440 824]{Immagini/Capitolo1/Classificazione-tools.pdf}
-\caption{Classificazione degli strumenti di sviluppo per sistemi esperti}\label{fig:classificazione-tools}
-\end{figure}
+Un esempio risiede in EMYCIN: sebbene consentisse di utilizzare l'architettura alla base di MYCIN e applicarla anche ad altri domini specifici nell'ambito medico (PUFF~\cite{puff1982}) o in altri ambiti (SACON~\cite{bennett1979}), la sua architettura non era abbastanza generalizzata per essere definita \emph{general-purpose}~\cite{vanmelle1984}. Era valido per sviluppare sistemi basati su un approccio deduttivo a problemi diagnostici, dove è disponibile una grande quantità di conoscenza ed è possibile emulare le categorie diagnostiche in anticipo.
+
+A discapito dei vantaggi in termini di semplicità nella rappresentazione della conoscenza e della specifica del sistema offerti dai tool di tipo \emph{Skeletal Shell}, le più grandi critiche a questa classe di sistemi risiedono in tre punti principali~\cite{Aikins1983163}:
+
+\begin{itemize}
+	\item[(1)] Il formalismo basato solo su regole che la grande maggioranza di questa classe di sistemi offriva rendeva difficile la distinzione fra conoscenza di tipo euristico, di controllo e quella adibita alla valutazione dei parametri richiesti. Questa limitazione rendeva difficile la comprensione dei sistemi.
+	\item[(2)] L'aggiornamento e l'aggiunta di nuova conoscenza in questi sistemi rendeva difficile effettuare previsioni sull'impatto che le modifiche avrebbero avuto sul sistema nella sua interezza.
+	\item[(3)] La scelta di un preciso regime di controllo spesso si adattava bene ad alcune attività, mentre rendeva difficoltoso lo sviluppo di componenti differenti dello stesso sistema (ad esempio, il regime basato su \emph{backward-chaining} offerto da EMYCIN rendeva da una parte agevole il processo di diagnosi, ma dall'altra ardua la realizzazione delle dinamiche di spiegazione).
+\end{itemize}
+
+\subsection{Expert System Environment}
+Le \emph{Shell} di tipo \emph{general-purpose} offrono un maggiore controllo e flessibilità rispetto alle \emph{Skeletal Shell} rimuovendo diversi vincoli, ma questa ritrovata flessibilità viene pagata con maggiori oneri a carico dei progettisti. 
+
+Strumenti che offrivano maggiore flessibilità offrivano solo meccanismi di rappresentazione e \emph{problem-solving} basilari. Questo li rendeva adatti a qualsiasi ambito e problematica, ma il basso livello di sofisticazione richiedeva agli ingegneri della conoscenza di specificare personalmente parte dei meccanismi di ragionamento e di rappresentazione. Esempi di questa sottoclasse di strumenti sono ROSIE, OPS5 e Prolog\footnote{Sebbene il Prolog sia un linguaggio di programmazione logica general-purpose, la disponibilità di meccanismi di ragionamento basilari basati su un regime di tipo \emph{backward-chaining} e la forma dichiarativa del linguaggio che rendeva agevole la rappresentazione della conoscenza lo rendono ascrivibile anche alla categoria delle \emph{General-Purpose Shell}}.
+
+Maggiore semplicità era quella offerta invece dai sistemi come BLOBS, G2 o CubiCal~\cite{development1993}. Il loro ambito di utilizzo veniva ridotto, ma il maggiore livello di sofisticazione nelle forme ragionamento unito alla disponibilità di paradigmi multipli per la rappresentazione della conoscenza rendeva più agevole lo sviluppo di sistemi esperti. Inoltre, agli ingegneri della conoscenza era richiesto una minore conoscenza nell'ambito delle dinamiche del sistema di base. La modifica dei meccanismi di ragionamento era ancora possibile, anche se non obbligatoria.
+
+Gli strumenti posti al più alto grado di sofisticazione nella categoria degli \emph{environment} erano progettati per affrontare più aree di problemi. Offrivano paradigmi multipli per la specifica della conoscenza, del ragionamento unite a caratteristiche e utilità orientate allo sviluppo dei sistemi esperti ed ridurre i tempi di iterazione nei processi di prototipazione. 
+
+La presenza di interpreti già integrati e di paradigmi multipli di rappresentazione rendevano il carico degli ingegneri della conoscenza nella definizione dei nuovi sistemi estremamente ridotto. Nonostante tutto, la scelta di utilizzare alcune di queste utilità offerte portava ad influenzare fortemente il design nei casi in cui i paradigmi offerti non corrispondessero perfettamente ai requisiti.~\cite{development1993}
+
+\subsubsection{ART (Automated Reasoning Tool}
+ART è uno dei primi strumenti di sviluppo per sistemi esperti scritti in LISP. Offriva strutture come oggetti, regole di produzione, meccanismi per il mantenimento della catena di verità ed integrava un paradigma di programmazione orientato agli oggetti.~\cite{art1998}
+
+\subsubsection{ART-IM (ART for Information Management}
+ART-IM è una re-implementazione del sistema ART in linguaggio C, basato su una versione proprietaria dell'algoritmo RETE per la realizzazione di un regime di tipo \emph{forward-chaining} e un meccanismo di mantenimento della verità (già presente in ART).
+
+Nonostante l'implementazione fosse fortemente incentrata sul motore inferenziale di tipo \emph{forward}, permetteva anche ragionamento basato sulla concatenazione all'indietro. L'utilizzo del regime alternativo era però sottoposto alla necessità di una specifica esplicita di strutture di controllo, la definizione di priorità e obiettivi.
+
+Una caratteristica importante introdotta nella re-implementazione in C era la possibilità di integrare funzionalità aggiuntive tramite lo sviluppo di funzioni separate sempre in linguaggio C ed integrabili durante la compilazione del sistema.
+
+L'utilizzo di questa caratteristica ha permesso la realizzazione di ulteriori varianti (come ART-Ada~\cite{artadanasa1990}, per l'utilizzo nella specifica dei sistemi tramite linguaggio ADA), rese disponibili in seguito.
+
+La grande varietà di funzionalità e le potenzialità offerte dal sistema nella sua interezza lo rendevano però uno strumento non adatto a progettisti alle prime armi: era richiesta conoscenza dei linguaggi C e LISP oltre che del paradigma di sviluppo orientato agli oggetti.~\cite{development1993}
+
+\subsubsection{CLIPS (C Language Integrated Production System)}
+
+CLIPS è un \emph{environment} sviluppato al NASA Johnson Space Center nella metà del 1980. Prende spunto da tool come OPS5 e ART, supportandone le caratteristiche di maggior importanza e introducendone di nuove come le funzionalità relative alla programmazione procedurale. 
+
+La sintassi utilizzata per lo sviluppo dei sistemi esperti è simile a quella del linguaggio LISP. 
+
+Lo sviluppo iniziò in un contesto in cui erano emergenti, ma ancora costose, soluzioni di environment basati su linguaggio C. Il risultato è il sistema meno costoso e di maggiore reperibilità al mondo, non meno efficiente di soluzioni commerciali alternative disponibili. La prima versione non integrava funzionalità chiave introdotte solo successivamente, come il linguaggio procedurale e il paradigma di programmazione ad oggetti.~\cite{jackson1999}
+
+Il sistema è liberamente utilizzabile per uso personale ed accademico, mentre l'uso commerciale è soggetto all'acquisto di una licenza personale \emph{una tatum}.
+
+Lo sviluppo del progetto, nonostante sia attualmente affidato unicamente ad una sola persona, è ancora in atto. Il codice sorgente è disponibile pubblicamente, insieme alle versioni compilate.
+
+Le prime versioni di CLIPS (poco più che prototipi, implementazioni \emph{clean-room} di caratteristiche di ART)~\cite{clipsarch1992}, utilizzavano un motore basato su una implementazione dell'algoritmo RETE con regime \emph{forward-chaining} e specifica nella forma di regole di produzione. 
+
+Nelle versioni successive, giustificate dal successo del progetto sia come \emph{training-tool} prima, che come reale ambiente di sviluppo e distribuzione di sistemi esperti più tardi, il progetto è stato esteso con l'integrazione del paradigma procedurale e ad oggetti (COOL).
+
+Il successo di CLIPS è attestato dal grande numero utilizzatori: una stima realizzata nel 1992 indicava come il bacino di utenza fosse superiore ai 3000 utenti, senza contare l'adozione all'interno del laboratori NASA, l'utilizzo in ambito militare, governativo, accademico e commerciale\footnote{Il numero di download del sistema dalla piattaforma di distribuzione ufficiale negli ultimi 4 anni ha superato quota 200.000. Non sono presenti misurazioni nel periodo precedente al Gennaio 2008.}.~\cite{clipsarch1992}
+
+Negli anni diversi sistemi che espandevano specifiche categorie di caratteristiche sono stati derivati dal progetto originale. Alcuni esempi sono ECLiPSe~\cite{haley1991}, eCLIPS~\cite{eclips} e FuzzyCLIPS~\cite{fuzzyclips}.
+
+\subsubsection{JESS (Java Expert System Shell)}
+Nato originariamente come un clone di CLIPS, JESS è un \emph{environment} completamente scritto in Java con l'obiettivo di integrare le funzionalità offerte da CLIPS con tecnologie per il web basate su Java, come gli applet. 
+Le prime versioni offrivano il supporto ad un set limitato delle caratteristiche di CLIPS, con il tempo lo sviluppo si è diretto verso l'aggiunta di funzionalità originali in maniera indipendente dal progetto padre, separando in questo modo i due progetti.~\cite{laerhoven1999}~\cite{jessfaq}~\cite{jessmanual}
+
+Sebbene JESS non integri un linguaggio di specifica di tipo \emph{object-oriented}, la forte integrazione con il linguaggio Java con cui è implementato consente di utilizzare particolari notazioni, gli \emph{shadow-fact}, per collegare elementi nella \emph{working-memory} con istanze di classi specificate in linguaggio Java.
 
 
-\section{Lo scenario attuale}
-Il numero soluzioni commerciali e libere per lo sviluppo di sistemi esperto è estremamente elevato. Nonostante questo, nell'ambito dello sviluppo accademico le soluzioni individuate con maggior frequenza si restringono a due sistemi: CLIPS e JESS.~\cite{laerhoven1999}
+\subsection{Il problema dell'integrazione}
 
-\subsection{CLIPS}
-CLIPS è l'acronimo di C Language Integrated Production System: un linguaggio di programmazione sviluppato al NASA Johnson Space Center nella metà del 1980. Prende spunto da tool come OPS5 e ART, supportandone le caratteristiche di maggior importanza e introducendone di nuove come le funzionalità relative alla programmazione procedurale, supportanto una sintassi simile a quella LISP. Lo sviluppo iniziò in un contesto in cui erano emergenti, ma ancora costose, soluzioni di environment basati su linguaggio C. Il risultato è il sistema meno costoso e di maggiore reperibilità al mondo, non meno efficiente di soluzioni commerciali alternative disponibili. La prima versione non integrava funzionalità chiave introdotte solo successivamente, come il linguaggio procedurale e il paradigma di programmazione ad oggetti.~\cite{jackson1999}
+Molti degli strumenti originariamente progettati per lo sviluppo di sistemi esperti stand-alone non supportavano l'integrazione con altri componenti software di utilizzo comune come database o fogli di calcolo.
 
-\subsection{JESS}
-Nato originariamente come un clone di CLIPS, JESS è un environment per sistemi esperti scritto in Java con l'obiettivo di estendere l'ambito di utilizzo dell'environment verso l'integrazione con tecnologie per il web basate su Java, come gli applet. Il numero di funzionalità originariamente offerte era un set limitato di quelle offerte da CLIPS, con il tempo lo sviluppo si è diretto verso l'aggiunta di funzionalità originali in maniera indipendente dal progetto padre, separando in questo modo i due progetti.
+A volte i linguaggi, o le piattaforme, scelti per l'implementazione di questi sistemi erano un freno alle possibilità di integrazione. I primi strumenti basati sul linguaggio LISP richiedevano apparecchiature appositamente sviluppate (\emph{LISP-machines}) e grandi quantitativi di memoria. Questo si traduceva, oltre che nella richiesta di grandi investimenti, anche in architetture fortemente specializzate. Il grande costo di queste apparecchiature limitava anche le possibilità di diffusione e successo dei prodotti sviluppati con questi tool.~\cite{development1993}
 
-\subsection{Integrazione}
-Le possibilità di integrazione fra environment per sistemi esperti e applicazioni tradizionali è un ambito non ancora completamente esplorato. Se prendiamo in considerazione scenari di utilizzo orientati al Web, queste possibilità di ricerca si espandono ulteriormente .
+Questi strumenti basati su LISP introducevano anche grossi problemi in termini di portabilità degli artefatti prodotti.~\cite{clipsarch1992}
 
-Solo prendendo in esame l'ambito dello sviluppo orientato ai servizi per il web, lo scenario attuale mostra un ridotto numero di sistemi disponibili rispetto a quelli tradizionali individuabili \cite{dokas2005} per lo sviluppo tradizionare.
+Per superare questi ostacoli molti dei tool originariamente sviluppati in LISP vennero con il tempo riscritti per essere utilizzati su piattaforme emergenti di più grande diffusione (come le workstations e le piattaforme convenzionali che utilizzavano Unix come sistema operativo prima, o come i Personal Computer poi).
 
-Purtroppo, l'architettura e il linguaggio di programmazione utilizzati da CLIPS rendono l'integrazione con applicazioni scritte in linguaggi di alto livello o orientate al web di difficile utilizzo. L'integrazione fra applicazioni in linguaggi Java e CLIPS avviene attraverso l'utilizzo di una libreria basata su Java JNI, ma non sono ancora disponibili versioni stabili della stessa.
+La scelta di molti durante questo processo di conversione ricadde verso il linguaggio C, molto diffuso e supportato da tutte le piattaforme. L'adozione del C portò un ad incremento prestazione dei sistemi oltre ad offrire nuove scenari in cui sperimentare l'integrazione fra il software disponibile sulle nuove piattaforme e gli strumenti di sviluppo per sistemi esperti.
 
-Sebbene JESS sia una alternativa più comoda in questo ambito, restrizioni di licenza ne limitano l'utilizzo.
+Prendendo in esame CLIPS, le possibilità di integrazione offerte si basato sulla possibilità di integrare all'interno di un prodotto finito scritto in un linguaggio che consenta l'integrazione di librerie scritte in linguaggio C. JESS estende ulteriormente queste possibilità tramite l'utilizzo di un Java, linguaggio emergente negli ultimi anni sia in ambiente \emph{coorporate} che nei prodotti di largo consumo.
+
+Studi effettuati negli ultimi anni hanno analizzato l'efficienza, la facilità e le possibilità offerte dallo sviluppo di software con vari linguaggi di programmazione.~\cite{naiditch1999}~\cite{Zeigler_95}~\cite{prechelt2000}~\cite{prashant2008}
+
+Sebbene questi studi abbiamo mostrato, come prevedibile, che le caratteristiche di particolari linguaggi si adattino meglio ad alcuni ambiti di utilizzo particolari rispetto che ad altri, un elemento comune emerso riguarda l'impatto che la scelta del linguaggio ha sui costi di sviluppo e l'affidabilità degli artefatti prodotti. Nonostante la grande flessibilità offerta dal linguaggio C, i costi sopportati per lo sviluppo, il testing e la manutenzione degli artefatti prodotti era superiore rispetto ad altri linguaggi come Ada~\cite{Zeigler_95}, Java~\cite{prashant2008} o a linguaggi interpretati come Perl o Python\cite{prechelt2000}.
 
 \section{Obiettivi di questa tesi}
-Negli ultimi, Internet e più specificatamente il \emph{World Wide Web} sta evolvendo da un media per lo scambio di informazioni verso una piattaforma onnipresente per la distribuzione di qualsiasi genere di servizi come il \emph{Web banking}, \emph{commercio online}, \emph{E-Government}, etc. La ragione alla base di questa rapida evoluzione del Web è il grande numero di possibilità che questa forma di distribuzione offre, unito al grande successo che questo genere di soluzioni sta riscontrando verso l'utenza.
+Negli ultimi anni, Internet e più specificatamente il \emph{World Wide Web} sta evolvendo da un media per lo scambio di informazioni verso una piattaforma onnipresente per la distribuzione di qualsiasi genere di servizi come il \emph{Web banking}, \emph{commercio online}, \emph{E-Government}, etc. La ragione alla base di questa rapida evoluzione del Web è il grande numero di possibilità che questa forma di distribuzione offre, unito al grande successo che questo genere di soluzioni sta riscontrando verso l'utenza.
 
 L'orientamento verso il calcolo distribuito, lo stoccaggio di dati personali tramite servizi \emph{cloud-based}, la conversione del consumo classico verso declinazioni digitali, sono tutti frammenti di questa evoluzione.
 
-In questo ambito, la possibilità di integrazione delle tecnologie classiche per la realizzazione di sistemi esperti con strumenti di nuova generazione orientati al web, sta aprendo una frontiera nell'ambito dello sviluppo degli \emph{expert system environment}.
+In questo ambito, la possibilità di integrazione delle tecnologie classiche per la realizzazione di sistemi esperti con strumenti di nuova generazione orientati allo sviluppo per web sta aprendo una frontiera per gli \emph{expert system environment}.
 
-Unire due ambiti di utilizzo tanto differenti, quali sono quello classico e quello orientato al web, all'interno di un solo environment richiede la progettazione di soluzioni estremamente flessibili.
+Unire problematiche tanto differenti all'interno di un solo strumento richiede la progettazione di soluzioni estremamente flessibili.
 
-Lo scenario di riferimento descritto nell'arco di questo capitolo unito alle problematiche emergenti dallo sviluppo orientato al web, è la base su cui si vuole proporre un \emph{environment per sistemi esperti} che offra caratteristiche di estrema flessibilità e consenta una integrazione rapida con tecnologie esistenti orientate al web.
+Lo scenario di riferimento descritto nell'arco di questo capitolo unito alle problematiche emergenti dallo sviluppo orientato al web è la base su cui si vuole proporre un \emph{environment per sistemi esperti} che offra caratteristiche di estrema flessibilità e consenta un'integrazione rapida con tecnologie esistenti orientate al web.
 
 Gli obiettivi perseguiti nell'ambito di questa tesi sono riassumibili come segue:
 \begin{itemize}
-	\item fornire un \emph{expert system environment} dotato di una architettura flessibile in grado di permettere una elevata estensibilità e personalizzazione dell'environment stesso.
-	\item estendere il sistema prodotto con funzionalità che consentano la distribuzione dei servizi offerti dall'environment anche attraverso un modello d'architettura di tipo \emph{client-server}, che faciliti la creazione di soluzioni basate su calcolo distribuito.
+	\item fornire un \emph{expert system environment} dotato di una architettura flessibile in grado di permettere l'aggiunta di nuove caratteristiche;
+	\item estendere il sistema prodotto con funzionalità che consentano la distribuzione dei servizi offerti dall'\emph{environment} anche attraverso un modello d'architettura di tipo \emph{client-server}, che faciliti la creazione di soluzioni basate su calcolo distribuito.
 \end{itemize}
 
 
