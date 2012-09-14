@@ -1,4 +1,6 @@
 
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{4}
 
 \frenchspacing % forza LaTeX ad una spaziatura non inglese
 \hoffset + 0.5cm
@@ -43,7 +45,39 @@
 
 
 \floatstyle{boxed}
-\newfloat{program}{thp}{lop}[section]
+\newfloat{program}{thp}{lop}[chapter]
 \floatname{program}{Codice}
 
 
+% Vincoli
+
+% Initializing the counters and define a custom label
+\newcommand{\vincoliinit}{
+    % Create a new counter for keeping track of the last number
+    \newcounter{vincolicountbackup}
+    % Create a new counter for the custom label
+    \newcounter{vincolicount}
+    % Redefine the command for the last counter so when it is called
+    % it prints the number like this in a bold font: R<number>
+    \renewcommand{\thevincolicount}{\textbf{Vincolo-\arabic{vincolicount}: }}
+}
+
+% Used to define the start of the requirements
+\newcommand{\vincolistart}{
+    % Indicate the start of a new list and tell it to use the redefined
+    % command and corresponding counter for every item
+    \begin{list}{\thevincolicount}{\usecounter{vincolicount}}
+    % Important part: set the value of the used counter to the
+    % same value of the backup counter.
+    \setcounter{vincolicount}{\value{vincolicountbackup}}
+}
+
+% Used to define the end of the requirements
+\newcommand{\vincoliend}{
+    % Important part: take the value of the used counter (after
+    % being incremented by the requirement items) and store it
+    % in the backup counter.
+    \setcounter{vincolicountbackup}{\value{vincolicount}}
+    % Mark the end of the list environment
+    \end{list}
+}

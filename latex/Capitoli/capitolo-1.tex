@@ -39,7 +39,7 @@ Dalla metà del 1960 ad oggi  sono stati creati un gran numero di sistemi espert
 
 Il primi sistemi esperti prodotti furono Dendral (1965), con lo scopo di determinare la struttura molecolare partendo da dati provenienti da uno spettrometro di massa, R1 (1978), usato per configurare sistemi computerizzati e MYCIN (1976), per assistere nella diagnosi di infezioni da batteri e proporre piani terapeutici per il trattamento delle stesse.
 
-\paragraph{Le componenti di un sistema esperto} 
+\subsection{Le componenti di un sistema esperto} 
 
 \begin{figure}[h]
 \centering
@@ -55,7 +55,7 @@ La struttura di un sistema esperto può essere sinteticamente descritta come com
 	\item \emph{Modulo di aggiornamento della conoscenza}: permette di modificare ed integrare quanto presente nella \emph{base di conoscenza} tramite processi automatici o che richiedono l'intervento di un esperto.
 \end{itemize}
 
-\subsection{Il processo di sviluppo di un Sistema Esperto}
+\subsection{Il processo di sviluppo di un sistema esperto}
 Come il processo di sviluppo di software tradizionale può essere scandito in fasi e rappresentato all'interno dei vari modelli di sviluppo, anche la produzione di sistemi esperti può essere semplificata attraverso un modello suddiviso in step successivi. 
 
 \begin{figure}[h]
@@ -103,7 +103,7 @@ Fra le modalità di codifica della conoscenza suggerite negli anni sono annovera
 
 Un approccio ideale allo sviluppo di un sistema esperto dovrebbe prevedere la possibilità di utilizzare il maggior numero possibile di queste tecniche di rappresentazione \cite{development1993}, per offrire una più ampia possibilità di scelta agli sviluppatori durante le fasi di design.
 
-\paragraph{Regole di produzione}
+\subsubsection{Regole di produzione}
 La più nota forma di rappresentazione della conoscenza è quella basata su regole. \'E probabilmente un assioma dell'intelligenza artificiale, e della moderna psicologia, che comportamenti ritenuti intelligenti siano governati da regole. Anche nel mondo, le persone tendono ad associare intelligenza con coerenza nei comportamenti, e spesso il concetto di comportamento viene spiegato facendo riferimento a quello di regolarità.~\cite{jackson1999}
 
 Inoltre, un forte gruppo di esponenti di spicco nell'ambito delle scienze cognitive ha postulato sulla possibilità di rappresentare grande parte del ragionamento umano stesso nella forma di regole.~\cite{anderson1993rules}
@@ -163,7 +163,7 @@ interpretabile come:
 
 Con i termini \emph{left-hand side} e \emph{right-hand side} si è soliti indicare rispettivamente la porzione di condizione e quella di azione di una regola.
 
-\paragraph{Reti semantiche}
+\subsubsection{Reti semantiche}
 Un'altra tecnica di rappresentazione della conoscenza usa reti di strutture chiamate \emph{reti semantiche}. I nodi di queste reti sono costituiti da eventi, oggetti o concetti, che possono essere relazionati fra loro, tramite l'uso di archi di varia natura, per stabilire strutture gerarchiche fra i concetti stessi.~\cite{development1993}
 
 Due esempi relazioni molto comuni in questo tipo di rappresentazione sono quelle  \emph{is-a} e \emph{has-part}. 
@@ -175,7 +175,7 @@ La definizione offerta da \emph{R. H. Richens}, ideatore delle \emph{reti semant
 ''una \emph{interlingua} nella quale tutte le peculiarità strutturali del linguaggio di base sono rimosse e siamo lasciati con solo quello che io chiamo una \emph{rete semantica} di \emph{idee spoglie}. In questa rete gli elementi rappresentano cose, qualità o relazioni $\dots$[ o] punti di collegamento fra cose verso le proprie qualità o relazioni, o da qualità e relazioni verso un'ulteriore qualificazione.'' \cite{richens1956}
 \end{quote}
 
-\paragraph{Frame}
+\subsubsection{Frame}
 Il concetto di ereditarietà introdotto tramite l'utilizzo delle \emph{reti semantiche} viene ulteriormente esteso tramite l'utilizzo del concetto di \emph{Frame}. 
 \begin{quote}
 ''Un \emph{frame} è una struttura dati per la rappresentazione di situazioni stereotipate. [\dots] Diverse tipologie di informazioni vengono collegate a ciascun frame. Alcune di queste informazioni riguardano l'utilizzo dello stesso. Altre sono a proposito di quello che ci si può attendere. Altre riguardano cosa fare se queste attese non sono confermate.'' \cite{minsky1974}
@@ -187,7 +187,7 @@ Le forme più semplici di condizioni possono richiedere l'intervento dell'utente
 
 Il contenuto degli slot può essere un'informazione atomica, così come un'ulteriore sotto-struttura \emph{frame}. L'utilizzo di strutture innestate permette la creazione di ulteriori livelli gerarchici con estrema facilità. \cite{minsky1974} 
 
-\paragraph{Oggetti}
+\subsubsection{Oggetti}
 Nell'approccio \emph{object-oriented} alla rappresentazione della conoscenza, gli oggetti descrivono una strategia di rappresentazione derivata da quella dei \emph{frame}. Da quest'ultima strategia, essi ereditano i concetti di relazione, slot e l'organizzazione gerarchica fra gli elementi stessi.~\cite{holsapple1994object}
 
 L'innovazione introdotta dall'approccio basato su oggetti è quella di consentire la comunicazione fra gli oggetti stessi attraverso un protocollo basato sullo scambio di messaggi: in seguito alla ricezione di un messaggio, un oggetto attiva una appropriata procedura e valuta se propagare o meno ad altri oggetti, con cui lo stesso è in relazione, il segnale originale o una sua versione modificata.~\cite{development1993}
@@ -423,10 +423,10 @@ Gli strumenti posti al più alto grado di sofisticazione nella categoria degli \
 
 La presenza di interpreti già integrati e di paradigmi multipli di rappresentazione rendevano estremamente ridotto il carico degli ingegneri della conoscenza nella definizione dei nuovi sistemi. Nonostante tutto, la scelta di utilizzare alcune di queste funzionalità portava ad influenzare fortemente il design nei casi in cui i paradigmi offerti non corrispondessero perfettamente ai requisiti.~\cite{development1993}
 
-\subsubsection{ART (Automated Reasoning Tool)}
+\subsubsection[ART]{ART (Automated Reasoning Tool)}
 ART è uno dei primi strumenti di sviluppo per sistemi esperti scritti in LISP. Offriva strutture come oggetti, regole di produzione, meccanismi per il mantenimento della catena di verità ed integrava un paradigma di programmazione orientato agli oggetti.~\cite{art1998}
 
-\subsubsection{ART-IM (ART for Information Management)}
+\subsubsection[ART-IM]{ART-IM (ART for Information Management)}
 ART-IM è una re-implementazione del sistema ART in linguaggio C, basato su una versione proprietaria dell'algoritmo RETE per la realizzazione di un regime di tipo \emph{forward-chaining} e un meccanismo di mantenimento della verità (già presente in ART).
 
 Nonostante l'implementazione fosse fortemente incentrata sul motore inferenziale di tipo \emph{forward}, il sistema permetteva anche ragionamento basato sulla concatenazione all'indietro. L'utilizzo del regime alternativo era però sottoposto alla necessità di una specifica esplicita di strutture di controllo, alla definizione di priorità e obiettivi.
@@ -437,7 +437,7 @@ L'utilizzo di questa caratteristica ha permesso la realizzazione di ulteriori va
 
 La grande varietà di funzionalità e le potenzialità offerte dal sistema nella sua interezza lo rendevano però uno strumento non adatto a progettisti alle prime armi: era richiesta conoscenza dei linguaggi C e LISP oltre che del paradigma di sviluppo orientato agli oggetti.~\cite{development1993}
 
-\subsubsection{CLIPS (C Language Integrated Production System)}
+\subsubsection[CLIPS]{CLIPS (C Language Integrated Production System)}
 
 CLIPS è un \emph{environment} sviluppato al NASA Johnson Space Center nella metà del 1980. Prende spunto da tool come OPS5 e ART, supportandone le caratteristiche di maggior importanza e introducendone di nuove come le funzionalità relative alla programmazione procedurale. 
 
@@ -457,7 +457,7 @@ Il successo di CLIPS è attestato dal grande numero utilizzatori: una stima real
 
 Negli anni sono stati derivati dal progetto originale diverse varianti che espandevano specifiche categorie di caratteristiche. Alcuni esempi sono ECLiPSe~\cite{haley1991}, eCLIPS~\cite{eclips} e FuzzyCLIPS~\cite{fuzzyclips}.
 
-\subsubsection{JESS (Java Expert System Shell)}
+\subsubsection[JESS]{JESS (Java Expert System Shell)}
 Nato originariamente come un clone di CLIPS, JESS è un \emph{environment} completamente scritto in Java con l'obiettivo di integrare le funzionalità offerte da CLIPS con tecnologie per il web basate su Java, come gli applet. 
 Le prime versioni offrivano il supporto ad un set limitato delle caratteristiche di CLIPS. Con il tempo lo sviluppo si è diretto verso l'aggiunta di funzionalità originali in maniera indipendente dal progetto padre, separando in questo modo i due progetti.~\cite{laerhoven1999}~\cite{jessfaq}~\cite{jessmanual}
 
