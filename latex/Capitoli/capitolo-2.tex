@@ -243,7 +243,7 @@ L'utilizzo di queste funzioni avviene congiuntamente all'utilizzo di una delle d
 		(cintura scalpo scalpo scalpo))
 )
 \end{verbatimtab}
-\caption{Fatto definito utilizzando la notazione \emph{Ordered-Fact}}\label{code:ordered-fact}
+\caption{Definizione di un gruppo di fatti tramite \emph{deffacts}}\label{code:deffacts}
 \end{program}
 
 
@@ -456,42 +456,156 @@ Si riassumono quindi le funzionalità richieste al sistema.
 \subsection{Vincoli di progetto}
 \vincolistart
 	\item il sistema deve permettere l'esecuzione di artefatti realizzati tramite CLIPS (escludendo quelli che utilizzano le estensioni del linguaggio COOL), richiedendo soltanto modifiche di lieve entità.
+	
+	\item il sistema deve prevedere la possibilità di integrare nuove funzionalità
 \vincoliend
 
 \subsection{Stabilità dei vincoli}
 
-\begin{table}[htbp]
-\centering
-\caption{Matrice di stabilità dei vincoli}\label{tab:stabilita-vincoli}
-\begin{tabularx}{0.95\textwidth}{|c|c|c|X|}
+\begin{longtable}{|c|c|c|p{7cm}|}
+\caption{Matrice di stabilità dei vincoli}\label{tab:stabilita-vincoli}\\
+\hline\hline
+\rowcolor{grigio-chiarissimo} \textbf{\#} & \textbf{Stabile} & \textbf{Instabile} & \textbf{Motivazione} \\
+\hline\hline
+\endfirsthead
+\hline\hline
+\rowcolor{grigio-chiarissimo} \textbf{\#} & \textbf{Stabile} & \textbf{Instabile} & \textbf{Motivazione} \\
+\hline\hline
+\endhead
+
+Vincolo-1 &  & $\blacklozenge$ & Nuove tecnologie potrebbero far migrare il sistema verso nuove forme di interazione \\ 
+\hline 
+Vincolo-2 & $\blacklozenge$ &  &  \\ 
+\hline 
+Vincolo-3 & $\blacklozenge$ & & \\ 
+\hline 
+Vincolo-4 & $\blacklozenge$ & & \\ 
+\hline 
+Vincolo-5 &  & $\blacklozenge$ & Lo sviluppo tecnologico potrebbe portare a richieste hardware differenti come conseguenza di un ampliamento delle richieste software \\ 
+\hline 
+Vincolo-6 & $\blacklozenge$ & & \\ 
+\hline 
+Vincolo-7 & & $\blacklozenge$ & Lo sviluppo del sistema potrebbe portare all'introduzione di vincoli prestazionali \\ 
+\hline 
+Vincolo-8 & & $\blacklozenge$ & Lo sviluppo del sistema potrebbe portare all'ampliamento della compatibilità o a modifiche del linguaggio che riducano la portabilità degli artefatti\\ 
+\hline 
+Vincolo-9 & $\blacklozenge$ & & \\ 
 \hline
-\textbf{\#} & \textbf{Stabile} & \textbf{Instabile} & \textbf{Motivazione} \\ \hline\hline
-Vincolo-1 &  & $\bigotimes$ & Nuove tecnologie potrebbero far migrare il sistema verso nuove forme di interazione \\ 
-\hline 
-Vincolo-2 & $\bigotimes$ &  &  \\ 
-\hline 
-Vincolo-3 & $\bigotimes$ & & \\ 
-\hline 
-Vincolo-4 & $\bigotimes$ & & \\ 
-\hline 
-Vincolo-5 &  & $\bigotimes$ & Lo sviluppo tecnologico potrebbe portare a richieste hardware differenti come conseguenza di un ampliamento delle richieste software \\ 
-\hline 
-Vincolo-6 & $\bigotimes$ & & \\ 
-\hline 
-Vincolo-7 & & $\bigotimes$ & Lo sviluppo del sistema potrebbe portare all'introduzione di vincoli prestazionali \\ 
-\hline 
-Vincolo-8 & & $\bigotimes$ & Lo sviluppo del sistema potrebbe portare all'ampliamento della compatibilità o a modifiche del linguaggio che riducano la portabilità degli artefatti\\ 
-\hline
-\end{tabularx} 
-\end{table}
+
+\end{longtable}
+
 
 \section{Attori e Casi d'uso}
 
-Bla bla
+\subsection{Attori}
 
-\subsection{Scenari dei casi d'uso}
+In seguito ad un'analisi preliminare, sono state individuate sette classi di attori principali (\figurename~\ref{fig:attori}).
 
-Bla bla
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{Immagini/Capitolo2/UseCases/Attori.png}
+\caption{Gerarchia degli attori}\label{fig:attori}
+\end{figure}
+
+\begin{description}
+	\item[ES Consumer:] rappresenta un attore generalizzato in grado di utilizzare i servizi principali offerti dall'\emph{environment} per caricare, eseguire ed interagire con un artefatto precedentemente creato tramite i protocolli offerti dall'\emph{environment} stesso.
+	
+	\item[ES Developer:] specializzazione di \emph{ES Consumer}, servendosi del linguaggio di specifica fornito dall'\emph{environment} realizza artefatti eseguibili. Tramite l'utilizzo di apposite interfacce è anche in grado di testare l'artefatto prodotto analizzando rappresentazioni grafiche delle strutture interpretate e registri d'attività dell'esecuzione dell'artefatto.
+	\item[Utente Umano:] specializzazione di \emph{ES Consumer}.
+	
+	\item[Standalone Application:] specializzazione di \emph{ES Consumer}. Utilizza i servizi offerti dall'\emph{environment} all'interno di applicazioni \emph{stand-alone}. Esegue artefatti e valuta i risultati dell'esecuzione analizzando eventi e lo stato finale del sistema.
+	
+	\item[Remote Application:] specializzazione di \emph{Standalone Application}. Esegue attività analoghe a quelle di \emph{Standalone Application}, ma utilizzando i servizi tramite appositi protocolli di comunicazione. Per supportare questi protocolli l'attore può creare, configurare o distruggere sessioni.
+	
+	\item[Environment Developer:] utilizzando la documentazione di sistema e le apposite \emph{API} fornite, estende le funzionalità dell'\emph{environment} aggiungendo nuove funzioni di sistema, strategie di risoluzione dei conflitti o \emph{event-listener}. Utilizzando un framework per l'esecuzione di test d'unità, può verificare il funzionamento delle funzioni integrate.
+	
+	\item[Server Administrator:] configura e gestisce un'istanza server dell'\emph{environment}.
+	
+\end{description}
+
+\subsection{Organizzazione dei Casi d'uso}
+
+\begin{figure}
+\centering
+\includegraphics[width=1.2\textwidth, angle=270]{Immagini/Capitolo2/UseCases/Vista-generale.png}
+\caption{Vista generale dei casi d'uso principali}\label{fig:uc-vista-generale}
+\end{figure}
+
+
+I casi d'uso vengono organizzati in quattro gruppi differenti (\figurename~\ref{fig:uc-vista-generale}). Il gruppo di appartenenza di ognuno, indicato dal prefisso inserito nel nome, viene associato tenendo conto dell'attore principale al quale \emph{use case} fa riferimento. Il formato del nome di ogni caso d'uso seguirà quindi questa convenzione:
+\begin{center}
+UC[\emph{Attore}]-[\emph{Sezione}].[\emph{Gruppo}].[\emph{SottoGruppo}]: [\emph{Descrizione breve}]
+\end{center}
+dove:
+
+
+\begin{description}
+	\item[Attore] indica l'attore principale relazionato con il caso d'uso: \textbf{E} per \emph{Environment Developer}, \textbf{A} per \emph{Server Administrator}, \textbf{S} per \emph{Standalone Application}, \textbf{R} per \emph{Remote Application}, \textbf{D} per \emph{ES Developer} e \textbf{C} per \emph{ES Consumer}. Non è presente nessuno codice per l'attore \emph{Utente umano} in quanto non esiste alcun caso d'uso relativo esclusivamente ad esso.
+
+	\item[Sezione] indica una delle sezioni principali presenti nella vista generale fornita in \figurename~\ref{fig:uc-vista-generale}.
+	
+	\item[Gruppo] e \textbf{SottoGruppo} esplicitano un'organizzazione gerarchica dei casi d'uso.
+
+\end{description}
+
+\pagebreak
+
+\subsubsection{UCC-1: Utilizzo artefatto}
+
+\input{Capitoli/capitolo-2/ucc-1}\pagebreak
+
+\subsubsection{UCD-1: Creazione artefatto}
+
+\input{Capitoli/capitolo-2/ucd-1}\pagebreak
+
+\subsubsection{UCD-2: Testa artefatto}
+
+%\input{Capitoli/capitolo-2/ucd-2}\pagebreak
+
+\subsubsection{UCE-1: Modifica funzioni di sistema}
+
+%\input{Capitoli/capitolo-2/uce-1}\pagebreak
+
+\subsubsection{UCE-2: Monitorizza evento}
+
+%\input{Capitoli/capitolo-2/uce-2}\pagebreak
+
+\subsubsection{UCE-3: Aggiunge CRS}
+
+%\input{Capitoli/capitolo-2/uce-3}\pagebreak
+
+\subsubsection{UCE-4: Testa environment}
+
+%\input{Capitoli/capitolo-2/uce-4}\pagebreak
+
+\subsubsection{UCA-1: Avvia Server}
+
+%\input{Capitoli/capitolo-2/uca-1}\pagebreak
+
+\subsubsection{UCA-2: Arresta Server}
+
+%\input{Capitoli/capitolo-2/uca-2}\pagebreak
+
+\subsubsection{UCA-3: Configura Server}
+
+%\input{Capitoli/capitolo-2/uca-3}\pagebreak
+
+\subsubsection{UCS-1: Analisi dei risultati}
+
+%\input{Capitoli/capitolo-2/ucs-1}\pagebreak
+
+\subsubsection{UCR-1: Inizializza sessione}
+
+%\input{Capitoli/capitolo-2/ucr-1}\pagebreak
+
+\subsubsection{UCR-2: Distrugge sessione}
+
+%\input{Capitoli/capitolo-2/ucr-2}\pagebreak
+
+\subsubsection{UCR-3: Richiede servizio}
+
+%\input{Capitoli/capitolo-2/ucr-3}\pagebreak
+
 
 \section{Requisiti}
 
