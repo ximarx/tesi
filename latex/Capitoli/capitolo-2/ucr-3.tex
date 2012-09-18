@@ -1,0 +1,39 @@
+%UCR-3: Richiede servizio
+
+Il diagramma relativo al caso d'uso \emph{UCR-3}, data la natura complessa dello stesso, è accorpato a quello del caso d'uso \emph{UCR-1} fornito in \figurename~\ref{fig:uc-ucr-generale}.
+
+\begin{itemize}
+	\item \textbf{Attori:} RA
+	\item \textbf{Scopo e descrizione:} la RA deve avere la possibilità di richiedere un servizio al software server
+	\item \textbf{Pre-condizioni:} la RA ha eseguito il caso d'uso \emph{UCR-1.1}. La RA ha eseguito il caso d'uso \emph{UCR-1} se il servizio richiesto richiede l'inizializzazione di una sessione
+	\item \textbf{Post-condizioni:} la RA ha ottenuto il risultato dell'elaborazione effettuata da un servizio
+	\item \textbf{Flusso principale degli eventi:}
+		\begin{enumerate}
+			\item la RA richiede un servizio al software server
+				\begin{itemize}
+					\item la RA indica il nome del servizio richiesto
+					\item la RA indica i parametri di esecuzione del servizio
+					\item la RA può indicare il codice univoco di una sessione precedentemente inizializzata, se necessario
+				\end{itemize}
+			\item la RA attende il completamento dell'elaborazione
+		\end{enumerate}
+	\item \textbf{Flusso alternativo \#1:}
+		\begin{enumerate}
+			\item se la RA richiede un servizio non disponibile, la RA riceve un messaggio d'errore
+			\item la RA attiva un protocollo di gestione dell'errore (la definizione del protocollo è materia della RA)
+		\end{enumerate}
+
+	\item \textbf{Flusso alternativo \#2:}
+		\begin{enumerate}
+			\item se la RA richiede un servizio disponibile, ma il codice di sessione è scaduto
+			\item la RA esegue il caso d'uso \emph{UCR-1}
+			\item lo scenario prosegue dal punto 1 del flusso principale
+		\end{enumerate}
+
+		
+	\item \textbf{Flusso alternativo \#3:}
+		\begin{enumerate}
+			\setcounter{enumi}{1}
+			\item se la RA non riceve risposta entro un tempo limite, la RA attiva un protocollo di gestione dell'errore (la definizione del protocollo è materia della RA)
+		\end{enumerate}
+\end{itemize}

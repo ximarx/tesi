@@ -1,0 +1,20 @@
+%UCA-2: Arresta Server
+
+\begin{itemize}
+	\item \textbf{Attori:} Server Administrator
+	\item \textbf{Scopo e descrizione:} il Server Administrator deve essere in terminare l'esecuzione di un'istanza del software
+	\item \textbf{Pre-condizioni:} un'istanza del software è attiva
+	\item \textbf{Post-condizioni:} l'istanza del software non è più attiva
+	\item \textbf{Flusso principale degli eventi:}
+		\begin{enumerate}
+			\item il Server Administrator richiede l'arresto del software
+			\item tutte le sessioni vengono chiuse
+			\item il software viene arrestato
+		\end{enumerate}
+	\item \textbf{Flusso alternativo:}
+		\begin{enumerate}
+			\setcounter{enumi}{1}
+			\item se si verifica un errore durante la chiusura di una sessione (o un tempo limite per l'operazione viene superato), la sessione viene distrutta forzatamente
+			\item lo scenario prosegue dal punto 3 del flusso principale
+		\end{enumerate}
+\end{itemize}

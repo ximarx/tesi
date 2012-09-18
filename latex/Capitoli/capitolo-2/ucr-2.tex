@@ -1,0 +1,22 @@
+%UCR-2: Distrugge sessione
+
+Il diagramma relativo al caso d'uso \emph{UCR-2}, data la natura complessa dello stesso, è accorpato a quello del caso d'uso \emph{UCR-1} fornito in \figurename~\ref{fig:uc-ucr-generale}.
+
+\begin{itemize}
+	\item \textbf{Attori:} RA
+	\item \textbf{Scopo e descrizione:} la RA deve avere la possibilità di terminare e distruggere una sessione precedentemente inizializzata
+	\item \textbf{Pre-condizioni:} la RA ha eseguito il caso d'uso \emph{UCR-1}
+	\item \textbf{Post-condizioni:} il codice univoco ottenuto dall'esecuzione del caso d'uso \emph{UCR-1} non è più valido
+	\item \textbf{Flusso principale degli eventi:}
+		\begin{enumerate}
+			\item la RA notifica la volontà di terminare la sessione al software server
+			\item la RA riceve notifica di avvenuta chiusura della sessione
+			\item la RA cancella dalla propria memoria il codice univoco di sessione
+		\end{enumerate}
+	\item \textbf{Flusso alternativo:}
+		\begin{enumerate}
+			\setcounter{enumi}{1}
+			\item se la RA non riceve notifica di avvenuta chiusura della sessione dopo un tempo stabilito, notifica un avviso non invasivo
+			\item lo scenario prosegue dal punto 3 del flusso principale
+		\end{enumerate}
+\end{itemize}

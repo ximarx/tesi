@@ -1,0 +1,25 @@
+%UCA-1: Avvia server
+
+\begin{itemize}
+	\item \textbf{Attori:} Server Administrator
+	\item \textbf{Scopo e descrizione:} il Server Administrator deve essere in inizializzare un'istanza server del software
+	\item \textbf{Pre-condizioni:} il sistema è correttamente configurato. Il software è correttamente configurato
+	\item \textbf{Post-condizioni:} un'istanza server del software è attiva e attende connessioni
+	\item \textbf{Flusso principale degli eventi:}
+		\begin{enumerate}
+			\item il Server Administrator avvia un'istanza del software
+			\item la configurazione del software viene valutata (si guardi caso d'uso \emph{UCA-3})
+		\end{enumerate}
+	\item \textbf{Flusso alternativo \#1:}
+		\begin{enumerate}
+			\setcounter{enumi}{1}
+			\item se una specifica di configurazione non è disponibile, il software notifica l'errore
+			\item vengono utilizzati dei parametri di default
+		\end{enumerate}
+	\item \textbf{Flusso alternativo \#2:}
+		\begin{enumerate}
+			\setcounter{enumi}{1}
+			\item se la specifica di configurazione non è valida, il software notifica l'errore
+			\item l'esecuzione viene terminata
+		\end{enumerate}
+\end{itemize}
