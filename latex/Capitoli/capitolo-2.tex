@@ -1,64 +1,21 @@
 
-\chapter{Analisi del sistema}
+\chapter{Analisi}
 
-Lo scopo di questo capitolo è quello di fornire un'analisi del sistema da proporre. Verrà specificato il contesto nel quale l'artefatto dovrà operare, mettendo in evidenzia, in seguito ad una analisi preliminare, l'insieme dei requisiti che dovranno risultare soddisfatti. Per la struttura di questo capitolo verranno utilizzate, come riferimenti, le specifiche suggerite in \cite{ieee830-1998}.
+Lo scopo di questo capitolo è quello di fornire un'analisi del sistema da proporre. Verrà specificato il contesto nel quale l'artefatto dovrà operare, mettendo in evidenzia l'insieme dei requisiti che dovranno risultare soddisfatti. Per la struttura di questo capitolo verranno utilizzate le specifiche suggerite in \cite{ieee830-1998} come riferimenti.
 
 \section{Scopo del sistema}
 
-Il progetto \emph{MyCLIPS} si prefigge lo scopo di sviluppare un software di tipo \emph{Expert System Environment}, mediante la realizzazione di un ambiente multi-paradigmatico che supporti programmazione procedurale e basata su regole, un regime di controllo di tipo \emph{forward chaining} e che fornisca soluzioni per la distribuzione dei servizi tramite architettura \emph{client-server}.
+Il progetto \emph{MyCLIPS} si prefigge lo scopo di sviluppare un software di tipo \emph{Expert System Environment}, mediante la realizzazione di un ambiente multi-paradigmatico che supporti programmazione procedurale e basata su regole, un regime di controllo di tipo \emph{forward chaining}, basato su un'implementazione dell'algoritmo RETE per le operazione di \emph{pattern-matching}.
+Affiancato al sistema principale, verrà inoltre progettato un modulo aggiuntivo che consenta la distribuzione dei servizi offerti dal software principale tramite un'architettura basata sul modello \emph{client-server}.
 
-L'artefatto derivante dall'implementazione del progetto \emph{MyCLIPS} non sarà un prodotto con fini commerciali, ma piuttosto uno strumento con fini didattici e di supporto alla ricerca nell'ambito degli \emph{environment per sistemi esperti} e dell'integrazione degli stessi con tecnologie orientate al Web.
+L'artefatto derivante dall'implementazione del progetto, inteso come unione del software principale e del modulo server aggiuntivo, non sarà un prodotto con fini commerciali, ma piuttosto uno strumento con fini didattici e di supporto alla ricerca nell'ambito degli \emph{environment per sistemi esperti} e dell'integrazione degli stessi con tecnologie orientate al Web.
 
-\section{Definizioni, acronimi, abbreviazioni}
 
-\begin{itemize}
-	\item \emph{Ambiente di sviluppo integrato}:
-	\item \emph{Analisi dei requisiti}:
-	\item \emph{API}:
-	\item \emph{Best Practice}:
-	\item \emph{Bug}:
-	\item \emph{C}:	
-	\item \emph{Client}:
-	\item \emph{Casi d'uso}:
-	\item \emph{Codice sorgente}:
-	\item \emph{CPU}:
-	\item \emph{Design Pattern}:
-	\item \emph{Eclipse}:
-	\item \emph{Expert System Environment}:
-	\item \emph{Forward Chaining}:
-	\item \emph{GUI}:
-	\item \emph{IDE}:
-	\item \emph{Incapsulamento}:
-	\item \emph{Incrementale}:
-	\item \emph{Java}:
-	\item \emph{Javadoc}:
-	\item \emph{Listener}:
-	\item \emph{Multipiattaforma}:
-	\item \emph{MyCLIPS}:
-	\item \emph{Multi-slot}:
-	\item \emph{Open source}:
-	\item \emph{Overhead}:
-	\item \emph{Package}:
-	\item \emph{Pattern Matching}:
-	\item \emph{Plugin}:
-	\item \emph{PyDev}:
-	\item \emph{Python}:
-	\item \emph{RETE}:
-	\item \emph{Slot}:
-	\item \emph{Strategia di risoluzione dei conflitti}:
-	\item \emph{Rule-Based Systems}:
-	\item \emph{Server}:
-	\item \emph{Sistema Operativo}:
-	\item \emph{Skeleton}:
-	\item \emph{Standalone}:
-	\item \emph{Stub}:
-	\item \emph{Thread}:
-	\item \emph{UML}:
-	\item \emph{Unificazione}:
-	\item \emph{Use Case}:
-	\item \emph{XML}:
-	\item \emph{XMLRPC}:
-\end{itemize}
+%%%%% ATTIVARE PER COMPILAZIONE RAPPORTO-TECNICO %%%%%
+% Include:
+% 	- Sezione: Definizioni, acronimi, abbreviazioni
+%\include{Rapp-tecnico/glossario}
+
 
 %%%%% ATTIVARE PER COMPILAZIONE RAPPORTO-TECNICO %%%%%
 % Include:
@@ -72,20 +29,175 @@ L'artefatto derivante dall'implementazione del progetto \emph{MyCLIPS} non sarà
 
 \section{Capacità}
 
+Questa sezione offre una panoramica delle capacità richiesta al sistema, valutando le possibili alternative percorribili e giustificando eventuali vincoli introdotti in questa fase d'analisi.
+
+Il tipo di software che il progetto MyCLIPS punta a realizzare è un \emph{environment} multi-paradigmatico per sistema esperti. In quanto tale deve offrire strumenti per la realizzazione di sistemi esperti, associando all'uso delle regole di produzione come metodo di rappresentazione della conoscenza, la possibilità di specifica di strutture di controllo tramite un paradigma procedurale.
+
+\subsection{Linguaggio di specifica}\label{par:linguaggio}
+Fra i vincoli di progettazione è prevista la necessità di fornire il sistema di un linguaggio di specifica che permetta l'utilizzo di sistemi esperti realizzati per il software CLIPS. Il livello di compatibilità previsto richiede di fornire all'utente i costrutti di base utilizzati da CLIPS per la definizione di regole, della conoscenza fattuale (in formato \emph{Ordered-Fact} e \emph{Template-Fact}), dei moduli, delle funzioni utente e delle variabili globali.
+
+Il linguaggio utilizzato deve risultare compatibile sia a livello semantico che a livello sintattico con quello fornito da CLIPS, offrendo in questo modo il massimo livello di portabilità degli artefatti.
+
+\subsubsection{Moduli}\label{par:linguaggio-moduli}
+Il formalismo previsto da CLIPS e che dovrà essere supportato dal software prodotto, consente la definizione di moduli attraverso l'utilizzo del costrutto \emph{defmodule}.
+Il modulo è un'unità di programma che racchiude e organizza la definizione di ulteriori costrutti. Lo scambio delle definizioni fra moduli differenti è previsto attraverso un protocollo di \emph{import/export}.
+
+\begin{program}
+\begin{verbatimtab}
+
+(defmodule A
+	(export ?ALL))
+
+(defmodule B
+	(import A ?ALL))
+\end{verbatimtab}
+\caption{Esempio d'uso di \emph{defmodule} per la specifica di moduli}
+\end{program}
+
+La sintassi richiede la definizione di un nome univoco per il modulo, inoltre prevede la possibilità di specificare un elenco di costrutti da rendere disponibili ad altri moduli (tramite l'attributo \emph{export}), oppure un elenco di definizioni da importare da un modulo precedentemente creato (tramite l'attributo \emph{import}).
+
+
+\subsubsection{Funzioni utente}\label{par:linguaggio-funzioni}
+All'utente, in maniera alternativa all'integrazione di funzioni scritte in linguaggio nativo, deve essere offerta la possibilità di aggiungere funzioni personalizzate all'interno del sistema utilizzando il costrutto \emph{deffunction}. La definizione di funzioni consente di specificare strutture di controllo procedurali che eseguano sequenze di operazioni guidate dai parametri di chiamata.
+
+\begin{program}
+\begin{verbatimtab}
+
+(deffunction Funzione_Di_Prova (?arg1)
+	(printout t ?arg1 crlf)
+)
+\end{verbatimtab}
+\caption{Esempio d'uso di \emph{deffunction} per la specifica di funzioni}
+\end{program}
+
+
+Le funzioni cosi integrate potranno essere utilizzate nelle stesse modalità previste dalle altre funzioni di sistema, con l'eccezione relativa ai vincoli di visibilità fra moduli.
+
+\begin{program}
+\begin{verbatimtab}
+
+(defmodule A
+	(export deffunction Funzione_Di_Prova))
+	
+(deffunction A::Funzione_Di_Prova () )
+
+(defmodule B
+	(import A deffunction Funzione_Di_Prova))
+\end{verbatimtab}
+\caption{Esempio di esportazione della definizione di una funzione}
+\end{program}
+
+Le definizioni di funzioni devono essere esportate dal modulo in cui sono definite e successivamente importate da quello che, invece, intende utilizzarle.
+
+\subsubsection{Regole}\label{par:linguaggio-regole}
+La specifica di regole deve essere resa disponibile tramite l'utilizzo del costrutto \emph{defrule}.
+
+\begin{program}
+\begin{verbatimtab}
+
+(defrule Make_Bird_Fly
+	(bird (type ?X))
+	=>
+	(assert (bird (type ?X)	(fly yes)))
+)
+\end{verbatimtab}
+\caption{Esempio d'uso di \emph{defrule} per la specifica di una regola}\label{code:defrule}
+\end{program}
+
+La porzione \emph{LHS} e \emph{RHS} della regola sono separati dal simbolo $=>$ (Codice~\ref{code:defrule}). I \emph{pattern} della \emph{LHS} sono definiti con riferimento ai formalismi utilizzati per la specifica di \emph{Ordered-Fact} e \emph{Template-Fact}. Le variabili vengono specificate attraverso l'uso di \emph{wildcard}, identificate dalla presenza del simbolo ''?'' come primo carattere. I \emph{pattern} possono essere ulteriormente specificati tramite l'utilizzo di connettivi logici come \emph{not}, \emph{or} e \emph{and}, oppure espressioni logiche come \emph{exists} o \emph{test}.
+
+La porzione \emph{RHS} contiene chiamate a procedure di sistema o definite dall'utente tramite il costrutto \emph{deffunction}.
+
+
+\subsubsection{Fatti}\label{par:linguaggio-fatti}
+I \emph{fatti} costituiscono il contenuto della \emph{working memory}. Il linguaggio fornito deve prevedere, parallelamente a quanto previsto da CLIPS, la definizione dei fatti attraverso la notazione \emph{Ordered-Fact} e \emph{Template-Fact}. La specifica dei fatti deve essere riunita all'interno di costrutti \emph{deffacts}~(Codice~\ref{code:deffacts}). Questo consente di inserire un elenco di definizioni che verranno automaticamente asserite durante la fase di inizializzazione del sistema esperto.
+
+\begin{program}
+\begin{verbatimtab}
+
+(deffacts Fatti_Iniziali
+	(A B C)
+	(bird (type penguin))
+	(bird (type eagle))
+	(combattente
+		(mano-sx pugnale)
+		(mano-dx tomahawk)
+		(cintura scalpo scalpo scalpo))
+)
+\end{verbatimtab}
+\caption{Definizione di un gruppo di fatti tramite \emph{deffacts}}\label{code:deffacts}
+\end{program}
+
+Il primo formato di specifica dei fatti, chiamato \emph{Ordered-Fact}, prevede la definizione degli stessi come vettori di elementi simbolici o numerici di lunghezza definita. Il formato del primo elemento è richiesto che sia di tipo \emph{SYMBOL}\footnote{SYMBOL rappresenta un tipo elementare presente in CLIPS. Appartengono a questo tipo tutte le sequenze alfanumeriche non delimitate da apici e che abbiano come primo elemento un carattere alfabetico}, il formato dei successivi elementi è arbitrario.
+
+\begin{program}
+\begin{verbatimtab}
+
+(A B C)
+\end{verbatimtab}
+\caption{Fatto definito utilizzando la notazione \emph{Ordered-Fact}}\label{code:ordered-fact}
+\end{program}
+
+
+\begin{program}
+\begin{verbatimtab}
+
+(combattente
+	(mano-sx scudo)
+	(mano-dx spada)
+	(cintura carne-secca borraccia monete))
+\end{verbatimtab}
+\caption[Fatto definito utilizzando la notazione \emph{Template-Fact}]{Fatto definito utilizzando la notazione \emph{Template-Fact}. Il nome del template a cui il fatto fa riferimento è \emph{combattente}. La specifica del \emph{template} prevede l'esistenza degli slot ''mano-sx'', ''mano-dx'' e ''cintura''}\label{code:template-fact}
+\end{program}
+
+La seconda modalità di specifica, denominata \emph{Template-Fact}, prevede la definizione dei fatti tramite l'utilizzo di un \emph{template} e una sequenza di \emph{slot}. Gli slot rappresentano delle caratteristiche definite nella specifica del \emph{template}.
+La definizione del fatto può prevedere l'avvaloramento di tutti o solo una porzione degli \emph{slot} previsti dal \emph{template}.
+I valori inseribili negli \emph{slot} possono essere singoli elementi o multipli. Nel secondo caso si farà riferimento allo \emph{slot} con il nome di \emph{multi-slot}~(Codice~\ref{code:template-fact}).
+
+\subsubsection{Template}\label{par:linguaggio-template}
+La specifica dei fatti in formato \emph{Template-Fact} prevede la definizione preventiva di un \emph{template} che definisca una ''tipologia'' di fatti, indicandoli con un nome univoco, e una sequenza di caratteristiche: \emph{slot} e \emph{multi-slot}~(Codice~\ref{code:deftemplate}).
+
+\begin{program}
+\begin{verbatimtab}
+
+(deftemplate combattente "rappresenta un combattente"
+	(slot mano-sx 
+		(type SYMBOL))
+	(slot mano-dx
+		(default spada)
+		(type SYMBOL))
+	(multislot cintura))
+\end{verbatimtab}
+\caption{Specifica di \emph{Template} tramite \emph{deftemplate}. L'esempio mostra una possibile definizione di template valida per l'esempio in Codice~\ref{code:template-fact}}\label{code:deftemplate}
+\end{program}
+
+La specifica prevede la definizione di valori di \emph{default}, da attribuire nei casi in cui non venga fornito un valore durante l'asserzione, oppure di restrizioni sul tipo di valori utilizzabili nello \emph{slot}.
+
+
+\subsection{Motore inferenziale}
+
+
+
+\subsection{Terminale}
+
+\subsection{Modulo Server}
+
+\subsection{Riepilogo}
+
 Si riassumono quindi le funzionalità richieste al sistema.
 
 \begin{enumerate}
 	\item l'uso di un linguaggio di specifica che consenta:
 		\begin{enumerate}
-			\item la definizione di regole di produzione (\ref{par:clips-formalism})
-			\item l'utilizzo di un paradigma procedurale (\ref{par:clips-formalism})
-			\item la specifica di funzioni utente (\ref{par:clips-formalism})
-			\item la specifica di moduli (\ref{par:clips-formalism})
-			\item definizione di template di fatti (\ref{par:clips-formalism})
+			\item la definizione di regole di produzione (\ref{par:linguaggio-regole})
+			\item l'utilizzo di un paradigma procedurale (\ref{par:linguaggio-funzioni})
+			\item la specifica di funzioni utente (\ref{par:linguaggio-funzioni})
+			\item la specifica di moduli (\ref{par:linguaggio-moduli})
+			\item definizione di template di fatti (\ref{par:linguaggio-template})
 			\item la specifica della conoscenza fattuale tramite:
 				\begin{enumerate}
-					\item fatti in notazione Ordered-Fact (\ref{par:clips-formalism})
-					\item fatti in notazione Template-Fact (\ref{par:clips-formalism})
+					\item fatti in notazione Ordered-Fact (\ref{par:linguaggio-fatti})
+					\item fatti in notazione Template-Fact (\ref{par:linguaggio-fatti})
 				\end{enumerate}
 		\end{enumerate}
 	\item la possibilità di aggiungere strategie di risoluzione dei conflitti (\ref{par:strategies})
