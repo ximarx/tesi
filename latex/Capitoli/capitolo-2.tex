@@ -1,14 +1,15 @@
 
 \chapter{Analisi}
 
-Lo scopo di questo capitolo è quello di fornire un'analisi del sistema da proporre. Verrà specificato il contesto nel quale l'artefatto dovrà operare, mettendo in evidenzia l'insieme dei requisiti che dovranno risultare soddisfatti. Per la struttura di questo capitolo verranno utilizzate le specifiche suggerite in \cite{ieee830-1998} come riferimenti.
+Lo scopo di questo capitolo è quello di fornire un'analisi del sistema da proporre. Verrà specificato il contesto nel quale l'artefatto dovrà operare, mettendo in evidenzia l'insieme dei requisiti che dovranno risultare soddisfatti. 
+%Per la struttura di questo capitolo verranno utilizzate le specifiche suggerite in \cite{ieee830-1998} come riferimenti.
 
 \section{Scopo del sistema}
 
-Il progetto \emph{MyCLIPS} si prefigge lo scopo di sviluppare un software di tipo \emph{Expert System Environment}, mediante la realizzazione di un ambiente multi-paradigmatico che supporti programmazione procedurale e basata su regole, un regime di controllo di tipo \emph{forward chaining}, basato su un'implementazione dell'algoritmo RETE per le operazione di \emph{pattern-matching}.
-Affiancato al sistema principale, verrà inoltre progettato un modulo aggiuntivo che consenta la distribuzione dei servizi offerti dal software principale tramite un'architettura basata sul modello \emph{client-server}.
+Il progetto \emph{MyCLIPS} si prefigge lo scopo di sviluppare un software di tipo \emph{Expert System Environment}, mediante la realizzazione di un ambiente multi-paradigmatico che offra supporto alla programmazione procedurale e basata su regole, un regime di controllo di tipo \emph{forward chaining} e un'implementazione dell'algoritmo RETE per le operazione di \emph{pattern-matching}.
+Affiancato al sistema principale, verrà inoltre progettato un modulo aggiuntivo che consenta la distribuzione dei servizi offerti dal software principale tramite un modello d'architettura \emph{client-server}.
 
-L'artefatto derivante dall'implementazione del progetto, inteso come unione del software principale e del modulo server aggiuntivo, non sarà un prodotto con fini commerciali, ma piuttosto uno strumento con fini didattici e di supporto alla ricerca nell'ambito degli \emph{environment per sistemi esperti} e dell'integrazione degli stessi con tecnologie orientate al Web.
+L'artefatto derivante dal progetto, inteso come unione del software principale e del modulo server aggiuntivo, non sarà un prodotto con fini commerciali, ma piuttosto uno strumento con finalità didattiche, di supporto alla ricerca nell'ambito degli \emph{environment per sistemi esperti} e all'integrazione degli stessi con tecnologie orientate al Web.
 
 
 %%%%% ATTIVARE PER COMPILAZIONE RAPPORTO-TECNICO %%%%%
@@ -54,11 +55,11 @@ Il modulo è un'unità di programma che racchiude e organizza la definizione di 
 \caption{Esempio d'uso di \emph{defmodule} per la specifica di moduli}
 \end{program}
 
-La sintassi richiede la definizione di un nome univoco per il modulo, inoltre prevede la possibilità di specificare un elenco di costrutti da rendere disponibili ad altri moduli (tramite l'attributo \emph{export}), oppure un elenco di definizioni da importare da un modulo precedentemente creato (tramite l'attributo \emph{import}).
+La sintassi prevede di associare un nome univoco ad ogni modulo, oltre alla possibilità di specificare un elenco di costrutti da rendere disponibili all'esterno del modulo stesso (tramite l'attributo \emph{export}), oppure un elenco di definizioni da importare da un modulo precedentemente creato (tramite l'attributo \emph{import}).
 
 
 \subsubsection{Funzioni utente}\label{par:linguaggio-funzioni}
-All'utente, in maniera alternativa all'integrazione di funzioni scritte in linguaggio nativo, deve essere offerta la possibilità di aggiungere funzioni personalizzate all'interno del sistema utilizzando il costrutto \emph{deffunction}. La definizione di funzioni consente di specificare strutture di controllo procedurali che eseguano sequenze di operazioni guidate dai parametri di chiamata.
+All'utente, in maniera alternativa all'integrazione di funzioni scritte in linguaggio nativo, deve essere offerta la possibilità di aggiungere funzioni personalizzate all'interno del sistema utilizzando il costrutto \emph{deffunction} (Codice~\ref{code:deffunction}). La definizione di funzioni consente di specificare strutture di controllo procedurali che eseguano sequenze di operazioni guidate dai parametri di chiamata.
 
 \begin{program}
 \begin{verbatimtab}
@@ -67,7 +68,7 @@ All'utente, in maniera alternativa all'integrazione di funzioni scritte in lingu
 	(printout t ?arg1 crlf)
 )
 \end{verbatimtab}
-\caption{Esempio d'uso di \emph{deffunction} per la specifica di funzioni}
+\caption{Esempio d'uso di \emph{deffunction} per la specifica di funzioni}\label{code:deffunction}
 \end{program}
 
 
@@ -84,10 +85,10 @@ Le funzioni cosi integrate potranno essere utilizzate nelle stesse modalità pre
 (defmodule B
 	(import A deffunction Funzione_Di_Prova))
 \end{verbatimtab}
-\caption{Esempio di esportazione della definizione di una funzione}
+\caption{Esempio di esportazione della definizione di una funzione}\label{code:deffunction-import}
 \end{program}
 
-Le definizioni di funzioni devono essere esportate dal modulo in cui sono definite e successivamente importate da quello che, invece, intende utilizzarle.
+Le definizioni di funzioni devono essere esportate dal modulo in cui sono definite e successivamente importate da quello che intende utilizzarle (Codice~\ref{code:deffunction-import}).
 
 \subsubsection{Regole}\label{par:linguaggio-regole}
 La specifica di regole deve essere resa disponibile tramite l'utilizzo del costrutto \emph{defrule}.
@@ -128,7 +129,7 @@ I \emph{fatti} costituiscono il contenuto della \emph{working memory}. Il lingua
 \caption{Definizione di un gruppo di fatti tramite \emph{deffacts}}\label{code:deffacts}
 \end{program}
 
-Il primo formato di specifica dei fatti, chiamato \emph{Ordered-Fact}, prevede la definizione degli stessi come vettori di elementi simbolici o numerici di lunghezza definita. Il formato del primo elemento è richiesto che sia di tipo \emph{SYMBOL}\footnote{SYMBOL rappresenta un tipo elementare presente in CLIPS. Appartengono a questo tipo tutte le sequenze alfanumeriche non delimitate da apici e che abbiano come primo elemento un carattere alfabetico}, il formato dei successivi elementi è arbitrario.
+Il primo formato di specifica dei fatti, chiamato \emph{Ordered-Fact} (Codice~\ref{code:ordered-fact}), prevede la definizione degli stessi come vettori di elementi simbolici o numerici di lunghezza arbitraria. Il formato del primo elemento è richiesto che sia di tipo \emph{SYMBOL}\footnote{SYMBOL rappresenta un tipo elementare presente in CLIPS. Appartengono a questo tipo tutte le sequenze alfanumeriche non delimitate da apici e che abbiano come primo elemento un carattere alfabetico}, il formato dei successivi elementi è arbitrario.
 
 \begin{program}
 \begin{verbatimtab}
@@ -150,12 +151,12 @@ Il primo formato di specifica dei fatti, chiamato \emph{Ordered-Fact}, prevede l
 \caption[Fatto definito utilizzando la notazione \emph{Template-Fact}]{Fatto definito utilizzando la notazione \emph{Template-Fact}. Il nome del template a cui il fatto fa riferimento è \emph{combattente}. La specifica del \emph{template} prevede l'esistenza degli slot ''mano-sx'', ''mano-dx'' e ''cintura''}\label{code:template-fact}
 \end{program}
 
-La seconda modalità di specifica, denominata \emph{Template-Fact}, prevede la definizione dei fatti tramite l'utilizzo di un \emph{template} e una sequenza di \emph{slot}. Gli slot rappresentano delle caratteristiche definite nella specifica del \emph{template}.
+La seconda modalità di specifica, denominata \emph{Template-Fact} (Codice~\ref{code:template-fact}), prevede la definizione dei fatti tramite l'utilizzo di un \emph{template} e una sequenza di \emph{slot}. Gli slot rappresentano delle caratteristiche definite nella specifica del \emph{template}.
 La definizione del fatto può prevedere l'avvaloramento di tutti o solo una porzione degli \emph{slot} previsti dal \emph{template}.
 I valori inseribili negli \emph{slot} possono essere singoli elementi o multipli. Nel secondo caso si farà riferimento allo \emph{slot} con il nome di \emph{multi-slot}~(Codice~\ref{code:template-fact}).
 
 \subsubsection{Template}\label{par:linguaggio-template}
-La specifica dei fatti in formato \emph{Template-Fact} prevede la definizione preventiva di un \emph{template} che definisca una ''tipologia'' di fatti, indicandoli con un nome univoco, e una sequenza di caratteristiche: \emph{slot} e \emph{multi-slot}~(Codice~\ref{code:deftemplate}).
+La specifica dei fatti in formato \emph{Template-Fact} prevede la definizione preventiva di un \emph{template} che definisca una ''tipologia'' di fatti, indicato con un nome univoco e una sequenza di caratteristiche: \emph{slot} e \emph{multi-slot}~(Codice~\ref{code:deftemplate}).
 
 \begin{program}
 \begin{verbatimtab}
@@ -168,23 +169,95 @@ La specifica dei fatti in formato \emph{Template-Fact} prevede la definizione pr
 		(type SYMBOL))
 	(multislot cintura))
 \end{verbatimtab}
-\caption{Specifica di \emph{Template} tramite \emph{deftemplate}. L'esempio mostra una possibile definizione di template valida per l'esempio in Codice~\ref{code:template-fact}}\label{code:deftemplate}
+\caption{Specifica di \emph{Template} tramite \emph{deftemplate}. L'esempio mostra una possibile definizione di template valido per l'esempio in Codice~\ref{code:template-fact}}\label{code:deftemplate}
 \end{program}
 
 La specifica prevede la definizione di valori di \emph{default}, da attribuire nei casi in cui non venga fornito un valore durante l'asserzione, oppure di restrizioni sul tipo di valori utilizzabili nello \emph{slot}.
 
 
-\subsection{Motore inferenziale}
+\subsection{Parser}\label{par:parser}
 
+Le funzionalità di analisi ed interpretazione dei costrutti specificati tramite il linguaggio di definizione sono racchiuse all'interno del \emph{parser}. Utilizzando una serie di regole sintattiche, questo componente è in grado di leggere le definizioni dei costrutti previsti dal linguaggio e convertirle in elementi computabili dal motore inferenziale.
 
+Ad ogni costrutto definito dal linguaggio vengono associate una serie di regole sintattiche che descrivono i vincoli di validità e come convertire le varie definizioni, una volta individuate. Le regole vengono specificate attraverso l'alternanza di sequenze simboliche predefinite e campi variabili, che rappresentano le proprietà dei singoli costrutti.
 
-\subsection{Terminale}
+Le regole vengono organizzate in strutture nidificate. Il riconoscimento di determinate sequenze simboliche relative ad una regola principale, spesso delimitate da parole chiavi, attiva la possibilità di utilizzare sotto-regole associate a quella principale.
 
-\subsection{Modulo Server}
+Il linguaggio di definizione prevede la possibilità di definire elementi in grado di alterare le regole sintattiche utilizzate dal \emph{parser}, come \emph{template} o \emph{funzioni}. Questo comporta la necessità di strutturare il processo di conversione come un'alternanza di fasi di analisi ed interpretazione, eseguite su singoli costrutti individualmente.
+
+\subsection{Motore inferenziale}\label{par:motore-inferenziale}
+
+Il motore inferenziale controlla il processo di ragionamento alla base di un sistema esperto. Il ragionamento è strutturato attraverso meccanismi di inferenza, che in questo sistema vengono esplicitati nella forma di regole di produzione.
+
+L'utilizzo del motore inferenziale è regolato da quattro fasi:
+
+\begin{enumerate}
+	\item \emph{l'inizializzazione}, caricando conoscenza procedurale e fattuale. Il caricamento avviene attraverso la definizione di regole e gruppi di fatti iniziali. Le modalità con le quali gli elementi vengono specificati possono essere legate all'utilizzo del linguaggio di definizione o alla specifica diretta dei costrutti in una forma direttamente utilizzabile dal motore inferenziale. Nel primo caso sarà necessaria una fase di conversione delle definizioni, onere del parser.
+	\item la \emph{preparazione}, nella quale il motore inferenziale organizza gli elementi ottenuti nella fase precedente all'interno di strutture specifiche che agevolino le elaborazioni successive. In questa fase l'insieme di regole viene trasformato nelle strutture utilizzate dall'algoritmo RETE per le operazioni di pattern-matching.
+	\item l'\emph{esecuzione}, nella quale viene eseguito il ciclo \emph{recognize-act}.
+	\item la \emph{valutazione}, una fase nella quale può essere analizzato lo stato finale nel quale ha avuto termine l'elaborazione.
+\end{enumerate}
+
+La selezione dell'attivazione da eseguire viene eseguita utilizzando una serie di criteri. L'entità che racchiude questi criteri e li organizza prende il nome di \emph{strategia di risoluzione dei conflitti} (CRS). La CRS organizza l'elenco di attivazioni disponibili per ogni stato del sistema in base ad un ordinamento specifico. L'aggiunta o la rimozione di un fatto può determinare l'aggiornamento dell'intera sequenza. Per ogni iterazione del ciclo \emph{recognize-act} possono essere aggiunge o rimosse un numero arbitrario di attivazioni determinate dalla modifica allo stato del sistema eseguita nella fase \emph{act}. All'inizio di ogni ciclo, l'attivazione con priorità maggiore (sempre determinata in base ai criteri della CRS in uso) viene selezionata, rimossa dalla sequenza e quindi eseguita.
+
+Il software deve fornire diverse strategie di risoluzione di conflitti:
+\begin{description}
+	\item[Depth:] determina la priorità nella sequenza in base a quanto recentemente l'attivazione è stata individuata. Ad attivazioni più recenti viene associata una priorità maggiore.
+	\item[Breadth:] l'ordine di individuazione delle attivazioni determina anche la priorità di esecuzione. Le nuove attivazioni vengono inserite nella sequenza con priorità inferiore a quelle già esistenti.
+	\item[Semplicity:] viene utilizzato come criterio per determinarne la priorità un indice di generalità della regola. A quelle con un minor grado di specializzazione verrà attribuita una priorità maggiore. Il coefficiente di complessità di ogni regola viene determinato prendendo in esame il numero di pattern presenti nella LHS, il numero di variabili utilizzate in ogni pattern ed il numero di connettivi ed espressioni logiche presenti. Il coefficiente, espresso tramite un valore numerico intero, viene quindi computato sommando le singoli componenti.
+	\item[Complexity:] la specificità della regola a cui fa riferimento l'attivazione determina la priorità di attivazione. Il coefficiente di complessità viene calcolato in maniera analoga a quanto fatto per la CRS \emph{Semplicity}, ma valori di complessità maggiori determineranno una maggiore priorità.
+	\item[Lex:] la priorità di attivazione viene computata come segue:
+		\begin{itemize}
+			\item ad ogni fatto viene attribuita un'etichetta temporale per determinare una relazione d'ordine.
+			\item i fatti relativi ad ogni attivazione vengono quindi riordinati in modo decrescente.
+			\item le attivazioni vengono confrontate prendendo in esame le sequenze ordinate di etichette temporali e assegnando priorità maggiore alle attivazioni con sequenze più recenti.
+		\end{itemize}
+	\item[Mea:] la priorità di attivazione viene computata come segue:
+		\begin{itemize}
+			\item ad ogni fatto componente l'attivazione viene attribuita un'etichetta temporale per determinare una relazione d'ordine fra i fatti nella \emph{working-memory}.
+			\item per ogni attivazione viene identificata l'etichetta temporale più recente
+			\item le etichette vengono confrontate assegnando priorità maggiore all'attivazione con etichetta più recente.
+		\end{itemize}
+	\item[Random:] le attivazioni vengono ordinate in modo casuale.
+\end{description}
+
+Un ulteriore criterio discriminante comune a tutte le CRS è quello basato sulla valutazione della \emph{salience}. Ad ogni regola può essere associato un valore numerico intero per determinare esplicitamente una relazione d'ordine. Qualora questo valore non venga indicato durante la definizione, ne verrà attribuito uno di \emph{default}. La valutazione della \emph{salience} è il primo elemento discriminante per il computo della priorità. Per le attivazioni relative a regole con la stessa \emph{salience} viene utilizzata la strategia di risoluzione dei conflitti per effettuare l'ordinamento.
+
+In aggiunta alle CRS fornite con il software, deve essere fornita la possibilità di integrare ulteriori strategie di risoluzione di conflitti.
+
+\subsection{Terminale}\label{par:terminale}
+
+Il terminale è la forma di utilizzo del sistema più immediata prevista. Permette ad un utente di inizializzare il motore inferenziale ed eseguire elaborazioni, rendendo il software un'applicazione a se. 
+
+Alla base del funzionamento del terminale ci sono le funzionalità offerte dal parser. L'utilizzo del linguaggio di definizione permette di caricare o definire i sistemi esperti o, più genericamente, impartire una sequenza di comandi al software.
+
+Un comando non è altro che una funzione di sistema oppure una funzione utente definita attraverso il costrutto \emph{deffunction}. La chiamata di una procedura viene eseguita fornendo un nome univoco che rimandi alla funzione, la quale può essere accompagnata da un insieme di parametri che ne specifichino i dati di ingresso. Il numero ed il tipo dei parametri che è possibile fornire è definito dalla \emph{firma} della funzione. Questa è una struttura che definisce la funzione stessa indicando un nome univoco, il numero ed il tipo di parametri ammissibili come dati d'ingresso e il tipo dell'output fornito dalla funzione.
+
+\subsection{Modulo Server}\label{par:server}
+
+Il software deve essere accompagnato da un componente in grado di rendere fruibili le funzionalità offerte attraverso un modello di architettura distribuita \emph{client-server}.
+
+Un sistema distribuito consiste di una collezione di componenti, suddivisi su diversi terminali (anche chiamati \emph{host}) connessi fra loro attraverso un canale di comunicazione. Questi componenti interagiscono fra loro al fine di scambiare dati od accedere reciprocamente a servizi disponibili~\cite{Mascolo:2002:MCM:770420.770423}.
+La realizzazione di un sistema distribuito è soggetta alla predisposizione di un sistema di comunicazione fra i processi collocati nei vari \emph{host}.
+
+Il modello di architettura \emph{Client-Server} si basa sul partizionamento delle attività, risorse e responsabilità del sistema in due classi di componenti: \emph{Server} e \emph{Client}.
+I componenti possono essere posizionati su \emph{host} fisicamente differenti, così come possono essere collocati in processi separati residenti sulla stessa macchina, in modo tale che non condividano direttamente risorse (\figurename~\ref{fig:client-server}). Lo scambio di informazioni avviene attraverso un protocollo noto ad entrambi i componenti.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7, viewport=6 582 546 838]{Immagini/Capitolo2/Client-Server.pdf}
+\caption[Architettura \emph{Client-Server}]{Architettura \emph{Client-Server}: in \emph{(a)} è mostrata una distribuzione su \emph{host} multipli, in \emph{(b)} una distribuzione in processi multipli}\label{fig:client-server}
+\end{figure}
+
+L'architettura \emph{Client-Server} descrive un modello di collaborazione fra sistemi. Il \emph{server} offre servizi o funzionalità a uno o più \emph{client}, mentre il \emph{client} effettua una richiesta e provvede ad elaborare i dati ottenuti come risposta dal \emph{server} per presentarli all'utente o proseguire con ulteriori elaborazioni.
+
+Lo stato della comunicazione fra \emph{client} e \emph{server} può essere di tipo volatile o persistente. Nel primo caso, il \emph{client} può utilizzare un servizio indicando semplicemente il nome della funzionalità e i parametri di elaborazione. La richiesta viene elaborata e i risultati restituiti. La connessione fra i componenti viene quindi chiusa. Nel secondo caso, l'utilizzo di una funzionalità deve essere preceduto dall'esecuzione di un preambolo, durante il quale venga inizializzata una sessione persistente fra \emph{client} e \emph{server}.
+La sessione viene archiviata e gestita dell'istanza \emph{server}: il componente farà uso della sessione per organizzare informazioni, risultati intermedi di elaborazioni   e risorse allocate relative ad un \emph{client}. Al \emph{client} invece, viene fornito un identificatore univoco di sessione che consentirà di relazionare ogni richiesta effettuata con un contesto di esecuzione univoco. La sessione viene archiviata per un tempo prefissato, oltre il quale viene distrutta. Ulteriore utilizzo di funzionalità sarà quindi nuovamente preceduto da un preambolo.
+
 
 \subsection{Riepilogo}
 
-Si riassumono quindi le funzionalità richieste al sistema.
+Si riassumono schematicamente le funzionalità principali richieste al sistema.
 
 \begin{enumerate}
 	\item l'uso di un linguaggio di specifica che consenta:
@@ -200,12 +273,12 @@ Si riassumono quindi le funzionalità richieste al sistema.
 					\item fatti in notazione Template-Fact (\ref{par:linguaggio-fatti})
 				\end{enumerate}
 		\end{enumerate}
-	\item la possibilità di aggiungere strategie di risoluzione dei conflitti (\ref{par:strategies})
-	\item la possibilità di integrare nuove funzioni di sistema (\ref{par:clips})
-	\item compatibilità con i sistemi sviluppati per CLIPS (\ref{par:clips})
-	\item l'utilizzo dell'algoritmo RETE per le operazioni di \emph{Pattern-Matching}~(\ref{par:pattern-matching})
-	\item la possibilità di accedere alle funzionalità del sistema tramite una \emph{shell}~(\ref{par:clips})
-	\item la possibilità di accedere alle funzionalità del sistema tramite protocollo XML-RPC~(\ref{par:xmlrpc})
+	\item la possibilità di aggiungere strategie di risoluzione dei conflitti (\ref{par:motore-inferenziale})
+	\item la possibilità di integrare nuove funzioni di sistema (\ref{par:motore-inferenziale})
+	\item compatibilità con i sistemi sviluppati per CLIPS (\ref{par:linguaggio})
+	\item l'utilizzo dell'algoritmo RETE per le operazioni di \emph{Pattern-Matching}~(\ref{par:motore-inferenziale})
+	\item la possibilità di accedere alle funzionalità del sistema tramite un terminale~(\ref{par:terminale})
+	\item la distribuzione delle funzionalità del software tramite un modulo server~(\ref{par:server})
 \end{enumerate}
 
 
@@ -213,7 +286,7 @@ Si riassumono quindi le funzionalità richieste al sistema.
 \vincoliinit
 \subsection{Vincoli di interfaccia}
 
-\'E prevista l'interazione fra utente e sistema attraverso l'utilizzo di una \emph{Shell} di comandi per permettere la specifica e l'esecuzione dei sistema esperto.  A soddisfacimento della capacità richiesta 7, è previsto l'utilizzo del sistema tramite protocollo XML-RPC che consenta agli utenti di integrare le funzionalità del sistema in applicazioni di terze parti. In base a queste premesse si esplicitano i seguenti vincoli d'interfaccia.
+\'E prevista l'interazione fra utente e sistema attraverso l'utilizzo di una \emph{Shell} di comandi per permettere la specifica e l'esecuzione di sistemi esperti.  A soddisfacimento della capacità richiesta 7, è previsto la distribuzione delle funzionalità tramite un modello d'architettura \emph{client-server} che consenta agli utenti di integrare le funzionalità del sistema in applicazioni di terze parti. In base a queste premesse si esplicitano i seguenti vincoli d'interfaccia.
 \vincolistart
 	\item Hardware\\	
 	L'utente si interfaccia al sistema inserendo appositi comandi tramite tastiera. Inoltre acquisisce i risultati dell'elaborazione dei comandi attraverso il monitor. La tastiera viene inoltre utilizzata per l'inserimento di dati, qualora necessario.
@@ -222,7 +295,7 @@ Si riassumono quindi le funzionalità richieste al sistema.
 	L'interazione con il sistema avviene attraverso un'interfaccia testuale composta da una linea di comando, nella quale l'utente esplicita i comandi e attende i risultati dell'elaborazione. Anche i risultati vengono presentati nella medesima interfaccia testuale.
 	
 	\item Software\\
-	L'utilizzo del sistema attraverso l'integrazione in applicazioni di terze parti (tramite integrazione diretta o interfaccia XML-RPC) prevede l'utilizzo di applicazioni per la scrittura di software o ambienti di sviluppo integrati (IDE).
+	L'utilizzo del sistema attraverso l'integrazione in applicazioni di terze parti prevede l'utilizzo di applicazioni per la scrittura di software o ambienti di sviluppo integrati (IDE).
 	
 	\item Software\\
 	Il sistema prevede la possibilità di utilizzare applicazioni di \emph{text-editing} per la creazione dei sistemi esperti.
@@ -233,7 +306,7 @@ Si riassumono quindi le funzionalità richieste al sistema.
 
 \vincolistart
 	\item Hardware\\
-	Per l'utilizzo in modalità servizio XML-RPC:
+	Per l'utilizzo in modalità \emph{Server}:
 	\begin{itemize}
 		\item 1GB di memoria RAM;
 		\item Interfaccia di rete.
@@ -329,7 +402,7 @@ In seguito ad un'analisi preliminare, sono state individuate sette classi di att
 \end{figure}
 
 
-I casi d'uso vengono organizzati in quattro gruppi differenti (\figurename~\ref{fig:uc-vista-generale}). Il gruppo di appartenenza di ognuno, indicato dal prefisso inserito nel nome, viene associato tenendo conto dell'attore principale al quale \emph{use case} fa riferimento. Il formato del nome di ogni caso d'uso seguirà quindi questa convenzione:
+I casi d'uso vengono organizzati in quattro gruppi differenti (\figurename~\ref{fig:uc-vista-generale}). Il gruppo di appartenenza di ognuno, indicato dal prefisso inserito nel nome, viene associato tenendo conto dell'attore principale al quale l'\emph{use case} fa riferimento. Il formato del nome di ogni caso d'uso seguirà quindi questa convenzione:
 \begin{center}
 UC[\emph{Attore}]-[\emph{Sezione}].[\emph{Gruppo}].[\emph{SottoGruppo}]: [\emph{Descrizione breve}]
 \end{center}
