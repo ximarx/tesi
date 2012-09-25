@@ -2,7 +2,7 @@
 
 Lo scopo di questo capitolo è quello di fornire una soluzione progettuale al problema mostrato nel capitolo precedente. Verranno quindi trattate le problematiche affrontate durante la fase di trasformazione del progetto in un artefatto eseguibile ed infine offerta una valutazione complessiva del sistema prodotto, illustrando preventivamente le informazioni relative alle metriche di valutazione utilizzate e alla natura dei test condotti.
 
-\section{Architettura}
+\section{Progettazione}
 
 \begin{figure}[h]
 \centering
@@ -254,31 +254,217 @@ L'unica attività svolta dall'\emph{Interpreter} è quella di inizializzare un'i
 
 \subsubsection{Modulo Events Manager}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_EventsManager-Listeners.png}
+\caption{Package \emph{myclips.rete.listeners}: vista della classi per la gestione degli eventi}\label{fig:class-myclips-eventsmanager}
+\end{figure}
+
+La gestione degli eventi è affidata alla collaborazione fra la classe \emph{EventsManager}, posta nel \emph{package} \emph{myclips}, e i \emph{listeners} riuniti nel \emph{package} \emph{myclips.listeners}~(\figurename~\ref{fig:class-myclips-eventsmanager}).
+
+Usando come base l'infrastruttura offerta dallo schema \emph{Observer/Observable}, la classe \emph{EventsManager} viene utilizzata nel sistema per notificare il verificarsi di eventi. In aggiunta ad una collezione di eventi predefiniti raggruppati in \emph{STD\_EVENTS}, la classe consente di notificare un qualsiasi evento personalizzato all'insieme di \emph{listener} registrati.
+
+I \emph{listener} sono classi che estendono la classe astratta \emph{EventsManagerListener}. Il sistema fornisce un gruppo di definizioni predefinite con le quali intercettare gli eventi più comuni. Ogni classe, tramite la propria implementazione, esegue un comportamento differente come risposta ai singoli eventi per i quali si registra. La procedura di registrazione dei \emph{listener} è effettuata all'interno del metodo \emph{EventsManagerListener::install}, alle super-classi viene offerta la possibilità di personalizzare la procedura tramite l'implementazione del metodo \emph{EventsManagerListener::installImpl}, realizzando in questo modo lo schema previsto dal \emph{design pattern} comportamentale \emph{Template method}.
+
 \subsubsection{Modulo Funzioni}
+Il \emph{package} \emph{myclips.functions} gestisce la collezione di funzioni di sistema, così come l'intera infrastruttura per la manipolazione della stessa~(\figurename~\ref{fig:class-myclips-functions}).
+
+\begin{figure}
+\centering
+\includegraphics[width=1.3\textwidth, angle=270]{Immagini/Capitolo3/Classi/myclips_functions-Globale.png}
+\caption{Package \emph{myclips.rete.functions}: vista della classi per la gestione delle funzioni di sistema}\label{fig:class-myclips-functions}
+\end{figure}
+
+Alla base di ogni funzione di sistema c'è la classe astratta \emph{Function}, la quale realizza una strategia basata sul \emph{design pattern} comportamentale \emph{Command}. Il contesto d'esecuzione delle funzioni viene fornito attraverso un'istanza di classe \emph{FunctionEnv}, la quale conserva riferimenti al \emph{Network}, \emph{ModulesManager} e alle risorse inizializzate dal sistema (l'elenco di \emph{stream di input/output}).
+
+La base per la gestione delle definizioni è offerta dal \emph{SystemFunctionBroker}: definisce metodi per l'aggiunta o la rimozione di definizioni a \emph{run-time}, cosi come implementa il meccanismo automatico di caricamento delle definizioni partendo da un registro conservato su \emph{file} (tramite il metodo \emph{bootstrap}).
+
+L'elenco di funzioni di sistema è distribuito all'interno del \emph{sub-package} di \emph{myclips.function}. L'organizzazione adottata rispecchia la tipologia di funzioni. Le classi definite nel \emph{sub-package} \emph{myclips.functions.myclips} rappresentano funzioni originali del sistema MyCLIPS per la gestione di eventi e la valutazione degli artefatti (sia dal punto di vista prestazionale che di correttezza). Le restanti definizioni realizzano funzioni previste da CLIPS: le sintassi e le semantiche delle definizioni rispecchiano quelle previste dal software CLIPS per consentire la portabilità degli artefatti fra i sistemi.
 
 \subsection{Server}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Deployment/Server.png}
+\caption{Vista generale dell'architettura server}\label{fig:architettura-server}
+\end{figure}
+
+L'architettura del modulo server rispecchia uno schema orientato alla suddivisione delle attività svolte in servizi differenti e che realizzano specifiche tipologie di interfaccia~(\figurename~\ref{fig:architettura-server}). Alla base delle implementazioni dei differenti servizi viene posto il componente software principale MyCLIPS.
+
 \subsubsection{Broker di servizi}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_server_Broker.png}
+\caption{Package \emph{myclips\_server}: vista delle classi e interfacce relative al \emph{Broker}}\label{fig:class-myclips-server-broker}
+\end{figure}
+
+Il componente \emph{Broker}~(\figurename~\ref{fig:class-myclips-server-broker}) ha il compito di organizzare i servizi offerti dal modulo \emph{server}, controllando il flusso di richieste e risposte provenienti dall'infrastruttura addetta alla gestione delle connessioni con i client.
+
+La realizzazione dell'interfaccia \emph{Service}, richiesta ad ogni classe concreta di servizio, garantisce l'implementazione dei metodi necessari alla registrazione della classe nel \emph{Broker}. L'interfaccia viene ulteriormente estesa da ogni tipologia specifica di servizio.
+
+La creazione delle istanze concrete dei servizi viene delegata alle funzioni del \emph{Service Factory} (classe \emph{Factory} in \figurename~\ref{fig:class-myclips-server-broker})
 
 \subsubsection{Servizio Sessioni}
 
-\subsubsection{Servizio Registro tipi}
+\begin{figure}
+\centering
+\includegraphics[width=1.2\textwidth]{Immagini/Capitolo3/Classi/myclips_server_services_Sessions.png}
+\caption{Package \emph{myclips\_server.xmlrpc.services}: vista delle classi e interfacce relative al servizio \emph{Sessions}}\label{fig:class-myclips-server-services-sessions}
+\end{figure}
+
+Il servizio \emph{Sessions}~(\figurename~\ref{fig:class-myclips-server-services-sessions}) consente ai \emph{client} di creare sessioni persistenti fra più richieste successive. Ogni sessione viene inizializzata e gestita dalla classe concreta, che provvederà a memorizzarla fino per a quando non verranno riscontrate condizioni favorevoli all'eliminazione.
+Il servizio fornisce sia un'interfaccia rivolta ai client (per la creazione, rimozione e rinnovo delle sessioni), sia ad altri servizi del sistema (per realizzare un meccanismo di stoccaggio persistente delle informazioni).
+
+
+\subsubsection{Servizio Registro di tipi}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_server_services_Registry.png}
+\caption{Package \emph{myclips\_server.xmlrpc.services}: vista delle classi e interfacce relative al servizio \emph{Registry}}\label{fig:class-myclips-server-services-registry}
+\end{figure}
+
+Il servizio \emph{Registry}~(\figurename~\ref{fig:class-myclips-server-services-registry}) consente a client e altri servizi di manipolare tipi complessi non previsti da specifiche implementazioni del protocollo di trasmissione dei messaggi fra \emph{client} e \emph{server}. Le attività svolte dal servizio sono quelle di organizzare una collezione di classi \emph{Skeleton} che forniscano i metodi di conversione da specifiche classi concrete a forme di più facile trasmissione e viceversa.
+Il servizio offre anche la possibilità ad altre parti del sistema di registrare tipi di \emph{Skeleton} personalizzati.
+
+L'implementazione concreta dell'interfaccia del servizio, realizzata dalla classe \emph{Registry}, utilizza una collezione di \emph{Skeleton} riuniti nel \emph{sub-package} \emph{myclips\_server.xmlrpc.services.types.myclips\_skeletons} per rappresentare costrutti e tipi utilizzati dal motore inferenziale.
 
 \subsubsection{Servizio Client IO}
 
-\subsubsection{Servizio Client Events}
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_server_services_ClientIO.png}
+\caption{Package \emph{myclips\_server.xmlrpc.services}: vista delle classi e interfacce relative al servizio \emph{ClientIO}}\label{fig:class-myclips-server-services-clientio}
+\end{figure}
+
+Il servizio \emph{ClientIO}~(\figurename~\ref{fig:class-myclips-server-services-clientio}) permette ai client di fornire i parametri di utilizzo relativi a stream remoti che il server  (e i relativi servizi) può utilizzare in sostituzione degli stream locali. L'utilizzo degli stream remoti consente di dirottare tutte le normali operazioni di scrittura e lettura eseguite all'interno del motore inferenziale verso le risorse messe a disposizione dal client in maniera trasparente.
+Al client viene richiesta l'implementazione di un'interfaccia analoga a \emph{ClientIOStream}.
 
 \subsubsection{Servizio Remote Shell}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_server_services_RemoteShell.png}
+\caption{Package \emph{myclips\_server.xmlrpc.services}: vista delle classi e interfacce relative al servizio \emph{RemoteShell}}\label{fig:class-myclips-server-services-remoteshell}
+\end{figure}
+
+Il servizio \emph{RemoteShell}~(\figurename~\ref{fig:class-myclips-server-services-remoteshell}) viene utilizzato per distribuire i servizi del modulo Interprete del sistema principale: attraverso lo scambio di comandi, trasferiti come stringhe di testo, è possibile manipolare istanze remote del motore inferenziale in maniera esattamente analoga a quanto avviene tramite l'utilizzo di un \emph{Terminale} locale.
+
+Il servizio fa uso delle interfacce \emph{Sessions} (per memorizzare l'istanza \emph{Interpreter}), \emph{Engine} (per l'infrastruttura necessaria all'\emph{Interpreter}) e di \emph{ClientIO} (per l'inoltro dei flussi \emph{input/output}).
+
 \subsubsection{Servizio Engine}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_server_services_Engine.png}
+\caption{Package \emph{myclips\_server.xmlrpc.services}: vista delle classi e interfacce relative al servizio \emph{Engine}}\label{fig:class-myclips-server-services-engine}
+\end{figure}
+
+Il servizio che realizza il collegamento fra \emph{client} e il motore inferenziale prende il nome di \emph{Engine}~(\figurename~\ref{fig:class-myclips-server-services-engine}). Utilizzando i metodi pubblicizzati tramite l'interfaccia di servizio \emph{Engine}, al client viene data la possibilità di inizializzare il motore inferenziale aggiungendo costrutti (opportunamente creati tramite l'utilizzo del servizio \emph{Registry}), eseguire il ciclo \emph{recognize-act} e, utilizzando i metodi di ispezione forniti, analizzare lo stato finale del sistema. Tramite l'utilizzo dei servizi \emph{ClientIO} e \emph{ClientEvents}, il motore offre la stessa gamma di funzionalità disponibili utilizzando localmente istanze del sistema. La classe concreta che realizza il servizio si affida all'utilizzo dei metodi offerti dalla classe del core \emph{Network}.
 
 \subsection{Terminale}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_shell_Shell.png}
+\caption{Package \emph{myclips.shell}: vista delle classi relative al \emph{Terminale}}\label{fig:class-myclips-shell-Shell}
+\end{figure}
+
+L'interfaccia Terminale offerta dal sistema viene implementata tramite la collaborazione di due classi presenti nel \emph{package} \emph{myclips.shell}: \emph{Shell} e \emph{Completer}.~(\figurename~\ref{fig:class-myclips-shell-Shell})
+La prima realizza il ciclo principale di immissione e valutazione dei comandi testuali forniti dall'utente, utilizzando le funzionalità di \emph{Interpreter}, la seconda valuta il completamento automatico delle immissioni dell'utente, quando richiesto dalla pressione di un tasto speciale.
+
+
 \section{Implementazione}
 
-\subsection{Il linguaggio Python}
+La fase di implementazione ha richiesto la conversione delle strutture progettate e mostrate nei paragrafi precedenti tramite l'utilizzo di un linguaggio di programmazione. Inoltre è stata necessaria la selezione del protocollo da utilizzare per le comunicazioni \emph{client-server}.
 
-\subsection{Software utilizzato}
+\subsection{Scelta del linguaggio: Python}
+La scelta del linguaggio di programmazione da utilizzare per l'implementazione del sistema è ricaduta su linguaggio intepretato \emph{Python}\footnote{http://www.python.org/}. A supporto della scelta si propongono le seguenti argomentazioni:
+\begin{description}
+	\item[Facilità di sviluppo:]
+	
+	\item[Sinteticità del linguaggio:]
+	
+	\item[Meccanismi di riflessione:]
+	
+	\item[Multi-piattaforma:]
+	
+\end{description}
+
+Come rovescio della medaglia, la scelta ha determinato alcuni effetti sulle prestazioni complessive del sistema: nonostante le prestazioni teoricamente migliori ottenibili con linguaggi alternativi, il \emph{Vincolo-7} risulta egualmente soddisfatto. Le ridotte prestazioni (se messo in relazione con altri linguaggi) offerte da Python, non sono state ritenute una ragione sufficiente ad invalidare la preferenza espressa, soprattutto tenendo conto dei vantaggi alternativi che la soluzione offre.
+
+\subsection{Scelta del protocollo: XML-RPC}
+
+\emph{Remote Procedure Call}, o \emph{RPC}, è un meccanismo tramite il quale un'applicazione posizionata su una \emph{macchina} richiede l'utilizzo di servizi forniti da un'altra applicazione residente su una \emph{macchina} differente. Con il termine \emph{macchina} non viene unicamente inteso un \emph{host}, un'installazione fisicamente separata, ma anche un processo residente in una porzione di memoria indipendente e che rende l'accesso alle risorse del servizio impossibile se non tramite il meccanismo \emph{RPC}. 
+
+Il meccanismo \emph{RPC} prevede che una prima applicazione possa inviare uno o più messaggi ad una applicazione differente per invocare delle procedure. L'applicazione ricevente ha la possibilità,  a sua volta, di inviare i risultati dell'elaborazione tramite un ulteriore messaggio verso applicazione richiedente.~\cite{MERRICK:2006:misc}
+
+\emph{RPC} descrive un meccanismo generalizzato per l'invocazione di procedure remote, non una concreta implementazione di un protocollo o di tecnologie per lo scambio dei messaggi fra gli \emph{host}. Partendo dal concetto generale di \emph{RPC}, nel tempo sono state proposte differenti implementazioni basate su protocolli proprietari o codifiche dei messaggi differenti.~\cite{JAIRATH:2004:misc}~\cite{dcerpc}
+
+\emph{XML-RPC} è una fra le implementazioni proposte per \emph{RPC}: si propone come un meccanismo di chiamata a procedura remote semplice e versatile. Il brevetto originale con il quale è stato proposto descrive sia il meccanismo di chiamata, che un sistema per l'implementazione del metodo.~\cite{MERRICK:2006:misc}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5, viewport=0 0 646 440]{Immagini/Capitolo3/XMLRPC-patent.pdf}
+\caption[Comunicazione tramite \emph{XML-RPC}]{Comunicazione tramite \emph{XML-RPC}: immagine presente nella richiesta originale di brevetto~\cite{MERRICK:2006:misc}.}\label{fig:xmlrpc-patent}
+\end{figure}
+
+\emph{XML-RPC} prevede lo scambio di richieste e risposte usando il formato \emph{XML}, attraverso meccanismi di trasporto multipli. Solitamente, con l'uso del termine \emph{XML-RPC} si è soliti però indicare il protocollo di scambio messaggi in \emph{XML} attraverso un meccanismo di trasporto basato sul protocollo \emph{HTTP}.
+
+\begin{program}
+\begin{verbatimtab}
+
+POST /RPC2 HTTP/1.0
+User-Agent: Frontier/5.1.2 (WinNT)
+Host: betty.userland.com
+Content-Type: text/xml
+Content-length: 181
+
+
+<?xml version="1.0"?>
+<methodCall>
+   <methodName>examples.getStateName</methodName>
+   <params>
+      <param>
+         <value><i4>41</i4></value>
+         </param>
+      </params>
+   </methodCall>
+\end{verbatimtab}
+\caption{Esempio di chiamata ad una procedura remota usando \emph{XML-RPC over HTTP}}\label{code:xmlrpc-request}
+\end{program}
+
+La codifica dei messaggi viene effettuata incapsulando i parametri di chiamata ed i valori di ritorno all'interno di appositi frammenti del documento \emph{XML}, i quali hanno il compito di attribuire una semantica alla stringa rappresentante il valore.
+
+\begin{program}
+\begin{verbatimtab}
+HTTP/1.1 200 OK
+Connection: close
+Content-Length: 158
+Content-Type: text/xml
+Date: Fri, 17 Jul 1998 19:55:08 GMT
+Server: UserLand Frontier/5.1.2-WinNT
+
+
+<?xml version="1.0"?>
+<methodResponse>
+   <params>
+      <param>
+         <value><string>South Dakota</string></value>
+         </param>
+      </params>
+   </methodResponse>
+\end{verbatimtab}
+\caption{Esempio di messaggi inviato a risposta di una chiamata a procedura remota usando \emph{XML-RPC over HTTP}}\label{code:xmlrpc-response}
+\end{program}
+
+I \emph{tag} che contengono il valore ne determinano il tipo. Nell'esempio fornito in Codice~\ref{code:xmlrpc-request}, il valore ''41'' (tipo \emph{integer}) viene incapsulato nel \emph{tag i4}. Il tag indica appunto che il tipo del valore, come da specifica, è un \emph{4 bytes signed integer}.
+
+La specifica prevede la possibilità di utilizzare un set di tipi atomici con i quali rappresentare tutti i parametri di chiamata a procedura o i valori di ritorno (''integer'', ''string'', ''boolean'', ''double'', ''dateTime.iso8601'', ''base64'') e un gruppo di strutture composte (''struct'' per strutture analoghe a dizionari, ''array'' per vettori)~\cite{xmlrpcspec}.
+
+
+\subsection{Librerie utilizzate}
 
 
 \section{Valutazione}
@@ -292,4 +478,4 @@ L'unica attività svolta dall'\emph{Interpreter} è quella di inizializzare un'i
 
 \section{Conclusioni}
 
-\subsubsection{Sviluppi futuri}
+\subsection{Sviluppi futuri}
