@@ -1,0 +1,30 @@
+(deftemplate configurazione "Stato del gioco"
+	(slot agricoltore (type STRING) 
+		(default "sulla-riva-vicina"))
+	(slot cavolo      (type STRING)
+		(default "sulla-riva-vicina"))
+	(slot pecora      (type STRING) 
+		(default "sulla-riva-vicina"))
+	(slot lupo        (type STRING) 
+		(default "sulla-riva-vicina")))
+
+(deftemplate inizia "Configurazione iniziale"
+	(slot config_iniziale  (type SYMBOL) 
+		(default ACPL))) 
+
+
+(defrule regola1 
+   ?indice_conf1 <- 
+   (configurazione  (agricoltore  "sulla-riva-vicina") 
+ 	       	(cavolo       "sulla-riva-vicina")
+			(pecora       "sulla-riva-vicina")
+			(lupo         "sulla-riva-vicina"))
+  =>
+(printout t "Trasborda la pecora" crlf)
+(retract ?indice_conf1)
+(assert(configurazione(agricoltore "sulla-riva-lontana") 
+       		      (cavolo      "sulla-riva-vicina")
+			      (pecora      "sulla-riva-lontana")
+			      (lupo        "sulla-riva-vicina"))))
+
+

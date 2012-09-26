@@ -1,0 +1,44 @@
+(defrule regola2 
+   ?indice_conf2 <- 
+   (configurazione  (agricoltore  "sulla-riva-lontana") 
+ 	       	(cavolo       "sulla-riva-vicina")
+			(pecora       "sulla-riva-lontana")
+			(lupo         "sulla-riva-vicina"))
+  =>
+(printout t "Ritorna alla riva vicina" crlf)
+(retract ?indice_conf2)
+(assert(configurazione(agricoltore "sulla-riva-vicina") 
+       		      (cavolo      "sulla-riva-vicina")
+			      (pecora      "sulla-riva-lontana")
+			      (lupo        "sulla-riva-vicina"))))
+
+
+(defrule regola3 
+   ?indice_conf3 <- 
+   (configurazione  (agricoltore  "sulla-riva-vicina") 
+ 	       	(cavolo       "sulla-riva-vicina")
+			(pecora       "sulla-riva-lontana")
+			(lupo         "sulla-riva-vicina"))
+  =>
+(printout t "Trasborda il lupo" crlf)
+(retract ?indice_conf3)
+(assert(configurazione(agricoltore "sulla-riva-lontana") 
+       		      (cavolo      "sulla-riva-vicina")
+			      (pecora      "sulla-riva-lontana")
+			      (lupo        "sulla-riva-lontana"))))
+
+(defrule regola4 
+   ?indice_conf4 <- 
+   (configurazione  (agricoltore  "sulla-riva-vicina") 
+ 	       	(cavolo       "sulla-riva-vicina")
+			(pecora       "sulla-riva-lontana")
+			(lupo         "sulla-riva-vicina"))
+  =>
+(printout t "Trasborda il cavolo" crlf)
+(retract ?indice_conf4)
+(assert(configurazione(agricoltore "sulla-riva-lontana") 
+       		      (cavolo      "sulla-riva-lontana")
+			      (pecora      "sulla-riva-lontana")
+			      (lupo        "sulla-riva-vicina"))))
+
+

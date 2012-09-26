@@ -380,19 +380,29 @@ La prima realizza il ciclo principale di immissione e valutazione dei comandi te
 La fase di implementazione ha richiesto la conversione delle strutture progettate e mostrate nei paragrafi precedenti tramite l'utilizzo di un linguaggio di programmazione. Inoltre è stata necessaria la selezione del protocollo da utilizzare per le comunicazioni \emph{client-server}.
 
 \subsection{Scelta del linguaggio: Python}
+
+\begin{figure}[h]
+\centering
+\includegraphics[viewport=0 0 1434 347, width=1\textwidth]{Immagini/Capitolo3/Python-comparison.pdf}
+\caption[Comparazione fra Python e altri linguaggi di programmazione]{Comparazione fra Python e altri linguaggi di programmazione mostrando, da sinistra a destra, velocità di produzione del codice, tempo totale di produzione e lunghezza degli artefatti~\cite{prechelt2000}.}\label{fig:python-comparison}
+\end{figure}
+
 La scelta del linguaggio di programmazione da utilizzare per l'implementazione del sistema è ricaduta su linguaggio intepretato \emph{Python}\footnote{http://www.python.org/}. A supporto della scelta si propongono le seguenti argomentazioni:
 \begin{description}
-	\item[Facilità di sviluppo:]
+	\item[Gratuità:] Python è un linguaggio open-source utilizzabile, modificabile e distribuibile gratuitamente. Lo sviluppo del linguaggio è affidato ad una organizzazione \emph{no-profit} (Python Software Foundation)~\cite{pythonfaq}.
 	
-	\item[Sinteticità del linguaggio:]
+	\item[Facilità di sviluppo:] Python è un linguaggio di programmazione \emph{general-purpose} di alto livello. La grande varietà di librerie distribuite insieme alle implementazioni del linguaggio (con ambiti che variano dalla programmazione \textbf{a}sincrona alla gestione degli archivi \textbf{z}ip~\cite{pythonfaq}~\cite{pythonstdlib}) o prodotte dalla comunità\footnote{http://pypi.python.org/pypi} consente di utilizzare le soluzioni offerte per velocizzare i processi di sviluppo degli artefatti~\cite{prechelt2000}~\cite{prashant2008}.
 	
-	\item[Meccanismi di riflessione:]
+	\item[Sinteticità del linguaggio:] studi comparativi fra linguaggi di programmazione attualmente disponibili (\figurename~\ref{fig:python-comparison}) hanno evidenziato la proprietà del linguaggio di utilizzare una sintassi concisa senza ridurre le capacità espressive~\cite{prechelt2000}~\cite{prashant2008}.
 	
-	\item[Multi-piattaforma:]
+	\item[Meccanismi di riflessione:] il linguaggio integra dei meccanismi di riflessione e caricamento a \emph{run-time} avanzati che rendono agevole la realizzazione dei meccanismi di estensione dell'environment progettato. Le attività di inclusione di nuove funzioni di sistema o strategie CRS si riducono alla semplice serializzazione degli algoritmi, senza la necessità di eseguire fasi di compilazione o integrazione complesse.
 	
+	\item[Multi-piattaforma:] il supporto al linguaggio è disponibile per numerose piattaforme e sistemi operativi~\cite{pythonfaq} (compresi quelli richiesti per il  soddisfacimento del \emph{Vincolo-6}).
+	
+	\item[Capacità di integrazione:] sono disponibili numerose implementazioni di Python (con diversi livelli di compatibilità), realizzate in linguaggi come  Java\footnote{http://www.jython.org/}, C\#\footnote{http://ironpython.net/}, C\footnote{Implementazione di riferimento: http://www.python.org/}. Ognuna consente un'integrazione diretta con meccanismi propri del linguaggio di implementazione. In aggiunta, le capacità offerte dalle librerie permettono di utilizzare meccanismi di integrazione agnostici tra linguaggi eterogenei.
 \end{description}
 
-Come rovescio della medaglia, la scelta ha determinato alcuni effetti sulle prestazioni complessive del sistema: nonostante le prestazioni teoricamente migliori ottenibili con linguaggi alternativi, il \emph{Vincolo-7} risulta egualmente soddisfatto. Le ridotte prestazioni (se messo in relazione con altri linguaggi) offerte da Python, non sono state ritenute una ragione sufficiente ad invalidare la preferenza espressa, soprattutto tenendo conto dei vantaggi alternativi che la soluzione offre.
+Come rovescio della medaglia, la scelta ha determinato alcuni effetti sulle prestazioni complessive del sistema: nonostante le prestazioni teoricamente migliori ottenibili con linguaggi alternativi, il \emph{Vincolo-7} risulta egualmente soddisfatto. Le ridotte prestazioni offerte da Python (se messo in relazione con altri linguaggi), non sono state ritenute una ragione sufficiente ad invalidare la preferenza espressa, soprattutto tenendo conto dei vantaggi alternativi che la soluzione offre.
 
 \subsection{Scelta del protocollo: XML-RPC}
 
@@ -463,17 +473,89 @@ I \emph{tag} che contengono il valore ne determinano il tipo. Nell'esempio forni
 
 La specifica prevede la possibilità di utilizzare un set di tipi atomici con i quali rappresentare tutti i parametri di chiamata a procedura o i valori di ritorno (''integer'', ''string'', ''boolean'', ''double'', ''dateTime.iso8601'', ''base64'') e un gruppo di strutture composte (''struct'' per strutture analoghe a dizionari, ''array'' per vettori)~\cite{xmlrpcspec}.
 
+A supporto della scelta di utilizzare \emph{XML-RPC} come protocollo RPC si propongono le seguenti argomentazioni:
+\begin{description}
+	\item[Semplicità:] il protocollo formalizza un metodo di interazione relativamente semplice se comparato con le alternative disponibili. Il trasferimento delle informazioni avviene nella forma di parametri di input o output di funzioni ed il modello di comunicazione non forza l'utilizzo di modelli di sicurezza complessi. La fornitura del servizio non richiede la necessità di creare descrizioni formali dello stesso, sebbene l'utilizzo di strumenti di supporto\footnote{XRDL: http://code.google.com/p/xrdl/} permettano la generazione automatica di client per i servizi.
+	\item[Disponibilità:] l'utilizzo del protocollo è possibile in molti linguaggi di programmazione e piattaforme attraverso le implementazioni fornite da librerie apposite. Una stima approssimativa suggerisce la disponibilità di oltre 40 implementazioni differenti per un totale di oltre 25 piattaforme e linguaggi di programmazione~\cite{wikipedia-xmlrpc}.
+\end{description}
 
-\subsection{Librerie utilizzate}
+
+\subsection{Tecnologie utilizzate}
+
+\subsubsection{Pyparsing}
+Pyparsing\footnote{http://pyparsing.wikispaces.com/home}$^,$\footnote{http://sourceforge.net/projects/pyparsing} è un modulo completamente scritto in linguaggio Python che fornisce un insieme di classi per la creazione di parser di espressioni, sia elementari che complesse e che prevedono l'uso di componenti variabili. Le espressioni sono combinate usando gruppi di operatori (come ad esempio ''+'' per definire la sequenzialità o ''$\mid$'' per le alternative), prevedendo l'utilizzo di espressioni replicate o ricorsive~\cite{pyparsing-gs}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_parser_PyParsing.png}
+\caption[Integrazione di PyParsing nel modulo Parser]{Integrazione di PyParsing nel modulo Parser}\label{fig:class-myclips-parser-pyparsing}
+\end{figure}
+
+Il modulo Parser è stato implementato facendo uso delle classi fornite da Pyparsing per la definizione delle regole di valutazione. L'interfaccia \emph{ParserRule} mostrata nella descrizione descrizione del modulo Parser è stata sostituita dall'uso delle classi fornite da PyParsing. La classe principale \emph{Parser} è stata conseguentemente adattata per l'uso delle nuove istanze (\figurename~\ref{fig:class-myclips-parser-pyparsing})~\cite{pyparsing-apidoc}.
+
+\subsubsection{BList}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/BList-comparison.pdf}
+\caption[Confronto fra l'implementazione di vettori fornita da BList e di \emph{default}]{Confronto fra l'implementazione di vettori fornita da BList e quella di \emph{default} fornita da CPython: prestazioni dell'operazione di inserimento~\cite{blist-prest}.}\label{fig:blist-comparison}
+\end{figure}
+
+La libreria BList\footnote{http://stutzbachenterprises.com/blist/} è un modulo Python per la sostituzione trasparente dell'implementazione delle collezioni fornite dal linguaggio~\cite{blist-manual}. Fornisce prestazioni superiori rispetto all'implementazione \emph{standard} dei vettori durante la manipolazione di collezioni di grandi dimensioni e fornisce realizzazioni di liste ordinate (\figurename~\ref{fig:blist-comparison})~\cite{blist-prest}.
+
+Le liste ordinate fornite da Blist sono state utilizzate nell'implementazione delle strategie CRS \emph{Mea} e \emph{Lex} per l'inserimento ordinato delle attivazioni nell'agenda.
 
 
-\section{Valutazione}
+\subsubsection{NetworkX}
 
-\subsection{Metriche}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{Immagini/Capitolo3/NetworkX-example.pdf}
+\caption[Esempio d'uso della libreria NetworkX]{Esempio d'uso della libreria NetworkX per la rappresentazione del circuito compilato ottenuto dalla regole in Codice~\ref{code:defrule}}\label{fig:networkx-example}
+\end{figure}
+
+NetworkX\footnote{http://networkx.lanl.gov/} è un pacchetto software per il linguaggio Python per la creazione, manipolazione e lo studio di strutture, dinamiche e funzioni di reti complesse.
+
+La libreria viene utilizzata per l'implementazione del \emph{Listener} \emph{NetworkPlotter}, usato per offrire una rappresentazione grafica della RETE compilata (\figurename~\ref{fig:networkx-example}), e per la generazione degli script in formato \emph{dot}\footnote{http://en.wikipedia.org/wiki/DOT\_language} contenenti una serializzazione della rappresentazione di RETE da trasmettere ai \emph{client}.
+
+\section{Valutazioni}
+
+Al fine di valutare il prototipo di sistema realizzato, sono stati prodotti o adattati una serie di sistemi esperti in modo che risultassero compatibili con l'\emph{environment}. L'analisi del prototipo si è concentrata nella valutazione di due aspetti fondamentali: la correttezza di funzionamento, sia in ambiti di utilizzo locale che tramite modulo server, e le prestazioni, effettuando una comparazione con CLIPS.
+
+Per la sperimentazione di utilizzo locale si è fatto uso del modulo Terminale prodotto e descritto in questa trattazione. Per la sperimentazione di utilizzo remoto, si è fatto uso di un terminale remoto realizzato in linguaggio Java che consentisse di replicare le funzionalità del modulo Terminale locale.
 
 \subsection{Correttezza}
 
+Il primo gruppo di test effettuati ha come obiettivo quello di valutare la correttezza del funzionamento del prototipo e del motore inferenziale. I test sono stati condotti utilizzando una serie di sistemi esperti realizzati appositamente per il sistema, analizzando il comportamento del prototipo alla variazione degli input offerti. Si protone una descrizione sommaria degli artefatti con un riferimento all'implementazione utilizzata:
+
+\begin{enumerate}
+	\item \textbf{Problema dell'agricoltore, formulazione 1}: ''un agricoltore deve attraversare un fiume portando con sé un cavolo, una pecora ed un lupo. La barca che può utilizzare per l'operazione è in grado di trasportare non più di due attori per volta. Durante l'attraversamento deve prestare attenzione agli spostamenti da effettuare: è risaputo che, se lasciati soli, la pecora mangia il cavolo e il lupo mangia la pecora''. La prima formulazione proposta per la soluzione del problema prevede l'utilizzo di fatti in notazione \emph{Ordered-Fact}~(Codice~\ref{code:agricoltore-1}).
+	
+	\item \textbf{Problema dell'agricoltore, formulazione 2}: la seconda formulazione proposta utilizza soltanto fatti in notazione \emph{Template-Fact}~(Codice~\ref{code:agricoltore-2}).
+
+	\item \textbf{Sistema per la diagnosi}: si propone la formulazione di un basilare sistema esperto per la diagnosi delle malattie del fegato. La realizzazione prevede l'utilizzo di fatti in notazione \emph{Template-Fact}, l'utilizzo del costrutto \emph{DefFunction}, per la realizzazione di funzioni utente di supporto alla richiesta di informazioni e alla validazione degli input forniti, e l'utilizzo del costrutto \emph{DefGlobal}~(Codice~\ref{code:diagnosi}).
+
+\end{enumerate}
+
+I risultati delle prove vengono valutati confrontando l'esecuzione dei medesimi artefatti nell'ambiente CLIPS.
+
 \subsection{Prestazioni}
+
+Il secondo gruppo di test eseguiti ha come obiettivo quello di valutare il sistema dal punto di vista prestazionale. I test sono stati condotti utilizzando implementazioni delle soluzioni per il problema \emph{Miss-Manners}~\cite{brantetal91}~\cite{ops5bench} e del gioco del \emph{Sudoku}~\cite{clipssudoku}.
+
+Le formulazioni utilizzate per la soluzione di entrambi i problemi sono quelle distribuite dal software CLIPS. Le valutazioni e i confronti fra i due sistemi vengono effettuate osservando i tempi di esecuzioni sulle medesime implementazioni. Per ogni istanza di test sono stati eseguiti dieci \emph{run} indipendenti, riavviando l'\emph{environment} al termine di ognuno. \`E stata quindi utilizzata la media dell'esecuzione dei dieci run per i confronti.
+
+
+\subsubsection{Miss-Manners}
+
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=1.3\textwidth, angle=270, viewport=0 0 718 456]{Immagini/Capitolo3/Profile-missmanners.pdf}
+\caption[Profilazione dell'esecuzione del benchmark \emph{Miss-Manners}]{Profilazione dell'esecuzione del benchmark \emph{Miss-Manners}: grafico delle chiamate, dettaglio su \emph{VariableBindingTest}}\label{fig:profile-miss-manners}
+\end{figure}
 
 
 \section{Conclusioni}
