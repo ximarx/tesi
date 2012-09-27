@@ -118,7 +118,7 @@ Le istanze di classe \emph{Scope} rappresentano singoli moduli definiti nel sist
 \caption[Diagramma di sequenza \emph{import/export} tramite l'uso di \emph{promesse}]{Diagramma di sequenza \emph{import/export} tramite l'uso di \emph{promesse}: i moduli vengono relazionati e l'aggiunta successiva di definizioni al primo modulo viene automaticamente inoltrata al secondo modulo}\label{fig:sequence-def-import-export-promise}
 \end{figure}
 
-Lo scambio di definizioni non ancora esplicitate avviene attraverso l'utilizzo delle \emph{promesse di import/export}. Nel momento in cui un modulo \emph{modA} definisce tutti i propri costrutti esportabili ed un secondo modulo \emph{modB} esplicita la volontà di importare tutti i costrutti di \emph{modA} si fa uso di una \emph{promessa}: il protocollo prevede l'utilizzo di una soluzione basata sul pattern \emph{observer-observable} per eseguire il trasferimento delle definizioni aggiunte in fasi successive~(\figurename~\ref{fig:sequence-def-import-export-promise}).
+Lo scambio di definizioni non ancora esplicitate avviene attraverso l'utilizzo delle \emph{promesse di import/export}. Nel momento in cui un modulo \emph{modA} definisce tutti i propri costrutti esportabili ed un secondo modulo \emph{modB} esplicita la volontà di importare tutti i costrutti di \emph{modA}, si fa uso di una \emph{promessa}: il protocollo prevede l'utilizzo di una soluzione basata sul pattern \emph{observer-observable} per eseguire il trasferimento delle definizioni aggiunte in fasi successive~(\figurename~\ref{fig:sequence-def-import-export-promise}).
 \pagebreak
 
 \begin{figure}
@@ -160,7 +160,7 @@ Lo scopo del modulo \emph{matcher} è quello di confrontare lo stato della \emph
 \caption{Package \emph{myclips.rete}: vista delle classi utility per la conversione delle regole in strutture di RETE}\label{fig:class-myclips-rete-builders}
 \end{figure}
 
-Il modulo si basa sull'utilizzo di un'implementazione interpretata dell'algoritmo RETE. Attraverso l'uso di due classi utility~(\figurename~\ref{fig:class-myclips-rete-builders}) per analisi dei \emph{pattern} delle regole e per la costruzione del grafo, il \emph{rules-set} viene convertito nel grafo esplicito di valutazione caratteristico dell'algoritmo RETE.
+Il modulo si basa sull'utilizzo di un'implementazione interpretata dell'algoritmo RETE. Attraverso l'uso di due classi utility~(\figurename~\ref{fig:class-myclips-rete-builders}), per l'analisi dei \emph{pattern} delle regole e per la costruzione del grafo, il \emph{rules-set} viene convertito nel grafo esplicito di valutazione caratteristico dell'algoritmo RETE.
 
 La classe \emph{Analyzer} viene utilizzata per manipolare la forma dei pattern delle regole nel \emph{rules-set}, adattandole alla topologia del grafo di RETE, e individuare l'insieme dei test \emph{alpha} e \emph{beta} per i pattern, inizializzando le relative istanze delle classi di test organizzate nel package \emph{myclips.rete.tests}.
 
@@ -279,7 +279,7 @@ Alla base di ogni funzione di sistema c'è la classe astratta \emph{Function}, l
 
 La base per la gestione delle definizioni è offerta dal \emph{SystemFunctionBroker}: definisce metodi per l'aggiunta o la rimozione di definizioni a \emph{run-time}, cosi come implementa il meccanismo automatico di caricamento delle definizioni partendo da un registro conservato su \emph{file} (tramite il metodo \emph{bootstrap}).
 
-L'elenco di funzioni di sistema è distribuito all'interno del \emph{sub-package} di \emph{myclips.function}. L'organizzazione adottata rispecchia la tipologia di funzioni. Le classi definite nel \emph{sub-package} \emph{myclips.functions.myclips} rappresentano funzioni originali del sistema MyCLIPS per la gestione di eventi e la valutazione degli artefatti (sia dal punto di vista prestazionale che di correttezza). Le restanti definizioni realizzano funzioni previste da CLIPS: le sintassi e le semantiche delle definizioni rispecchiano quelle previste dal software CLIPS per consentire la portabilità degli artefatti fra i sistemi.
+L'elenco di funzioni di sistema è distribuito all'interno del \emph{sub-package} \emph{myclips.function}. L'organizzazione adottata rispecchia la tipologia di funzioni. Le classi definite nel \emph{sub-package} \emph{myclips.functions.myclips} rappresentano funzioni originali del sistema MyCLIPS per la gestione di eventi e la valutazione degli artefatti (sia dal punto di vista prestazionale che di correttezza). Le restanti definizioni realizzano funzioni previste da CLIPS: le sintassi e le semantiche delle definizioni rispecchiano quelle previste dal software CLIPS per consentire la portabilità degli artefatti fra i sistemi.
 
 \subsection{Server}
 
@@ -313,7 +313,7 @@ La creazione delle istanze concrete dei servizi viene delegata alle funzioni del
 \caption{Package \emph{myclips\_server.xmlrpc.services}: vista delle classi e interfacce relative al servizio \emph{Sessions}}\label{fig:class-myclips-server-services-sessions}
 \end{figure}
 
-Il servizio \emph{Sessions}~(\figurename~\ref{fig:class-myclips-server-services-sessions}) consente ai \emph{client} di creare sessioni persistenti fra più richieste successive. Ogni sessione viene inizializzata e gestita dalla classe concreta, che provvederà a memorizzarla fino per a quando non verranno riscontrate condizioni favorevoli all'eliminazione.
+Il servizio \emph{Sessions}~(\figurename~\ref{fig:class-myclips-server-services-sessions}) consente ai \emph{client} di creare sessioni persistenti fra più richieste successive. Ogni sessione viene inizializzata e gestita dalla classe concreta, che provvederà a memorizzarla fino a quando non verranno riscontrate condizioni favorevoli all'eliminazione.
 Il servizio fornisce sia un'interfaccia rivolta ai client (per la creazione, rimozione e rinnovo delle sessioni), sia ad altri servizi del sistema (per realizzare un meccanismo di stoccaggio persistente delle informazioni).
 
 
@@ -325,7 +325,7 @@ Il servizio fornisce sia un'interfaccia rivolta ai client (per la creazione, rim
 \caption{Package \emph{myclips\_server.xmlrpc.services}: vista delle classi e interfacce relative al servizio \emph{Registry}}\label{fig:class-myclips-server-services-registry}
 \end{figure}
 
-Il servizio \emph{Registry}~(\figurename~\ref{fig:class-myclips-server-services-registry}) consente a client e altri servizi di manipolare tipi complessi non previsti da specifiche implementazioni del protocollo di trasmissione dei messaggi fra \emph{client} e \emph{server}. Le attività svolte dal servizio sono quelle di organizzare una collezione di classi \emph{Skeleton} che forniscano i metodi di conversione da specifiche classi concrete a forme di più facile trasmissione e viceversa.
+Il servizio \emph{Registry}~(\figurename~\ref{fig:class-myclips-server-services-registry}) consente, a client e altri servizi, di manipolare tipi complessi non previsti da specifiche implementazioni del protocollo di trasmissione dei messaggi fra \emph{client} e \emph{server}. Le attività svolte dal servizio sono quelle di organizzare una collezione di classi \emph{Skeleton} che forniscano i metodi di conversione da classi specifiche a forme di più facile trasmissione e viceversa.
 Il servizio offre anche la possibilità ad altre parti del sistema di registrare tipi di \emph{Skeleton} personalizzati.
 
 L'implementazione concreta dell'interfaccia del servizio, realizzata dalla classe \emph{Registry}, utilizza una collezione di \emph{Skeleton} riuniti nel \emph{sub-package} \emph{myclips\_server.xmlrpc.services.types.myclips\_skeletons} per rappresentare costrutti e tipi utilizzati dal motore inferenziale.
@@ -338,7 +338,7 @@ L'implementazione concreta dell'interfaccia del servizio, realizzata dalla class
 \caption{Package \emph{myclips\_server.xmlrpc.services}: vista delle classi e interfacce relative al servizio \emph{ClientIO}}\label{fig:class-myclips-server-services-clientio}
 \end{figure}
 
-Il servizio \emph{ClientIO}~(\figurename~\ref{fig:class-myclips-server-services-clientio}) permette ai client di fornire i parametri di utilizzo relativi a stream remoti che il server  (e i relativi servizi) può utilizzare in sostituzione degli stream locali. L'utilizzo degli stream remoti consente di dirottare tutte le normali operazioni di scrittura e lettura eseguite all'interno del motore inferenziale verso le risorse messe a disposizione dal client in maniera trasparente.
+Il servizio \emph{ClientIO}~(\figurename~\ref{fig:class-myclips-server-services-clientio}) permette ai client di fornire i parametri di utilizzo relativi a stream remoti che il server  (e i relativi servizi) può utilizzare in sostituzione degli stream locali. L'utilizzo degli stream remoti consente di dirottare tutte le normali operazioni di scrittura e lettura, eseguite all'interno del motore inferenziale, verso le risorse messe a disposizione dal client in maniera trasparente.
 Al client viene richiesta l'implementazione di un'interfaccia analoga a \emph{ClientIOStream}.
 
 \subsubsection{Servizio Remote Shell}
@@ -361,7 +361,7 @@ Il servizio fa uso delle interfacce \emph{Sessions} (per memorizzare l'istanza \
 \caption{Package \emph{myclips\_server.xmlrpc.services}: vista delle classi e interfacce relative al servizio \emph{Engine}}\label{fig:class-myclips-server-services-engine}
 \end{figure}
 
-Il servizio che realizza il collegamento fra \emph{client} e il motore inferenziale prende il nome di \emph{Engine}~(\figurename~\ref{fig:class-myclips-server-services-engine}). Utilizzando i metodi pubblicizzati tramite l'interfaccia di servizio \emph{Engine}, al client viene data la possibilità di inizializzare il motore inferenziale aggiungendo costrutti (opportunamente creati tramite l'utilizzo del servizio \emph{Registry}), eseguire il ciclo \emph{recognize-act} e, utilizzando i metodi di ispezione forniti, analizzare lo stato finale del sistema. Tramite l'utilizzo dei servizi \emph{ClientIO} e \emph{ClientEvents}, il motore offre la stessa gamma di funzionalità disponibili utilizzando localmente istanze del sistema. La classe concreta che realizza il servizio si affida all'utilizzo dei metodi offerti dalla classe del core \emph{Network}.
+Il servizio che realizza il collegamento fra \emph{client} e il motore inferenziale prende il nome di \emph{Engine}~(\figurename~\ref{fig:class-myclips-server-services-engine}). Utilizzando i metodi pubblicizzati tramite l'interfaccia di servizio \emph{Engine}, al client viene data la possibilità di inizializzare il motore inferenziale aggiungendo costrutti (opportunamente creati tramite l'utilizzo del servizio \emph{Registry}), eseguire il ciclo \emph{recognize-act} e, utilizzando i metodi di ispezione forniti, analizzare lo stato finale del sistema. Tramite l'utilizzo dei servizi \emph{ClientIO} e \emph{ClientEvents}, il motore offre la stessa gamma di funzionalità utilizzabili attraverso un'istanza locale del sistema. La classe concreta che realizza il servizio si affida all'utilizzo dei metodi offerti dalla classe del core \emph{Network}.
 
 \subsection{Terminale}
 
@@ -541,23 +541,138 @@ I risultati delle prove vengono valutati confrontando l'esecuzione dei medesimi 
 
 \subsection{Prestazioni}
 
-Il secondo gruppo di test eseguiti ha come obiettivo quello di valutare il sistema dal punto di vista prestazionale. I test sono stati condotti utilizzando implementazioni delle soluzioni per il problema \emph{Miss-Manners}~\cite{brantetal91}~\cite{ops5bench} e del gioco del \emph{Sudoku}~\cite{clipssudoku}.
+Il secondo gruppo di test eseguiti ha come obiettivo quello di valutare il sistema dal punto di vista prestazionale. I test sono stati condotti utilizzando implementazioni delle soluzioni per il problema \emph{Manners}~\cite{brantetal91}~\cite{ops5bench} e del gioco del \emph{Sudoku}~\cite{clipssudoku}.
 
 Le formulazioni utilizzate per la soluzione di entrambi i problemi sono quelle distribuite dal software CLIPS. Le valutazioni e i confronti fra i due sistemi vengono effettuate osservando i tempi di esecuzioni sulle medesime implementazioni. Per ogni istanza di test sono stati eseguiti dieci \emph{run} indipendenti, riavviando l'\emph{environment} al termine di ognuno. \`E stata quindi utilizzata la media dell'esecuzione dei dieci run per i confronti.
 
 
-\subsubsection{Miss-Manners}
+\subsubsection{Manners}
 
+Il benchmark \emph{Manners} fa riferimento al problema di individuare una disposizione dei posti accettabile per un gruppo di invitati ad una cena. La soluzione dovrebbe garantire che ogni ospite sia seduto vicino a qualcuno di sesso opposto che condivida con lui almeno uno dei suoi hobby.
 
+Il processo di soluzione è basato su una ricerca in profondità fra le soluzioni al problema per individuare una disposizione accettabile. Il programma \emph{Manners} può essere esteso per gestire differenti criteri di organizzazione dei posti, inoltre rende possibile modificare la complessità d'esecuzione controllando la distribuzione degli hobby associati agli invitati. I dati usati per questa valutazione utilizzano una distribuzione uniforme degli hobby, da un minimo di 2 ad un massimo di 5, per ogni invitato. 
+La verifica ha interessato l'utilizzo di quattro dataset differenti: per 8, 16, 32 e 64 invitati~\cite{kiernan:inria-00075406}~\cite{brantetal91}. 
 
+Di seguito (\tablename~\ref{tab:bench-manners}) sono proposti i risultati dei test effettuati sui sistemi CLIPS, MyCLIPS (localmente, tramite Terminale) e MyCLIPS (in remoto, tramite una RemoteShell).
+
+\begin{table}[h]
+\caption{Tempi d'esecuzione del benchmark \emph{Manners} variando il numero di ospiti}\label{tab:bench-manners}
+\centering
+\begin{tabular}{|c||c|c|c|c|}
+\hline 
+\multicolumn{5}{|c|}{Manners} \\ 
+\hline 
+ & \multicolumn{4}{c|}{Ospiti} \\ 
+\hline 
+Sistema & 8 & 16 & 32 & 64 \\ 
+\hline\hline
+CLIPS (6.30) & 0.002 & 0.027 & 0.633 & 18.83 \\ 
+\hline 
+MyCLIPS (locale) & 0.300 & 5.550 & 151.2 & 3652 \\ 
+\hline 
+MyCLIPS (server) & - & - & - & - \\ 
+\hline 
+\end{tabular} 
+\end{table}
+
+\subsubsection{Sudoku}
+
+Il \emph{Sudoku} è un gioco di logica nel quale al risolutore viene proposta una griglia di $n^2 \times n^2$ celle, ciascuna delle quali può contenere un numero compreso nella sequenza fra $1$ e $n^2$ o essere vuota. La griglia è suddivisa in righe e colonne di lunghezza $n^2$ e in sotto-griglie, chiamate regioni, di $n \times n$ celle contigue. Lo scopo del gioco è quello di risolvere il puzzle inserendo un numero nelle celle vuote in modo tale che ogni riga, colonna o regione della scacchiera contenga ognuno dei numeri della sequenza $1 \dots n^2$ senza ripetizioni~\cite{sudokuwikipedia}.
 
 \begin{figure}
 \centering
-\includegraphics[width=1.3\textwidth, angle=270, viewport=0 0 718 456]{Immagini/Capitolo3/Profile-missmanners.pdf}
-\caption[Profilazione dell'esecuzione del benchmark \emph{Miss-Manners}]{Profilazione dell'esecuzione del benchmark \emph{Miss-Manners}: grafico delle chiamate, dettaglio su \emph{VariableBindingTest}}\label{fig:profile-miss-manners}
+\includegraphics[width=1.3\textwidth, angle=270, viewport=0 0 718 456]{Immagini/Capitolo3/Profile-sudoku.pdf}
+\caption[Profilazione dell'esecuzione del benchmark \emph{Sudoku}]{Profilazione dell'esecuzione del benchmark \emph{Sudoku}: grafico delle chiamate, dettaglio su \emph{VariableBindingTest}}\label{fig:profile-sudoku}
 \end{figure}
 
 
-\section{Conclusioni}
+Il benchmark \emph{Sudoku}, nell'implementazione distribuita insieme al software CLIPS~\cite{clipssudoku}, consente di valutare le prestazioni dei sistemi stressando i nodi della \emph{Beta-Network} generando una grande attività nei nodi Join positivi e negativi (\figurename~\ref{fig:profile-sudoku}). Le regole utilizzate per la formalizzazione delle strategie utilizzano condizioni simili, garantendo un'alta percentuale di condivisione dei nodi \emph{alpha}~\cite{rbsbench}. I test sono stati eseguiti utilizzando griglie di dimensioni $9 \times 9$ ($n = 3$) e due dataset differenti\footnote{grid3x3-p13: http://clipsrules.svn.sourceforge.net/viewvc/clipsrules/examples/sudoku/ puzzles/grid3x3-p13.clp?revision=93}$^,$\footnote{grid3x3-p15: http://clipsrules.svn.sourceforge.net/viewvc/clipsrules/examples/sudoku/ puzzles/grid3x3-p15.clp?revision=93}.
 
-\subsection{Sviluppi futuri}
+Di seguito (\tablename~\ref{tab:bench-sudoku}) sono proposti i risultati dei test effettuati sui sistemi CLIPS, MyCLIPS (localmente, tramite Terminale) e MyCLIPS (in remoto, tramite una RemoteShell).
+
+
+\begin{table}[h]
+\caption{Tempi d'esecuzione del benchmark \emph{Sudoku} per i dataset \emph{grid3x3-p13} e \emph{grid3x3-p15}}\label{tab:bench-sudoku}
+\centering
+\begin{tabular}{|c||c|c|}
+\hline 
+\multicolumn{3}{|c|}{Sudoku} \\ 
+\hline 
+ & \multicolumn{2}{c|}{Puzzle} \\ 
+\hline 
+Sistema & grid3x3-p13 & grid3x3-p15 \\ 
+\hline\hline
+CLIPS (6.30) & 4.812 & 6.935 \\ 
+\hline 
+MyCLIPS (locale) & 712.4 & 981.2 \\ 
+\hline 
+MyCLIPS (server) & - & - \\ 
+\hline 
+\end{tabular} 
+\end{table}
+
+%\subsubsection{Osservazioni}
+
+\section{Conclusioni e sviluppi futuri}
+
+Grazie ai vari test effettuati sul prototipo è possibile affermare che le capacità del sistema prodotto risultano paragonabili a quelle del software di riferimento CLIPS. Sebbene il divario in termini prestazionali sia evidente, l'obiettivo di questo elaborato era quello di realizzare un \emph{environment} funzionate con finalità didattiche e di ricerca, una base per sviluppi futuri. La scelta stessa del linguaggio è stata effettuata trascurando le problematiche di tipo prestazionale e privilegiando invece criteri di selezione come la facilità e rapidità di sviluppo e le possibilità di estensione offerte. Come emerso da diverse comparazioni effettuate fra linguaggi~\cite{prashant2008}~\cite{prechelt2000}~\cite{naiditch1999}, la valutazione della prestazione pura espressa in termini di tempo non vede il linguaggio Python emergere fra i migliori~\cite{cpybench}~\cite{prashant2008}~\cite{prechelt2000}. Il divario misurato tramite l'utilizzo della \emph{benchmark suite} in~\cite{cpybench} vede il inguaggio C risultare più rapido di circa cento volte rispetto a Python (\figurename~\ref{fig:c-vs-python-bench}). Chiaramente si propongono queste dati consci del fatto che fornire conclusioni semplicemente basandosi su numeri e senza effettuare i dovuti distinguo non rappresenta un approccio efficace ad un problema tanto complesso quanto lo è la valutazione empirica delle prestazioni di un linguaggio di programmazione~\cite{algorithms}.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{Immagini/Capitolo3/c-vs-python.png}
+\caption{Python 3 vs C: esecuzione della \emph{benchmark suite}~\cite{cpybench}  }\label{fig:c-vs-python-bench}
+\end{figure}
+
+Di maggiore interesse è invece l'osservazione dell'andamento del \emph{gap} prestazionale evidenziato dai test differenti (\figurename~\ref{fig:myclips-vs-clips-bench}). Il prototipo MyCLIPS si è rivelato fra le 140 e 240 volte più lento rispetto al software CLIPS. Il divario si è rivelato essere più marcato con l'aumento delle dimensioni dei dati gestiti nella \emph{working-memory}, è rimasto invece costante per i test relativi al benchmark \emph{Sudoku}.
+
+Al termine di questo progetto quello che resta è sicuramente una buona base di partenza per ulteriori evoluzioni del sistema. Il lavoro svolto nell'ambito di questa tesi non è sicuramente ne banale ne inutile. Lo sforzo d'indagine richiesto per la comprensione delle tecniche risolutive dei problemi presentati (spesso mal documentate o volutamente offuscate)  e per la comprensione degli elementi teorici, fondamenta di quest'area di ricerca, ha sicuramente fornito spunti di crescita personale per l'autore e contribuito al miglioramento delle capacità di approccio ai problemi. 
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\begin{axis}[ylabel={MyCLIPS usa (tempo)},
+			ybar,
+			ymin=100,
+			ymax=300,
+			xtick=data,
+			ymajorgrids=true,
+			%xtick pos=left,
+			x tick label style=%
+				{rotate=45,	anchor=east	},
+			%xticklabel interval boundaries,
+			symbolic x coords={
+				manners-8,
+				manners-16,
+				manners-32,
+				manners-64,
+				sudoku-p13,
+				sudoku-p15},
+			title style={align=center},
+			title={MyCLIPS $\div$ CLIPS}]
+\addplot [%ybar interval,
+			fill=grigio-chiarissimo,
+			draw=black] coordinates
+{(manners-8, 150) 
+(manners-16, 205)
+(manners-32, 238)
+(manners-64, 193)
+(sudoku-p13, 157) 
+(sudoku-p15, 141)
+};
+\end{axis}
+\end{tikzpicture}
+\caption[Grafico delle differenze prestazionali fra MyCLIPS e CLIPS]{Grafico delle differenze prestazionali fra MyCLIPS e CLIPS: andamento del rapporto sui vari test}\label{fig:myclips-vs-clips-bench}
+\end{figure}
+
+Il prototipo presentato è lungi dall'essere un sistema completo. Le capacità realizzate rappresentano una porzione delle funzionalità che vengono richieste ad un \emph{environment per sistemi esperti} della generazione attuale. Proprio l'approfondimento di alcune di queste mancanze potrebbe offrire lo spunto per ulteriori evoluzioni del sistema:
+\begin{itemize}
+	\item l'integrazione nel sistema di un \emph{regime di controllo} alternativo basato sul \emph{backward-chaining} o su approcci ibridi, garantendo agli ingegneri della conoscenza maggiore flessibilità durante le fasi di progettazione.
+	
+	\item l'integrazione del paradigma di programmazione basato su oggetti nel linguaggio di specifica.
+	
+	\item approfondimento delle problematiche relative alle prestazioni generali del sistema, eseguendo una nuova valutazione sulle tecnologie impiegate per la realizzazione dell'artefatto.
+	
+	\item l'integrazione di funzionalità che agevolino lo svolgimento di attività comuni svolte dai sistemi esperti come la spiegazione dell'inferenza.
+	
+	\item la fusione nel motore inferenziale di strumenti per la gestione dell'incertezza e della logica \emph{Fuzzy}.
+\end{itemize}
