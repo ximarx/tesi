@@ -1,0 +1,25 @@
+
+<defrule-construct> ::=
+		(defrule [<module-name>::]<rule-name>
+			[<comment>]
+			[<declaration>]
+			<conditional-element>*
+			=>
+			<action>*
+		)
+
+<declaration> ::= (declare <rule-property>+)
+
+<rule-property> ::= (salience <integer-expression>)
+							| (auto-focus <boolean-symbol>)
+
+<boolean-symbol> ::= TRUE | FALSE
+
+<conditional-element> ::= <pattern-CE>
+									| <assigned-pattern-CE>
+									| <not-CE>
+									| <and-CE>
+									| <or-CE>
+									| <test-CE>
+									| <exists-CE>
+

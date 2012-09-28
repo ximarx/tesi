@@ -1,0 +1,25 @@
+
+<deffacts-construct> ::= 
+		(deffacts [<module-name>::]<deffacts-name>
+			[<comment>]
+			<RHS-pattern>*
+		)
+
+<RHS-pattern> ::= <ordered-RHS-pattern>
+						| <template-RHS-pattern>
+
+<ordered-RHS-pattern> ::= (<symbol> <RHS-field>+)
+
+<template-RHS-pattern> ::= (<deftemplate-name> <RHS-slot>*)
+
+<RHS-slot> ::= <single-field-RHS-slot> 
+					| <multifield-RHS-slot>
+
+<single-field-RHS-slot> ::= (<slot-name> <RHS-field>)
+
+<multifield-RHS-slot> ::= (<slot-name> <RHS-field>*)
+
+<RHS-field> ::= <variable> 
+						| <constant> 
+						| <function-call>
+

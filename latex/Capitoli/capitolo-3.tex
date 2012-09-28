@@ -1,4 +1,4 @@
-\chapter{Sistema proposto}
+\chapter{Sviluppo}
 
 Lo scopo di questo capitolo è quello di fornire una soluzione progettuale al problema mostrato nel capitolo precedente. Verranno quindi trattate le problematiche affrontate durante la fase di trasformazione del progetto in un artefatto eseguibile ed infine offerta una valutazione complessiva del sistema prodotto, illustrando preventivamente le informazioni relative alle metriche di valutazione utilizzate e alla natura dei test condotti.
 
@@ -10,7 +10,7 @@ Lo scopo di questo capitolo è quello di fornire una soluzione progettuale al pr
 \caption[Vista generale dell'architettura di sistema]{Vista generale dell'architettura di sistema: i servizi offerti dal modulo principale vengono distribuiti ad una serie di applicazioni remote attraverso l'utilizzo del componente Server}\label{fig:architettura-client-server}
 \end{figure}
 
-Il sistema proposto è composto da due componenti principali distinte. Una prima, il \emph{core} del sistema MyCLIPS, realizza i servizi previsti dall'environment in una serie di API. Una seconda, il \emph{modulo server}, si pone come tramite fra i servizi offerti dalla prima componente e un gruppo di client, distribuendo le caratteristiche attraverso un modello d'architettura \emph{Client-Server}~(\figurename~\ref{fig:architettura-client-server}).
+Il sistema è composto da due componenti principali distinte. Una prima, il \emph{core} del sistema MyCLIPS, realizza i servizi previsti dall'environment in una serie di API. Una seconda, il \emph{modulo server}, si pone come tramite fra i servizi offerti dalla prima componente e un gruppo di client, distribuendo le caratteristiche attraverso un modello d'architettura \emph{Client-Server}~(\figurename~\ref{fig:architettura-client-server}).
 
 \begin{figure}[h]
 \centering
@@ -18,7 +18,7 @@ Il sistema proposto è composto da due componenti principali distinte. Una prima
 \caption[Vista generale dell'architettura locale di sistema]{Vista generale dell'architettura locale di sistema: i componenti del \emph{core} vengono utilizzati da componenti esterne (\emph{shell}, \emph{modulo server} o applicazioni generiche)}\label{fig:architettura-3rdparty}
 \end{figure}
 
-Il \emph{modulo server} è sia un elemento di sistema, che un esempio d'istanza di applicazione generica che utilizza i servizi offerti dal \emph{core}. Un altro esempio è quello del componente \emph{shell}: un elemento distinto che utilizza le interfacce del \emph{core} per realizzare un terminale testuale con il quale utilizzare l'\emph{environment}~(\figurename~\ref{fig:architettura-3rdparty}).
+Il \emph{modulo server} è sia un elemento di sistema che un esempio d'istanza di applicazione generica che utilizza i servizi offerti dal \emph{core}. Un altro esempio è quello del componente \emph{shell}: un elemento distinto che utilizza le interfacce del \emph{core} per realizzare un terminale testuale con il quale utilizzare l'\emph{environment}~(\figurename~\ref{fig:architettura-3rdparty}).
 
 
 \subsection{Core}
@@ -31,7 +31,7 @@ La componente principale è quella rappresentata dal \emph{core} di MyCLIPS: rac
 \caption{Package \emph{myclips}: vista dei \emph{package} che compongono il \emph{core}}\label{fig:packages-myclips}
 \end{figure}
 
-Lo scopo dei singoli \emph{package}, con riferimento alle funzionalità che realizzano, è dettagliato nel proseguo dei paragrafi.
+%Lo scopo dei singoli \emph{package}, con riferimento alle funzionalità che realizzano, è dettagliato nel proseguo dei paragrafi.
 
 \subsubsection{Modulo Parser}
 
@@ -91,7 +91,7 @@ A titolo d'esempio si propone la struttura della classe \emph{DefRuleConstruct}~
 
 Il ruolo del modulo \emph{Motore Inferenziale} (IE) è quello di offrire i servizi principali relativi alla gestione delle definizioni, all'esecuzione del ciclo \emph{recognize-act} e alla gestione delle transizioni fra gli stati del sistema.
 
-L'insieme dei servizi viene realizzato attraverso una collaborazione fra classi. A livello logico, le classi possono essere raggruppate in due sezioni: una prima adibita alla gestione delle definizioni del sistema esperto (\emph{(a)} in \figurename~\ref{fig:packages-ie}), una seconda alla interpretazione e esecuzione dei costrutti (\emph{(b)} in \figurename~\ref{fig:packages-ie}).
+A livello logico, le classi che lo realizzano possono essere raggruppate in due sezioni: una prima adibita alla gestione delle definizioni del sistema esperto (\figurename~\ref{fig:packages-ie}a), una seconda alla interpretazione e esecuzione dei costrutti (\figurename~\ref{fig:packages-ie}b).
 
 \begin{figure}[h]
 \centering
@@ -119,11 +119,10 @@ Le istanze di classe \emph{Scope} rappresentano singoli moduli definiti nel sist
 \end{figure}
 
 Lo scambio di definizioni non ancora esplicitate avviene attraverso l'utilizzo delle \emph{promesse di import/export}. Nel momento in cui un modulo \emph{modA} definisce tutti i propri costrutti esportabili ed un secondo modulo \emph{modB} esplicita la volontà di importare tutti i costrutti di \emph{modA}, si fa uso di una \emph{promessa}: il protocollo prevede l'utilizzo di una soluzione basata sul pattern \emph{observer-observable} per eseguire il trasferimento delle definizioni aggiunte in fasi successive~(\figurename~\ref{fig:sequence-def-import-export-promise}).
-\pagebreak
 
 \begin{figure}
 \centering
-\includegraphics[width=1.2\textwidth]{Immagini/Capitolo3/Classi/myclips_RestrictedManager.png}
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_RestrictedManager.png}
 \caption{Vista delle classi \emph{manager} di definizioni}\label{fig:class-myclips-restricted-manager}
 \end{figure}
 
@@ -156,7 +155,7 @@ Lo scopo del modulo \emph{matcher} è quello di confrontare lo stato della \emph
 
 \begin{figure}
 \centering
-\includegraphics[width=1.2\textwidth]{Immagini/Capitolo3/Classi/myclips_rete_Builders.png}
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_rete_Builders.png}
 \caption{Package \emph{myclips.rete}: vista delle classi utility per la conversione delle regole in strutture di RETE}\label{fig:class-myclips-rete-builders}
 \end{figure}
 
@@ -262,7 +261,7 @@ L'unica attività svolta dall'\emph{Interpreter} è quella di inizializzare un'i
 
 La gestione degli eventi è affidata alla collaborazione fra la classe \emph{EventsManager}, posta nel \emph{package} \emph{myclips}, e i \emph{listeners} riuniti nel \emph{package} \emph{myclips.listeners}~(\figurename~\ref{fig:class-myclips-eventsmanager}).
 
-Usando come base l'infrastruttura offerta dallo schema \emph{Observer/Observable}, la classe \emph{EventsManager} viene utilizzata nel sistema per notificare il verificarsi di eventi. In aggiunta ad una collezione di eventi predefiniti raggruppati in \emph{STD\_EVENTS}, la classe consente di notificare un qualsiasi evento personalizzato all'insieme di \emph{listener} registrati.
+Usando come base l'infrastruttura offerta dallo schema \emph{Observer/Observable}, la classe \emph{EventsManager} viene utilizzata nel sistema per notificare il verificarsi di eventi. In aggiunta ad una serie di eventi predefiniti raggruppati in \emph{STD\_EVENTS}, la classe consente di notificare un qualsiasi evento personalizzato all'insieme di \emph{listener} registrati.
 
 I \emph{listener} sono classi che estendono la classe astratta \emph{EventsManagerListener}. Il sistema fornisce un gruppo di definizioni predefinite con le quali intercettare gli eventi più comuni. Ogni classe, tramite la propria implementazione, esegue un comportamento differente come risposta ai singoli eventi per i quali si registra. La procedura di registrazione dei \emph{listener} è effettuata all'interno del metodo \emph{EventsManagerListener::install}, alle super-classi viene offerta la possibilità di personalizzare la procedura tramite l'implementazione del metodo \emph{EventsManagerListener::installImpl}, realizzando in questo modo lo schema previsto dal \emph{design pattern} comportamentale \emph{Template method}.
 
@@ -309,7 +308,7 @@ La creazione delle istanze concrete dei servizi viene delegata alle funzioni del
 
 \begin{figure}
 \centering
-\includegraphics[width=1.2\textwidth]{Immagini/Capitolo3/Classi/myclips_server_services_Sessions.png}
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_server_services_Sessions.png}
 \caption{Package \emph{myclips\_server.xmlrpc.services}: vista delle classi e interfacce relative al servizio \emph{Sessions}}\label{fig:class-myclips-server-services-sessions}
 \end{figure}
 
@@ -391,7 +390,7 @@ La scelta del linguaggio di programmazione da utilizzare per l'implementazione d
 \begin{description}
 	\item[Gratuità:] Python è un linguaggio open-source utilizzabile, modificabile e distribuibile gratuitamente. Lo sviluppo del linguaggio è affidato ad una organizzazione \emph{no-profit} (Python Software Foundation)~\cite{pythonfaq}.
 	
-	\item[Facilità di sviluppo:] Python è un linguaggio di programmazione \emph{general-purpose} di alto livello. La grande varietà di librerie distribuite insieme alle implementazioni del linguaggio (con ambiti che variano dalla programmazione \textbf{a}sincrona alla gestione degli archivi \textbf{z}ip~\cite{pythonfaq}~\cite{pythonstdlib}) o prodotte dalla comunità\footnote{http://pypi.python.org/pypi} consente di utilizzare le soluzioni offerte per velocizzare i processi di sviluppo degli artefatti~\cite{prechelt2000}~\cite{prashant2008}.
+	\item[Facilità di sviluppo:] Python è un linguaggio di programmazione \emph{general-purpose} di alto livello. La grande varietà di librerie distribuite insieme alle implementazioni del linguaggio (con ambiti che variano dalla programmazione asincrona alla gestione degli archivi zip~\cite{pythonfaq}~\cite{pythonstdlib}) o prodotte dalla comunità\footnote{http://pypi.python.org/pypi} consente di utilizzare le soluzioni offerte per velocizzare i processi di sviluppo degli artefatti~\cite{prechelt2000}~\cite{prashant2008}.
 	
 	\item[Sinteticità del linguaggio:] studi comparativi fra linguaggi di programmazione attualmente disponibili (\figurename~\ref{fig:python-comparison}) hanno evidenziato la proprietà del linguaggio di utilizzare una sintassi concisa senza ridurre le capacità espressive~\cite{prechelt2000}~\cite{prashant2008}.
 	
@@ -402,17 +401,15 @@ La scelta del linguaggio di programmazione da utilizzare per l'implementazione d
 	\item[Capacità di integrazione:] sono disponibili numerose implementazioni di Python (con diversi livelli di compatibilità), realizzate in linguaggi come  Java\footnote{http://www.jython.org/}, C\#\footnote{http://ironpython.net/}, C\footnote{Implementazione di riferimento: http://www.python.org/}. Ognuna consente un'integrazione diretta con meccanismi propri del linguaggio di implementazione. In aggiunta, le capacità offerte dalle librerie permettono di utilizzare meccanismi di integrazione agnostici tra linguaggi eterogenei.
 \end{description}
 
-Come rovescio della medaglia, la scelta ha determinato alcuni effetti sulle prestazioni complessive del sistema: nonostante le prestazioni teoricamente migliori ottenibili con linguaggi alternativi, il \emph{Vincolo-7} risulta egualmente soddisfatto. Le ridotte prestazioni offerte da Python (se messo in relazione con altri linguaggi), non sono state ritenute una ragione sufficiente ad invalidare la preferenza espressa, soprattutto tenendo conto dei vantaggi alternativi che la soluzione offre.
+%Come rovescio della medaglia, la scelta ha determinato alcuni effetti sulle prestazioni complessive del sistema: nonostante le prestazioni teoricamente migliori ottenibili con linguaggi alternativi, il \emph{Vincolo-7} risulta egualmente soddisfatto. Le ridotte prestazioni offerte da Python (se messo in relazione con altri linguaggi), non sono state ritenute una ragione sufficiente ad invalidare la preferenza espressa, soprattutto tenendo conto dei vantaggi alternativi che la soluzione offre.
 
-\subsection{Scelta del protocollo: XML-RPC}
+\subsection{Protocollo: XML-RPC}
 
 \emph{Remote Procedure Call}, o \emph{RPC}, è un meccanismo tramite il quale un'applicazione posizionata su una \emph{macchina} richiede l'utilizzo di servizi forniti da un'altra applicazione residente su una \emph{macchina} differente. Con il termine \emph{macchina} non viene unicamente inteso un \emph{host}, un'installazione fisicamente separata, ma anche un processo residente in una porzione di memoria indipendente e che rende l'accesso alle risorse del servizio impossibile se non tramite il meccanismo \emph{RPC}. 
 
-Il meccanismo \emph{RPC} prevede che una prima applicazione possa inviare uno o più messaggi ad una applicazione differente per invocare delle procedure. L'applicazione ricevente ha la possibilità,  a sua volta, di inviare i risultati dell'elaborazione tramite un ulteriore messaggio verso applicazione richiedente.~\cite{MERRICK:2006:misc}
+Il meccanismo \emph{RPC} prevede che una prima applicazione possa inviare uno o più messaggi ad una applicazione differente per invocare delle procedure. L'applicazione ricevente ha la possibilità,  a sua volta, di inviare i risultati dell'elaborazione tramite un ulteriore messaggio verso applicazione richiedente~\cite{MERRICK:2006:misc}.
 
-\emph{RPC} descrive un meccanismo generalizzato per l'invocazione di procedure remote, non una concreta implementazione di un protocollo o di tecnologie per lo scambio dei messaggi fra gli \emph{host}. Partendo dal concetto generale di \emph{RPC}, nel tempo sono state proposte differenti implementazioni basate su protocolli proprietari o codifiche dei messaggi differenti.~\cite{JAIRATH:2004:misc}~\cite{dcerpc}
-
-\emph{XML-RPC} è una fra le implementazioni proposte per \emph{RPC}: si propone come un meccanismo di chiamata a procedura remote semplice e versatile. Il brevetto originale con il quale è stato proposto descrive sia il meccanismo di chiamata, che un sistema per l'implementazione del metodo.~\cite{MERRICK:2006:misc}
+\emph{RPC} descrive un meccanismo generalizzato per l'invocazione di procedure remote, non una concreta implementazione di un protocollo o di tecnologie per lo scambio dei messaggi fra gli \emph{host}. Partendo dal concetto generale di \emph{RPC}, nel tempo sono state proposte differenti implementazioni basate su protocolli proprietari o codifiche dei messaggi differenti~\cite{JAIRATH:2004:misc}~\cite{dcerpc}.
 
 \begin{figure}[h]
 \centering
@@ -420,6 +417,7 @@ Il meccanismo \emph{RPC} prevede che una prima applicazione possa inviare uno o 
 \caption[Comunicazione tramite \emph{XML-RPC}]{Comunicazione tramite \emph{XML-RPC}: immagine presente nella richiesta originale di brevetto~\cite{MERRICK:2006:misc}.}\label{fig:xmlrpc-patent}
 \end{figure}
 
+\emph{XML-RPC} è una fra le implementazioni proposte per \emph{RPC}: si propone come un meccanismo di chiamata a procedura remote semplice e versatile. Il brevetto originale con il quale è stato proposto descrive sia il meccanismo di chiamata, che un sistema per l'implementazione del metodo~\cite{MERRICK:2006:misc}.
 \emph{XML-RPC} prevede lo scambio di richieste e risposte usando il formato \emph{XML}, attraverso meccanismi di trasporto multipli. Solitamente, con l'uso del termine \emph{XML-RPC} si è soliti però indicare il protocollo di scambio messaggi in \emph{XML} attraverso un meccanismo di trasporto basato sul protocollo \emph{HTTP}.
 
 \begin{program}
@@ -511,16 +509,16 @@ Le liste ordinate fornite da Blist sono state utilizzate nell'implementazione de
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{Immagini/Capitolo3/NetworkX-example.pdf}
-\caption[Esempio d'uso della libreria NetworkX]{Esempio d'uso della libreria NetworkX per la rappresentazione del circuito compilato ottenuto dalla regole in Codice~\ref{code:defrule}}\label{fig:networkx-example}
+\caption[Esempio d'uso della libreria NetworkX]{Esempio d'uso della libreria NetworkX per la rappresentazione del circuito compilato ottenuto dalla regola ''(defrule Make\_Bird\_Fly (bird (type ?X)) $\Rightarrow$ (assert (bird (type ?X) (fly yes))''}\label{fig:networkx-example}
 \end{figure}
 
 NetworkX\footnote{http://networkx.lanl.gov/} è un pacchetto software per il linguaggio Python per la creazione, manipolazione e lo studio di strutture, dinamiche e funzioni di reti complesse.
 
 La libreria viene utilizzata per l'implementazione del \emph{Listener} \emph{NetworkPlotter}, usato per offrire una rappresentazione grafica della RETE compilata (\figurename~\ref{fig:networkx-example}), e per la generazione degli script in formato \emph{dot}\footnote{http://en.wikipedia.org/wiki/DOT\_language} contenenti una serializzazione della rappresentazione di RETE da trasmettere ai \emph{client}.
 
-\section{Valutazioni}
+\section{Valutazione}
 
-Al fine di valutare il prototipo di sistema realizzato, sono stati prodotti o adattati una serie di sistemi esperti in modo che risultassero compatibili con l'\emph{environment}. L'analisi del prototipo si è concentrata nella valutazione di due aspetti fondamentali: la correttezza di funzionamento, sia in ambiti di utilizzo locale che tramite modulo server, e le prestazioni, effettuando una comparazione con CLIPS.
+Al fine di valutare il prototipo di sistema realizzato, sono stati prodotti o adattati una serie di sistemi esperti in modo che risultassero compatibili con l'\emph{environment}. L'analisi del prototipo si è concentrata nella valutazione di due aspetti fondamentali: la correttezza di funzionamento, sia in ambiti di utilizzo locale che tramite modulo server, e le prestazioni, effettuando un confronto con CLIPS.
 
 Per la sperimentazione di utilizzo locale si è fatto uso del modulo Terminale prodotto e descritto in questa trattazione. Per la sperimentazione di utilizzo remoto, si è fatto uso di un terminale remoto realizzato in linguaggio Java che consentisse di replicare le funzionalità del modulo Terminale locale.
 
@@ -615,7 +613,7 @@ MyCLIPS (server) & - & - \\
 
 \section{Conclusioni e sviluppi futuri}
 
-Grazie ai vari test effettuati sul prototipo è possibile affermare che le capacità del sistema prodotto risultano paragonabili a quelle del software di riferimento CLIPS. Sebbene il divario in termini prestazionali sia evidente, l'obiettivo di questo elaborato era quello di realizzare un \emph{environment} funzionate con finalità didattiche e di ricerca, una base per sviluppi futuri. La scelta stessa del linguaggio è stata effettuata trascurando le problematiche di tipo prestazionale e privilegiando invece criteri di selezione come la facilità e rapidità di sviluppo e le possibilità di estensione offerte. Come emerso da diverse comparazioni effettuate fra linguaggi~\cite{prashant2008}~\cite{prechelt2000}~\cite{naiditch1999}, la valutazione della prestazione pura espressa in termini di tempo non vede il linguaggio Python emergere fra i migliori~\cite{cpybench}~\cite{prashant2008}~\cite{prechelt2000}. Il divario misurato tramite l'utilizzo della \emph{benchmark suite} in~\cite{cpybench} vede il inguaggio C risultare più rapido di circa cento volte rispetto a Python (\figurename~\ref{fig:c-vs-python-bench}). Chiaramente si propongono queste dati consci del fatto che fornire conclusioni semplicemente basandosi su numeri e senza effettuare i dovuti distinguo non rappresenta un approccio efficace ad un problema tanto complesso quanto lo è la valutazione empirica delle prestazioni di un linguaggio di programmazione~\cite{algorithms}.
+Grazie ai vari test effettuati sul prototipo è possibile affermare che le capacità del sistema prodotto risultano paragonabili a quelle del software di riferimento CLIPS. Sebbene il divario in termini prestazionali sia evidente, l'obiettivo di questo elaborato era quello di realizzare un \emph{environment} funzionate con finalità didattiche e di ricerca, una base per sviluppi futuri. La scelta stessa del linguaggio è stata effettuata trascurando le problematiche di tipo prestazionale e privilegiando invece criteri di selezione come la facilità e rapidità di sviluppo e le possibilità di estensione offerte. Come emerso da diverse comparazioni effettuate fra linguaggi~\cite{prashant2008}~\cite{prechelt2000}~\cite{naiditch1999}, la valutazione della prestazione pura espressa in termini di tempo non vede il linguaggio Python emergere fra i migliori~\cite{cpybench}~\cite{prashant2008}~\cite{prechelt2000}. Il divario misurato tramite l'utilizzo della \emph{benchmark suite} in~\cite{cpybench} vede il inguaggio C risultare fino a cento volte più rapido rispetto a Python (\figurename~\ref{fig:c-vs-python-bench}). Chiaramente si propongono questi dati consci del fatto che trarre conclusioni semplicemente basandosi su numeri e senza effettuare i dovuti distinguo non rappresenta un approccio efficace ad un problema tanto complesso quanto lo è la valutazione empirica delle prestazioni di un linguaggio di programmazione~\cite{algorithms}.
 
 \begin{figure}
 \centering
@@ -625,7 +623,10 @@ Grazie ai vari test effettuati sul prototipo è possibile affermare che le capac
 
 Di maggiore interesse è invece l'osservazione dell'andamento del \emph{gap} prestazionale evidenziato dai test differenti (\figurename~\ref{fig:myclips-vs-clips-bench}). Il prototipo MyCLIPS si è rivelato fra le 140 e 240 volte più lento rispetto al software CLIPS. Il divario si è rivelato essere più marcato con l'aumento delle dimensioni dei dati gestiti nella \emph{working-memory}, è rimasto invece costante per i test relativi al benchmark \emph{Sudoku}.
 
-Al termine di questo progetto quello che resta è sicuramente una buona base di partenza per ulteriori evoluzioni del sistema. Il lavoro svolto nell'ambito di questa tesi non è sicuramente ne banale ne inutile. Lo sforzo d'indagine richiesto per la comprensione delle tecniche risolutive dei problemi presentati (spesso mal documentate o volutamente offuscate)  e per la comprensione degli elementi teorici, fondamenta di quest'area di ricerca, ha sicuramente fornito spunti di crescita personale per l'autore e contribuito al miglioramento delle capacità di approccio ai problemi. 
+RISCRIVIMI!
+\begin{enumerate}
+\item Come rovescio della medaglia, la scelta ha determinato alcuni effetti sulle prestazioni complessive del sistema: nonostante le prestazioni teoricamente migliori ottenibili con linguaggi alternativi, il \emph{Vincolo-7} risulta egualmente soddisfatto. Le ridotte prestazioni offerte da Python (se messo in relazione con altri linguaggi), non sono state ritenute una ragione sufficiente ad invalidare la preferenza espressa, soprattutto tenendo conto dei vantaggi alternativi che la soluzione offre.
+\end{enumerate}
 
 \begin{figure}
 \centering
@@ -641,30 +642,32 @@ Al termine di questo progetto quello che resta è sicuramente una buona base di 
 				{rotate=45,	anchor=east	},
 			%xticklabel interval boundaries,
 			symbolic x coords={
-				manners-8,
-				manners-16,
-				manners-32,
-				manners-64,
-				sudoku-p13,
-				sudoku-p15},
+				$manners-8$,
+				$manners-16$,
+				$manners-32$,
+				$manners-64$,
+				$sudoku-p13$,
+				$sudoku-p15$},
 			title style={align=center},
 			title={MyCLIPS $\div$ CLIPS}]
 \addplot [%ybar interval,
 			fill=grigio-chiarissimo,
 			draw=black] coordinates
-{(manners-8, 150) 
-(manners-16, 205)
-(manners-32, 238)
-(manners-64, 193)
-(sudoku-p13, 157) 
-(sudoku-p15, 141)
+{($manners-8$, 150) 
+($manners-16$, 205)
+($manners-32$, 238)
+($manners-64$, 193)
+($sudoku-p13$, 157) 
+($sudoku-p15$, 141)
 };
 \end{axis}
 \end{tikzpicture}
 \caption[Grafico delle differenze prestazionali fra MyCLIPS e CLIPS]{Grafico delle differenze prestazionali fra MyCLIPS e CLIPS: andamento del rapporto sui vari test}\label{fig:myclips-vs-clips-bench}
 \end{figure}
 
-Il prototipo presentato è lungi dall'essere un sistema completo. Le capacità realizzate rappresentano una porzione delle funzionalità che vengono richieste ad un \emph{environment per sistemi esperti} della generazione attuale. Proprio l'approfondimento di alcune di queste mancanze potrebbe offrire lo spunto per ulteriori evoluzioni del sistema:
+
+Il risultato di questo lavoro è un sistema che può rappresentare una buona base di partenza per ulteriori evoluzioni del sistema.
+Le capacità realizzate rappresentano una porzione delle funzionalità che vengono richieste ad un \emph{environment per sistemi esperti} della generazione attuale. Proprio l'approfondimento di alcune di queste mancanze potrebbe offrire lo spunto per ulteriori evoluzioni del sistema:
 \begin{itemize}
 	\item l'integrazione nel sistema di un \emph{regime di controllo} alternativo basato sul \emph{backward-chaining} o su approcci ibridi, garantendo agli ingegneri della conoscenza maggiore flessibilità durante le fasi di progettazione.
 	

@@ -1,0 +1,15 @@
+
+<defmodule> ::= (defmodule <module-name> [comment] <port-spec>*)
+
+<port-spec> ::= (export <port-item>)
+						| (import <module-name> <port-item>)
+
+<port-item> ::= ?ALL
+						| ?NONE
+						| <port-construct> ?ALL
+						| <port-construct> ?NONE
+						| <port-construct> <construct-name>+
+
+<port-construct> ::= deftemplate 
+							| defglobal 
+							| deffunction

@@ -1,0 +1,31 @@
+
+<deftemplate-construct> ::=
+		(deftemplate 
+			[<module-name>::]<deftemplate-name>
+			[<comment>]
+			<slot-definition>*
+		)
+
+<slot-definition> ::= <single-slot-def> 
+								| <multi-slot-def>
+
+<single-slot-def> ::= 
+		(slot <slot-name> 
+			<template-attribute>*)
+
+<multi-slot-def> ::= 
+		(multislot <slot-name> 
+			<template-attribute>*)
+
+<template-attribute> ::= <default-attribute> 
+							| <constraint-attribute>
+
+<default-attribute> ::= (default ?DERIVE 
+										| ?NONE 
+										| <expression>* )
+
+<contraint-attr> ::= (type <type-spec>)
+
+<type-spec> ::= SYMBOL | STRING | LEXEME 
+						| INTEGER | FLOAT | NUMBER 
+						| FACT-ADDRESS

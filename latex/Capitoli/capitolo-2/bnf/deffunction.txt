@@ -1,0 +1,12 @@
+
+<deffunction-construct> ::= 
+		(deffunction [<module-name>::]<name> 
+			[<comment>]
+			(<regular-param>* [<wildcard-param>])
+			<action>*
+		)
+
+<regular-param> ::= <single-field-variable>
+
+<wildcard-param> ::= <multi-field-variable>
+										

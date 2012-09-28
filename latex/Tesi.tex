@@ -16,7 +16,8 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{moreverb}
-\usepackage[hidelinks]{hyperref}
+%\usepackage[hidelinks]{hyperref}
+\usepackage[bookmarks=true,pdfborder={0 0 0}]{hyperref}
 \usepackage{float}
 \usepackage{array}
 \usepackage{tabularx}
@@ -29,6 +30,9 @@
 \usepackage{amsmath}
 \usepackage{listings}
 \usepackage{pgfplots}
+\usepackage{algpseudocode}
+\usepackage[chapter]{algorithm}
+
 
 
 
@@ -52,19 +56,19 @@
 \input{Sezioni/Dedica}
 
 \singlespacing
-
+\rhead{}
 \input{Sezioni/Indici}
-
 \doublespacing
 
 \input{Sezioni/Ringraziamenti}
-
+\rhead{\thesection \sectionmark}
 
 \mainmatter
-%\input{Capitoli/capitolo-1}
-%\input{Capitoli/capitolo-2}
+\input{Capitoli/capitolo-1}
+\input{Capitoli/capitolo-2}
 \input{Capitoli/capitolo-3}
 
+\rhead{}
 \appendix
 \input{Sezioni/Bibliografia}
 \input{Sezioni/Appendici}
