@@ -524,14 +524,16 @@ Per la sperimentazione di utilizzo locale si è fatto uso del modulo Terminale p
 
 \subsection{Correttezza}
 
-Il primo gruppo di test effettuati ha come obiettivo quello di valutare la correttezza del funzionamento del prototipo e del motore inferenziale. I test sono stati condotti utilizzando una serie di sistemi esperti realizzati appositamente per il sistema, analizzando il comportamento del prototipo alla variazione degli input offerti. Si protone una descrizione sommaria degli artefatti con un riferimento all'implementazione utilizzata:
+Il primo gruppo di test effettuati ha come obiettivo quello di valutare la correttezza del funzionamento del prototipo e del motore inferenziale. I test sono stati condotti utilizzando una serie di sistemi esperti, analizzando il comportamento del prototipo alla variazione degli input offerti. Si protone una descrizione sommaria degli artefatti con un riferimento all'implementazione utilizzata:
 
 \begin{enumerate}
-	\item \textbf{Problema dell'agricoltore, formulazione 1}: ''un agricoltore deve attraversare un fiume portando con sé un cavolo, una pecora ed un lupo. La barca che può utilizzare per l'operazione è in grado di trasportare non più di due attori per volta. Durante l'attraversamento deve prestare attenzione agli spostamenti da effettuare: è risaputo che, se lasciati soli, la pecora mangia il cavolo e il lupo mangia la pecora''. La prima formulazione proposta per la soluzione del problema prevede l'utilizzo di fatti in notazione \emph{Ordered-Fact}~(Codice~\ref{code:agricoltore-1}).
+	\item \textbf{Problema dell'agricoltore, realizzazione 1}: ''un agricoltore deve attraversare un fiume portando con sé un cavolo, una pecora ed un lupo. La barca che può utilizzare per l'operazione è in grado di trasportare non più di due attori per volta. Durante l'attraversamento deve prestare attenzione agli spostamenti da effettuare: è risaputo che, se lasciati soli, la pecora mangia il cavolo e il lupo mangia la pecora''. La prima formulazione proposta per la soluzione del problema prevede l'utilizzo di fatti in notazione \emph{Ordered-Fact}~(Codice~\ref{code:agricoltore-1}).
 	
-	\item \textbf{Problema dell'agricoltore, formulazione 2}: la seconda formulazione proposta utilizza soltanto fatti in notazione \emph{Template-Fact}~(Codice~\ref{code:agricoltore-2}).
+	\item \textbf{Problema dell'agricoltore, realizzazione 2}: la seconda soluzione proposta utilizza soltanto fatti in notazione \emph{Template-Fact}~(Codice~\ref{code:agricoltore-2}).
 
-	\item \textbf{Sistema per la diagnosi}: si propone la formulazione di un basilare sistema esperto per la diagnosi delle malattie del fegato. La realizzazione prevede l'utilizzo di fatti in notazione \emph{Template-Fact}, l'utilizzo del costrutto \emph{DefFunction}, per la realizzazione di funzioni utente di supporto alla richiesta di informazioni e alla validazione degli input forniti, e l'utilizzo del costrutto \emph{DefGlobal}~(Codice~\ref{code:diagnosi}).
+	\item \textbf{Sistema per la diagnosi medica}: si propone la formulazione di un basilare sistema esperto per la diagnosi delle malattie del fegato. La realizzazione prevede l'utilizzo di fatti in notazione \emph{Template-Fact}, l'utilizzo del costrutto \emph{DefFunction}, per la realizzazione di funzioni utente di supporto alla richiesta di informazioni e alla validazione degli input forniti, e l'utilizzo del costrutto \emph{DefGlobal}~(Codice~\ref{code:diagnosi}).
+	
+	\item \textbf{Sistema per la diagnosi meccanica}: si propone la formulazione di un basilare sistema esperto per la diagnosi dei malfunzionamenti di un'automobile. La realizzazione\footnote{http://clipsrules.svn.sourceforge.net/viewvc/clipsrules/examples/auto.clp?revision=93}, distribuita insieme al software CLIPS, esegue valuta i possibili malfunzionamenti interrogando l'utente per ottenere le informazioni necessarie.
 
 \end{enumerate}
 
@@ -539,9 +541,9 @@ I risultati delle prove vengono valutati confrontando l'esecuzione dei medesimi 
 
 \subsection{Prestazioni}
 
-Il secondo gruppo di test eseguiti ha come obiettivo quello di valutare il sistema dal punto di vista prestazionale. I test sono stati condotti utilizzando implementazioni delle soluzioni per il problema \emph{Manners}~\cite{brantetal91}~\cite{ops5bench} e del gioco del \emph{Sudoku}~\cite{clipssudoku}.
+Il secondo gruppo di test eseguiti ha come obiettivo quello di valutare il sistema dal punto di vista prestazionale. I test sono stati condotti utilizzando implementazioni delle soluzioni per il problema \emph{Manners}~\cite{brantetal91}~\cite{ops5bench}, per il problema \emph{Scimmia e banane}~\cite{clipsmab} e del gioco del \emph{Sudoku}~\cite{clipssudoku}.
 
-Le formulazioni utilizzate per la soluzione di entrambi i problemi sono quelle distribuite dal software CLIPS. Le valutazioni e i confronti fra i due sistemi vengono effettuate osservando i tempi di esecuzioni sulle medesime implementazioni. Per ogni istanza di test sono stati eseguiti dieci \emph{run} indipendenti, riavviando l'\emph{environment} al termine di ognuno. \`E stata quindi utilizzata la media dell'esecuzione dei dieci run per i confronti.
+Le formulazioni utilizzate per la soluzione dei problemi sono quelle distribuite insieme al software CLIPS. Le valutazioni e i confronti fra i due sistemi vengono effettuate osservando i tempi di esecuzioni sulle medesime implementazioni. Per ogni istanza di test sono stati eseguiti dieci \emph{run} indipendenti, riavviando l'\emph{environment} al termine di ognuno. \`E stata quindi utilizzata la media dell'esecuzione dei dieci run per i confronti.
 
 
 \subsubsection{Manners}
@@ -564,11 +566,11 @@ Di seguito (\tablename~\ref{tab:bench-manners}) sono proposti i risultati dei te
 \hline 
 Sistema & 8 & 16 & 32 & 64 \\ 
 \hline\hline
-CLIPS (6.30) & 0.002 & 0.027 & 0.633 & 18.83 \\ 
+CLIPS (6.24) & 0.005 & 0.092 & 1.321 & 40.38 \\ 
 \hline 
-MyCLIPS (locale) & 0.300 & 5.550 & 151.2 & 3652 \\ 
+MyCLIPS (locale) & 0.311 & 5.461 & 149.1 & 4580 \\ 
 \hline 
-MyCLIPS (server) & - & - & - & - \\ 
+MyCLIPS (server) & 0.327 & 5.642 & 157.1 & 4771 \\ 
 \hline 
 \end{tabular} 
 \end{table}
@@ -600,11 +602,39 @@ Di seguito (\tablename~\ref{tab:bench-sudoku}) sono proposti i risultati dei tes
 \hline 
 Sistema & grid3x3-p13 & grid3x3-p15 \\ 
 \hline\hline
-CLIPS (6.30) & 4.812 & 6.935 \\ 
+CLIPS (6.24) & 5.315 & 8.488 \\ 
 \hline 
 MyCLIPS (locale) & 712.4 & 981.2 \\ 
 \hline 
-MyCLIPS (server) & - & - \\ 
+MyCLIPS (server) & 705.8 & 974.8 \\ 
+\hline 
+\end{tabular} 
+\end{table}
+
+
+\subsubsection{Monkey}
+
+Il benchmark \emph{Monkey} fa riferimento ad un problema classico di pianificazione: l'obiettivo del problema è individuare la sequenza di azioni che consentono ad una scimmia di mangiare un casco di banane nascosto all'interno di un forziere chiuso a chiave posto in cima ad una pila di oggetti. La chiave che consente l'apertura del forziere è nascosta all'interno di un secondo forziere, anch'esso posto su una pila di oggetti. La scimmia è in grado di spostarsi nell'ambiente prendere, scaraventare e trasportare oggetti, oltre che utilizzare le chiavi per aprire i forzieri. 
+
+L'implementazione utilizzata per la risoluzione è quella distribuita insieme al software CLIPS~\cite{clipsmab}: durante la risoluzione del problema vengono visualizzate sullo schermo le operazioni svolte dalla scimmia\footnote{La soluzione consiste di 42 operazioni consecutive}.
+
+Di seguito (\tablename~\ref{tab:bench-monkey}) sono proposti i risultati dei test effettuati sui sistemi CLIPS, MyCLIPS (localmente, tramite Terminale) e MyCLIPS (in remoto, tramite una RemoteShell).
+
+
+\begin{table}[h]
+\caption{Tempi d'esecuzione del benchmark \emph{Monkey}}\label{tab:bench-monkey}
+\centering
+\begin{tabular}{|c||c|}
+\hline 
+\multicolumn{2}{c|}{Monkey} \\ 
+\hline 
+Sistema & Tempo \\ 
+\hline\hline
+CLIPS (6.24) & 0.004 \\ 
+\hline 
+MyCLIPS (locale) & 0.111 \\ 
+\hline 
+MyCLIPS (server) & 0.779 \\ 
 \hline 
 \end{tabular} 
 \end{table}
@@ -621,7 +651,7 @@ Grazie ai vari test effettuati sul prototipo è possibile affermare che le capac
 \caption{Python 3 vs C: esecuzione della \emph{benchmark suite}~\cite{cpybench}  }\label{fig:c-vs-python-bench}
 \end{figure}
 
-Di maggiore interesse è invece l'osservazione dell'andamento del \emph{gap} prestazionale evidenziato dai test differenti (\figurename~\ref{fig:myclips-vs-clips-bench}). Il prototipo MyCLIPS si è rivelato fra le 140 e 240 volte più lento rispetto al software CLIPS. Il divario si è rivelato essere più marcato con l'aumento delle dimensioni dei dati gestiti nella \emph{working-memory}, è rimasto invece costante per i test relativi al benchmark \emph{Sudoku}.
+Di maggiore interesse è invece l'osservazione dell'andamento del \emph{gap} prestazionale evidenziato dai test differenti (\figurename~\ref{fig:myclips-vs-clips-bench}). Il prototipo MyCLIPS si è rivelato fra le 20 e le 130 volte più lento rispetto al software CLIPS utilizzando istanze locali, mentre fra le 60 e 200 volte usando istanze remote tramite modulo server. Il divario si è rivelato essere più marcato con l'aumento delle dimensioni dei dati gestiti nella \emph{working-memory}, è rimasto invece costante per i test relativi al benchmark \emph{Sudoku}.
 
 RISCRIVIMI!
 \begin{enumerate}
@@ -629,40 +659,86 @@ RISCRIVIMI!
 \end{enumerate}
 
 \begin{figure}
-\centering
-\begin{tikzpicture}
-\begin{axis}[ylabel={MyCLIPS usa (tempo)},
-			ybar,
-			ymin=100,
-			ymax=300,
-			xtick=data,
-			ymajorgrids=true,
-			%xtick pos=left,
-			x tick label style=%
-				{rotate=45,	anchor=east	},
-			%xticklabel interval boundaries,
-			symbolic x coords={
-				$manners-8$,
-				$manners-16$,
-				$manners-32$,
-				$manners-64$,
-				$sudoku-p13$,
-				$sudoku-p15$},
-			title style={align=center},
-			title={MyCLIPS $\div$ CLIPS}]
-\addplot [%ybar interval,
-			fill=grigio-chiarissimo,
-			draw=black] coordinates
-{($manners-8$, 150) 
-($manners-16$, 205)
-($manners-32$, 238)
-($manners-64$, 193)
-($sudoku-p13$, 157) 
-($sudoku-p15$, 141)
-};
-\end{axis}
-\end{tikzpicture}
-\caption[Grafico delle differenze prestazionali fra MyCLIPS e CLIPS]{Grafico delle differenze prestazionali fra MyCLIPS e CLIPS: andamento del rapporto sui vari test}\label{fig:myclips-vs-clips-bench}
+\begin{minipage}[b]{6.5cm}
+	\centering
+	\resizebox{6cm}{!}{
+	\begin{tikzpicture}
+	\begin{axis}[ylabel={MyCLIPS usa (tempo)},
+				ybar,
+				ymin=20,
+				ymax=200,
+				xtick=data,
+				ymajorgrids=true,
+				%xtick pos=left,
+				x tick label style=%
+					{rotate=45,	anchor=east	},
+				%xticklabel interval boundaries,
+				symbolic x coords={
+					$manners-8$,
+					$manners-16$,
+					$manners-32$,
+					$manners-64$,
+					$sudoku-p13$,
+					$sudoku-p15$,
+					$monkey$},
+				title style={align=center},
+				title={MyCLIPS (locale) $\div$ CLIPS}]
+	\addplot [%ybar interval,
+				fill=grigio-chiarissimo,
+				draw=black] coordinates
+	{($manners-8$, 62.2) 
+	($manners-16$, 59.3)
+	($manners-32$, 112.8)
+	($manners-64$, 113.4)
+	($sudoku-p13$, 134) 
+	($sudoku-p15$, 115.5)
+	($monkey$, 27.7)
+	};
+	\end{axis}
+	\end{tikzpicture}
+	}
+\end{minipage}
+\ \hspace{2mm} \hspace{3mm} \
+\begin{minipage}[b]{6.5cm}
+	\centering
+	\resizebox{6cm}{!}{
+	\begin{tikzpicture}
+	\begin{axis}[ylabel={MyCLIPS usa (tempo)},
+				ybar,
+				ymin=20,
+				ymax=200,
+				xtick=data,
+				ymajorgrids=true,
+				%xtick pos=left,
+				x tick label style=%
+					{rotate=45,	anchor=east	},
+				%xticklabel interval boundaries,
+				symbolic x coords={
+					$manners-8$,
+					$manners-16$,
+					$manners-32$,
+					$manners-64$,
+					$sudoku-p13$,
+					$sudoku-p15$,
+					$monkey$},
+				title style={align=center},
+				title={MyCLIPS (server) $\div$ CLIPS}]
+	\addplot [%ybar interval,
+				fill=grigio-chiarissimo,
+				draw=black] coordinates
+	{($manners-8$, 65.4) 
+	($manners-16$, 61.3)
+	($manners-32$, 118.9)
+	($manners-64$, 118)
+	($sudoku-p13$, 132.7) 
+	($sudoku-p15$, 114.8)
+	($monkey$, 194)
+	};
+	\end{axis}
+	\end{tikzpicture}
+	}
+\end{minipage}
+\caption[Grafici dei rapporti prestazionali fra MyCLIPS e CLIPS]{Grafici dei rapporti prestazionali fra MyCLIPS e CLIPS: a sinistra il confronto con un'istanza locale di MyCLIPS, a destra con una server}\label{fig:myclips-vs-clips-bench}
 \end{figure}
 
 
