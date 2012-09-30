@@ -161,6 +161,8 @@ Lo scopo del modulo \emph{matcher} è quello di confrontare lo stato della \emph
 
 Il modulo si basa sull'utilizzo di un'implementazione interpretata dell'algoritmo RETE. Attraverso l'uso di due classi utility~(\figurename~\ref{fig:class-myclips-rete-builders}), per l'analisi dei \emph{pattern} delle regole e per la costruzione del grafo, il \emph{rules-set} viene convertito nel grafo esplicito di valutazione caratteristico dell'algoritmo RETE.
 
+In seguito all'aggiunta di una nuova definizione di regola, l'insieme di pattern che compongono la porzione \emph{LHS} viene scomposto e analizzato singolarmente. Per ognuno di essi viene creato, o condiviso, un circuito \emph{alpha} in grado di descrivere le espressioni
+
 La classe \emph{Analyzer} viene utilizzata per manipolare la forma dei pattern delle regole nel \emph{rules-set}, adattandole alla topologia del grafo di RETE, e individuare l'insieme dei test \emph{alpha} e \emph{beta} per i pattern, inizializzando le relative istanze delle classi di test organizzate nel package \emph{myclips.rete.tests}.
 
 La classe \emph{Builder} ha invece il compito di creare l'insieme di nodi necessari alla costituzione del grafo, associandoli dove necessario ai test ottenuti dall'\emph{Analyzer}.
