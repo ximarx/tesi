@@ -6,11 +6,15 @@ Lo scopo di questo capitolo è quello di fornire un'analisi del sistema da propo
 
 \section{Scopo del sistema}
 
-Il progetto \emph{MyCLIPS} si prefigge lo scopo di sviluppare un software di tipo \emph{Expert System Environment}, mediante la realizzazione di un ambiente multi-paradigmatico che offra supporto alla programmazione procedurale e basata su regole, un regime di controllo di tipo \emph{forward chaining} e un'implementazione dell'algoritmo RETE per le operazione di \emph{pattern-matching}.
+Il progetto \emph{MyCLIPS} si prefigge lo scopo di sviluppare un software di tipo \emph{Expert System Environment}, mediante la realizzazione di un ambiente multi-paradigmatico che unisca al classico modello dichiarativo basato su regole, meccanismi di  supporto alla programmazione procedurale.
+
+
+% e basata su regole, un regime di controllo di tipo \emph{forward chaining} e un'implementazione dell'algoritmo RETE per le operazione di \emph{pattern-matching}.
 Affiancato al sistema principale, verrà inoltre progettato un modulo aggiuntivo che consenta la distribuzione dei servizi offerti dal software principale tramite un modello d'architettura \emph{client-server}.
 
 L'artefatto derivante dal progetto, inteso come unione del software principale e del modulo server aggiuntivo, non sarà un prodotto con fini commerciali, ma piuttosto uno strumento con finalità didattiche, di supporto alla ricerca nell'ambito degli \emph{environment per sistemi esperti} e all'integrazione degli stessi con tecnologie orientate al Web.
 
+Nel campo degli \emph{environment}, il software CLIPS rappresenta un punto di riferimento sia nell'ambito dell'efficienza, che del numero di funzionalità offerte. La gratuità e la facile reperibilità del sistema ha garantito una larga adozione in ambito accademico. Il confronto fra il sistema proposto nell'ambito di questo progetto e il software CLIPS rappresenta una metrica per la valutazione del prototipo stesso. Un buon grado di compatibilità fra i due sistemi consentirebbe l'accesso ad un grande bacino di artefatti già prodotti per il sistema CLIPS.
 
 %%%%% ATTIVARE PER COMPILAZIONE RAPPORTO-TECNICO %%%%%
 % Include:
@@ -32,7 +36,8 @@ L'artefatto derivante dal progetto, inteso come unione del software principale e
 
 Il tipo di software che il progetto MyCLIPS punta a realizzare è un \emph{environment} multi-paradigmatico per sistemi esperti. In quanto tale deve offrire strumenti per la realizzazione di sistemi esperti, associando all'uso delle regole di produzione come metodo di rappresentazione della conoscenza, la possibilità di specifica di strutture di controllo tramite un paradigma procedurale.
 
-Si riassumono schematicamente le funzionalità principali richieste al sistema che verranno nel seguito di questo paragrafo:
+
+Si riassumono schematicamente le funzionalità principali richieste al sistema, offrendo anche un riferimento al paragrafo nel quale la capacità viene approfondita e analizzata nel dettaglio:
 
 \begin{enumerate}
 	\item l'uso di un linguaggio di specifica che consenta:
@@ -58,7 +63,10 @@ Si riassumono schematicamente le funzionalità principali richieste al sistema c
 
 
 \subsection{Linguaggio di specifica}\label{par:linguaggio}
-Fra le capacità del sistema è richiesta la fornitura di un linguaggio di specifica che permetta l'utilizzo di sistemi esperti realizzati per il software CLIPS. Il livello di compatibilità previsto richiede di fornire all'utente i costrutti di base utilizzati da CLIPS per la definizione di regole, della conoscenza fattuale (in formato \emph{Ordered-Fact} e \emph{Template-Fact}), dei moduli, delle funzioni utente e delle variabili globali.
+
+La compatibilità fra l'\emph{environment} prodotto e il sistema CLIPS rappresenta una delle capacità desiderate. Per realizzarla è necessario consentire l'utilizzo degli artefatti precedentemente prodotti utilizzando il linguaggio di specifica fornito da CLIPS. La restrizione delle capacità richieste alla sola fornitura delle meccaniche di definizione delle regole di produzione e delle strutture di controllo procedurali, consente di restringere l'insieme dei costrutti che è necessario definire escludendo i formalismi di specifica relativi al paradigma di sviluppo orientato agli oggetti concentrati nel sotto-sistema COOL di CLIPS.
+
+%Fra le capacità del sistema è richiesta la fornitura di un linguaggio di specifica che permetta l'utilizzo di sistemi esperti realizzati per il software CLIPS. Il livello di compatibilità previsto richiede di fornire all'utente i costrutti di base utilizzati da CLIPS per la definizione di regole, della conoscenza fattuale (in formato \emph{Ordered-Fact} e \emph{Template-Fact}), dei moduli, delle funzioni utente e delle variabili globali.
 
 Il linguaggio utilizzato deve risultare compatibile sia a livello semantico che a livello sintattico con quello fornito da CLIPS, offrendo in questo modo il massimo livello di portabilità degli artefatti.
 
@@ -115,12 +123,13 @@ La porzione \emph{RHS} contiene chiamate a procedure di sistema o definite dall'
 
 \subsubsection{Fatti}\label{par:linguaggio-fatti}
 
+I \emph{fatti} costituiscono il contenuto della \emph{working memory}. Il linguaggio fornito deve prevedere, parallelamente a quanto previsto da CLIPS, la definizione dei fatti attraverso la notazione \emph{Ordered-Fact} e \emph{Template-Fact}.
+
 \begin{program}
 \verbatimtabinput[3]{Capitoli/capitolo-2/bnf/deffacts.txt}
 \caption{Specifica \emph{BNF} del costrutto \emph{deffacts}}\label{code:deffacts}
 \end{program}
 
-I \emph{fatti} costituiscono il contenuto della \emph{working memory}. Il linguaggio fornito deve prevedere, parallelamente a quanto previsto da CLIPS, la definizione dei fatti attraverso la notazione \emph{Ordered-Fact} e \emph{Template-Fact}.
 
 La specifica dei fatti deve essere riunita all'interno di costrutti \emph{deffacts}~(Codice~\ref{code:deffacts}). Questo consente di inserire un elenco di definizioni che verranno automaticamente asserite durante la fase di inizializzazione del sistema esperto.
 
@@ -132,7 +141,7 @@ I valori inseribili negli \emph{slot} possono essere singoli elementi o multipli
 
 \subsubsection{Template}\label{par:linguaggio-template}
 
-La specifica dei fatti in formato \emph{Template-Fact} prevede la definizione preventiva di un \emph{template} che definisca una ''tipologia'' di fatti, indicato con un nome univoco e una sequenza di caratteristiche: \emph{slot} e \emph{multi-slot}~(Codice~\ref{code:deftemplate}).
+La specifica dei fatti in formato \emph{Template-Fact} prevede la definizione preventiva di un \emph{template} che definisca una ''tipologia'' di fatti, indicata con un nome univoco e una sequenza di caratteristiche: \emph{slot} e \emph{multi-slot}~(Codice~\ref{code:deftemplate}).
 
 \begin{program}
 \verbatimtabinput[3]{Capitoli/capitolo-2/bnf/deftemplate.txt}
@@ -159,10 +168,18 @@ L'utilizzo del motore inferenziale è regolato da quattro fasi:
 
 \begin{enumerate}
 	\item \emph{l'inizializzazione}, caricando conoscenza procedurale e fattuale. Il caricamento avviene attraverso la definizione di regole e gruppi di fatti iniziali. Le modalità con le quali gli elementi vengono specificati possono essere legate all'utilizzo del linguaggio di definizione o alla specifica diretta dei costrutti in una forma direttamente utilizzabile dal motore inferenziale. Nel primo caso sarà necessaria una fase di conversione delle definizioni, onere del parser.
-	\item la \emph{preparazione}, nella quale il motore inferenziale organizza gli elementi ottenuti nella fase precedente all'interno di strutture specifiche che agevolino le elaborazioni successive. In questa fase l'insieme di regole viene trasformato nelle strutture utilizzate dall'algoritmo RETE per le operazioni di pattern-matching.
+	\item la \emph{preparazione}, nella quale il motore inferenziale organizza gli elementi ottenuti nella fase precedente all'interno di strutture specifiche che agevolino le elaborazioni successive. 
+	%In questa fase l'insieme di regole viene trasformato nelle strutture utilizzate dall'algoritmo RETE per le operazioni di pattern-matching.
 	\item l'\emph{esecuzione}, nella quale viene eseguito il ciclo \emph{recognize-act}.
 	\item la \emph{valutazione}, una fase nella quale può essere analizzato lo stato finale nel quale ha avuto termine l'elaborazione.
 \end{enumerate}
+
+%Le fasi di preparazione ed esecuzione previste dal motore inferenziale garantiscono un utilizzo dello stesso
+La realizzazione del ciclo di controllo \emph{recognize-act} prevede il confronto fra le condizioni espresse nelle porzioni \emph{LHS} delle regole e l'insieme di fatti memorizzato all'interno della memoria di lavoro. La verifica dell'applicabilità delle regole deve essere ripetuta come conseguenza di ogni modifica, anche minima, della memoria di lavoro. Per ridurre lo sforzo elaborativo richiesto dalle operazioni di confronto è possibile utilizzare l'algoritmo RETE~\cite{forgy1979}~\cite{forgy1982}~\cite{Doorenbos95productionmatching}.
+
+L'algoritmo prevede la scomposizione dell'attività in due processi separati. In un primo, interpretabile come un processo di \emph{compilazione}, l'insieme delle condizioni presenti nelle porzioni \emph{LHS} delle regole vengono valutate e trasformare in un grafo orientato radicato. Ogni nodo eseguirà, in una fase successiva, una valutazione di uno o una sequenza di elementi della \emph{working-memory}. Il tipo di nodi che è possibile utilizzare durante il processo di conversione delle regole determina il tipo di confronti e operazioni che verranno effettuati nella seconda fase. Il processo di conversione può essere realizzato tramite la creazione di espressioni statiche che verranno eseguite per valutare le modifiche della \emph{working-memory}~\cite{forgy1979}~\cite{forgy1982} realizzando in questo modo una rappresentazione implicita di un grafo di valutazione. Questa forma di implementazione prende il nome di formulazione compilata. Una variante alternativa~\cite{Doorenbos95productionmatching} prevede la generazione esplicita del grafo attraverso la realizzazione di strutture che rappresentino i nodi, prendendo il nome di formulazione interpretata. La fase di valutazione delle regole e della relativa trasformazione ha luogo nella fase di \emph{preparazione} del motore inferenziale precedentemente esplicitata.
+
+Durante la fase di esecuzione del ciclo \emph{recognize-act} ha invece luogo la seconda attività prevista dall'algoritmo RETE: la valutazione delle modifiche della \emph{working-memory}. L'aggiunta o la rimozione di elementi dalla memoria di lavoro viene valutata dall'algoritmo facendo attraversare all'elemento il grafo di valutazione generato nella fase di preparazione. L'output offerto dalla valutazione consiste nell'elenco di attivazioni da aggiungere o rimuovere dall'agenda delle attivazioni.
 
 La selezione dell'attivazione da eseguire viene eseguita utilizzando una serie di criteri. L'entità che racchiude questi criteri e li organizza prende il nome di \emph{strategia di risoluzione dei conflitti} (CRS). La CRS organizza l'elenco di attivazioni disponibili per ogni stato del sistema in base ad un ordinamento specifico. L'aggiunta o la rimozione di un fatto può determinare l'aggiornamento dell'intera sequenza. Per ogni iterazione del ciclo \emph{recognize-act} possono essere aggiunte o rimosse un numero arbitrario di attivazioni determinate dalla modifica allo stato del sistema eseguita nella fase \emph{act}. All'inizio di ogni ciclo, l'attivazione con priorità maggiore (sempre determinata in base ai criteri della CRS in uso) viene selezionata, rimossa dalla sequenza e quindi eseguita.
 
@@ -206,13 +223,8 @@ Un comando non è altro che una funzione di sistema oppure una funzione utente d
 
 Il software deve essere accompagnato da un componente in grado di rendere fruibili le funzionalità offerte attraverso un modello di architettura distribuita \emph{client-server}.
 
-\textbf{CORREGGIMIIIIII e fammi sembrare analisi!}
-
 Un sistema distribuito consiste di una collezione di componenti, suddivisi su diversi terminali (anche chiamati \emph{host}) connessi fra loro attraverso un canale di comunicazione. Questi componenti interagiscono fra loro al fine di scambiare dati od accedere reciprocamente a servizi disponibili~\cite{Mascolo:2002:MCM:770420.770423}.
 La realizzazione di un sistema distribuito è soggetta alla predisposizione di un sistema di comunicazione fra i processi collocati nei vari \emph{host}.
-
-Il modello di architettura \emph{Client-Server} si basa sul partizionamento delle attività, risorse e responsabilità del sistema in due classi di componenti: \emph{Server} e \emph{Client}.
-I componenti possono essere posizionati su \emph{host} fisicamente differenti, così come possono essere collocati in processi separati residenti sulla stessa macchina, in modo tale che non condividano direttamente risorse (\figurename~\ref{fig:client-server}). Lo scambio di informazioni avviene attraverso un protocollo noto ad entrambi i componenti.
 
 \begin{figure}[h]
 \centering
@@ -220,10 +232,19 @@ I componenti possono essere posizionati su \emph{host} fisicamente differenti, c
 \caption[Architettura \emph{Client-Server}]{Architettura \emph{Client-Server}: in \emph{(a)} è mostrata una distribuzione su \emph{host} multipli, in \emph{(b)} una distribuzione in processi multipli}\label{fig:client-server}
 \end{figure}
 
-L'architettura \emph{Client-Server} descrive un modello di collaborazione fra sistemi. Il \emph{server} offre servizi o funzionalità a uno o più \emph{client}, mentre il \emph{client} effettua una richiesta e provvede ad elaborare i dati ottenuti come risposta dal \emph{server} per presentarli all'utente o proseguire con ulteriori elaborazioni.
+Il modello di architettura \emph{Client-Server} si basa sul partizionamento delle attività, risorse e responsabilità del sistema in due classi di componenti: \emph{Server} e \emph{Client}.
+I componenti possono essere posizionati su \emph{host} fisicamente differenti, così come possono essere collocati in processi separati residenti sulla stessa macchina, in modo tale che non condividano direttamente risorse (\figurename~\ref{fig:client-server}). Lo scambio di informazioni avviene attraverso un protocollo noto ad entrambi i componenti.
 
-Lo stato della comunicazione fra \emph{client} e \emph{server} può essere di tipo volatile o persistente. Nel primo caso, il \emph{client} può utilizzare un servizio indicando semplicemente il nome della funzionalità e i parametri di elaborazione. La richiesta viene elaborata e i risultati restituiti. La connessione fra i componenti viene quindi chiusa. Nel secondo caso, l'utilizzo di una funzionalità deve essere preceduto dall'esecuzione di un preambolo, durante il quale venga inizializzata una sessione persistente fra \emph{client} e \emph{server}.
-La sessione viene archiviata e gestita dell'istanza \emph{server}: il componente farà uso della sessione per organizzare informazioni, risultati intermedi di elaborazioni   e risorse allocate relative ad un \emph{client}. Al \emph{client} invece, viene fornito un identificatore univoco di sessione che consentirà di relazionare ogni richiesta effettuata con un contesto di esecuzione univoco. La sessione viene archiviata per un tempo prefissato, oltre il quale viene distrutta. Ulteriore utilizzo di funzionalità sarà quindi nuovamente preceduto da un preambolo.
+Il modulo \emph{server} deve garantire la fruizione dei servizi offerti dall'\emph{en\-vi\-ron\-ment} a \emph{client} multipli contemporaneamente. \`E quindi necessario che i risultati intermedi di elaborazione, così le informazioni relative all'\emph{engine} e all'artefatto caricato, siano disponibili ed utilizzabili solo dal \emph{client} che ha eseguito il caricamento e le precedenti elaborazioni. Per supportare questo modello d'utilizzo, il \emph{server} deve essere in grado di associare un contesto univoco ad ogni richiesta che preveda l'utilizzo di risorse allocate in richieste precedenti.
+
+L'inizializzazione del contesto deve essere richiesta dal \emph{client}: il \emph{server} provvederà all'allocazione delle risorse ed alla generazione di un identificativo di sessione univoco che verrà quindi fornito al \emph{client} e utilizzato dallo stesso per associare richieste successive al contesto inizializzato. Il server utilizza la sessione per memorizzare risultati parziali fra richieste successive, parametri di configurazione della comunicazione con il \emph{client} e, più genericamente, qualsiasi genere di informazione che possa essere ritenuta utile nel proseguo dell'elaborazione. Ogni sessione deve essere associata ad un tempo massimo di inattività oltre il quale la stessa venga rimossa automaticamente per consentire il recupero delle risorse allocate. Il tempo di inattività associato alla sessione deve essere calcolato tenendo presente l'ultima richiesta effettuata che abbia fornito l'identificativo come parametro di contesto. La rimozione della sessione può anche essere arbitrariamente richiesta dal \emph{client} che l'ha generata, nel momento in cui la stessa non sia ritenuta più necessaria.
+
+
+
+%L'architettura \emph{Client-Server} descrive un modello di collaborazione fra sistemi. Il \emph{server} offre servizi o funzionalità a uno o più \emph{client}, mentre il \emph{client} effettua una richiesta e provvede ad elaborare i dati ottenuti come risposta dal \emph{server} per presentarli all'utente o proseguire con ulteriori elaborazioni.
+
+%Lo stato della comunicazione fra \emph{client} e \emph{server} può essere di tipo volatile o persistente. Nel primo caso, il \emph{client} può utilizzare un servizio indicando semplicemente il nome della funzionalità e i parametri di elaborazione. La richiesta viene elaborata e i risultati restituiti. La connessione fra i componenti viene quindi chiusa. Nel secondo caso, l'utilizzo di una funzionalità deve essere preceduto dall'esecuzione di un preambolo, durante il quale venga inizializzata una sessione persistente fra \emph{client} e \emph{server}.
+%La sessione viene archiviata e gestita dell'istanza \emph{server}: il componente farà uso della sessione per organizzare informazioni, risultati intermedi di elaborazioni   e risorse allocate relative ad un \emph{client}. Al \emph{client} invece, viene fornito un identificatore univoco di sessione che consentirà di relazionare ogni richiesta effettuata con un contesto di esecuzione univoco. La sessione viene archiviata per un tempo prefissato, oltre il quale viene distrutta. Ulteriore utilizzo di funzionalità sarà quindi nuovamente preceduto da un preambolo.
 
 \section{Vincoli di sistema}
 \vincoliinit

@@ -1,1 +1,202 @@
-BNF
+;;;;;;
+; Tipi di base
+<number> ::= <float> | <integer>
+
+<lexeme> ::= <symbol> | <string>
+
+<constant> ::= <number> | <lexeme>
+
+<comment> ::= <string>
+
+<variable-symbol> ::= <symbol>
+
+<...-name> ::= <symbol>
+
+<single-field-variable> ::= ?<variable-symbol>
+
+<multifield-variable> ::= $?<variable-symbol>
+
+<global-variable> ::= ?*<symbol>*
+
+<variable> ::= <single-field-variable>
+				| <multifield-variable>
+				| <global-variable>
+				
+<function-call> ::= (<function-name> <expression>*)
+
+<expression> ::= <constant>
+					| <variable>
+					| <function-call>
+					
+<PROGRAM> ::= <construct>*
+
+<construct> ::= <deffacts-construct>
+				| <defrule-construct>
+				| <defmodule-construct>
+				| <defglobal-construct>
+				| <deffunction-construct>
+				| <deftemplate-construct>
+
+;;;;;;
+; Costrutto DefFacts
+<deffacts-construct> ::= 
+		(deffacts [<module-name>::]<deffacts-name>
+			[<comment>]
+			<RHS-pattern>*
+		)
+
+<RHS-pattern> ::= <ordered-RHS-pattern>
+					| <template-RHS-pattern>
+
+<ordered-RHS-pattern> ::= (<symbol> <RHS-field>+)
+
+<template-RHS-pattern> ::= (<deftemplate-name> <RHS-slot>*)
+
+<RHS-slot> ::= <single-field-RHS-slot> 
+				| <multifield-RHS-slot>
+
+<single-field-RHS-slot> ::= (<slot-name> <RHS-field>)
+
+<multifield-RHS-slot> ::= (<slot-name> <RHS-field>*)
+
+<RHS-field> ::= <variable> 
+				| <constant> 
+				| <function-call>
+
+;;;;;;
+; Costrutto DefFunction
+<deffunction-construct> ::= 
+		(deffunction [<module-name>::]<name> 
+			[<comment>]
+			(<regular-param>* [<wildcard-param>])
+			<action>*
+		)
+
+<regular-param> ::= <single-field-variable>
+
+<wildcard-param> ::= <multi-field-variable>
+
+;;;;;;
+; Costrutto DefModule
+<defmodule> ::= (defmodule <module-name> [comment] <port-spec>*)
+
+<port-spec> ::= (export <port-item>)
+						| (import <module-name> <port-item>)
+
+<port-item> ::= ?ALL
+						| ?NONE
+						| <port-construct> ?ALL
+						| <port-construct> ?NONE
+						| <port-construct> <construct-name>+
+
+<port-construct> ::= deftemplate 
+							| defglobal 
+							| deffunction
+
+;;;;;;
+; Costrutto DefRule
+<defrule-construct> ::=
+		(defrule [<module-name>::]<rule-name>
+			[<comment>]
+			[<declaration>]
+			<conditional-element>*
+			=>
+			<action>*
+		)
+
+<declaration> ::= (declare <rule-property>+)
+
+<rule-property> ::= (salience <integer-expression>)
+							| (auto-focus <boolean-symbol>)
+
+<boolean-symbol> ::= TRUE | FALSE
+
+<conditional-element> ::= <pattern-CE>
+									| <assigned-pattern-CE>
+									| <not-CE>
+									| <and-CE>
+									| <or-CE>
+									| <test-CE>
+									| <exists-CE>							
+
+<test-CE> ::= (test <function-call>)
+
+<not-CE> ::= (not <conditional-element>)
+
+<and-CE> ::= (and <conditional-element>+)
+
+<or-CE> ::= (or <conditional-element>+)
+
+<exists-CE> ::= (exists <conditional-element>+)
+
+<assigned-pattern-CE> ::= <single-field-variable> <- <pattern-CE>
+
+<pattern-CE> ::= <ordered-pattern-CE>
+				| <template-pattern-CE>
+				
+<ordered-pattern-CE> ::= (<symbol> <constraint>*)
+
+<template-pattern-CE> ::= (<deftemplate-name> <LHS-slot>*)
+
+<LHS-slot> ::= <single-field-LHS-slot>
+				| <multifield-LHS-slot>
+				
+<single-field-LHS-slot> ::= (<slot-name> <constraint>)
+
+<multifield-LHS-slot> ::= (<slot-name> <constraint>*)
+
+<constraint> ::= ? | $? | <connected-constraint>
+
+<connected-constraint> ::= <single-constraint>
+							| <single-constraint> & <connected-constraint>
+							| <single-constraint> | <connected-constraint>
+
+<single-constraint> ::= <term> | ~<term>
+
+<term> ::= <constant>
+			| <single-field-variable>
+			| <multi-field-variable>
+			| =<function-call>
+							
+;;;;;;
+; Costrutto DefTemplate
+<deftemplate-construct> ::=
+		(deftemplate 
+			[<module-name>::]<deftemplate-name>
+			[<comment>]
+			<slot-definition>*
+		)
+
+<slot-definition> ::= <single-slot-def> 
+								| <multi-slot-def>
+
+<single-slot-def> ::= 
+		(slot <slot-name> 
+			<template-attribute>*)
+
+<multi-slot-def> ::= 
+		(multislot <slot-name> 
+			<template-attribute>*)
+
+<template-attribute> ::= <default-attribute> 
+							| <constraint-attribute>
+
+<default-attribute> ::= (default ?DERIVE 
+										| ?NONE 
+										| <expression>* )
+
+<contraint-attr> ::= (type <type-spec>)
+
+<type-spec> ::= SYMBOL | STRING | LEXEME 
+						| INTEGER | FLOAT | NUMBER 
+						| FACT-ADDRESS
+									
+;;;;;;
+; Costrutto DefGlobal
+<defglobal-construct> ::= 
+		(defglobal
+			[<module-name>]
+			<global-assignment>*
+		)
+		
+<global-assignment> ::= <global-variabl> = <expression>

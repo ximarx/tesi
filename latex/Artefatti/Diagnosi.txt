@@ -1,7 +1,3 @@
-;********************************************************************************
-;* Funzioni di supporto                                                         *
-;********************************************************************************
-
 (deffunction Domanda (?testo ?spiegazione $?valori_ammessi)
 	(format t ?testo)
 	(if (neq ?spiegazione "") 
@@ -25,17 +21,11 @@
 	?risposta                                            ; Valore restituito dalla funzione Domanda
 )
 
-
 (defglobal ?*spiegazione* = "")
 
 (deffunction Spiega (?testo)
         (bind ?*spiegazione* (str-cat ?*spiegazione* ?testo))
 )
-
-
-;********************************************************************************
-;* Funzioni generali                                                            *
-;********************************************************************************
 
 (defrule Presentazione
         (declare (salience 100))
@@ -47,9 +37,6 @@
 )
 
 
-;********************************************************************************
-;* Regole di Visualizzazione FINALE!!!!!!!!!!                                   *
-;********************************************************************************
 
 (defrule Visualizza_Malattia
         (diagnosi ?malattia)
@@ -57,10 +44,6 @@
         (format t "%n%n%n%nLa malattia e':%s" ?malattia)
 )
 
-
-;********************************************************************************
-;* Modulo di spiegazione!!!!!                                                   *
-;********************************************************************************
 
 
 (defrule Visualizza_spiegazione
@@ -73,10 +56,6 @@
         )
 )
 
-
-;********************************************************************************
-;* Regole
-;********************************************************************************
 
 (defrule Sindrome_di_Gilbert
 	(sintomo ittero_sclerale si)
