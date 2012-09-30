@@ -1,0 +1,39 @@
+
+
+\begin{algorithm}
+\caption{Compilazione di una regola}\label{alg:builder-makeNetwork}
+\begin{algorithmic}
+\Function{Builder.makeNetwork}{parent: node, conds: \textbf{list} of conditions, prevConds: integer}
+\State \textbf{siano} $c_1,\dots,c_k$ le componenti di conds
+\For{$i = 1 \to k$}
+	\If {$c_i$ is-a Pattern-CE}
+	    \State $tests_\alpha\gets$ Analysis.analyzePattern($c_i$, $\alpha$)
+	    \State $memory_\alpha\gets$ Builder.makeAlphaCircuit($tests_\alpha$)
+	    \State $tests_\beta\gets$ Analysis.analyzePattern($c_i$, $\beta$)
+	    \State $parent\gets$ Builder.makeJoinCircuit($parent$, $memory_\alpha$, $tests_\beta$)
+	\ElsIf {$c_i$ is-a Not-CE}
+	    \State $tests_\alpha\gets$ Analysis.analyzePattern($c_i$, $\alpha$)
+	    \State $memory_\alpha\gets$ Builder.makeAlphaCircuit($tests_\alpha$)
+	    \State $tests_\beta\gets$ Analysis.analyzePattern($c_i$, $\beta$)
+	    \State $parent\gets$ Builder.makeNegativeJoinCircuit($parent$, $memory_\alpha$, $tests_\beta$)
+	\ElsIf {$c_i$ is-a Ncc-CE}
+		\State \textbf{siano} $ncc_i$ le componenti negate da $c_i$
+		\State \textbf{sia} $l$ il numero di componenti in $ncc_i$
+	    \State $lastNccNode\gets$ Builder.makeNetwork($parent$, $ncc_i$, $prevConds$)
+	    \State $node\gets$ Builder.makeNccCircuit($parent$, $lastNccNode$, $l$)
+	\ElsIf {$c_i$ is-a Test-CE}
+		\State $tests_\theta\gets$ Analysis.analyzePattern($c_i$, $\theta$)
+		\State $parent\gets$ Builder.makeTestCircuit($parent$, $tests_\theta$)	
+	\ElsIf {$c_i$ is-a Exists-CE}
+	    \State $tests_\alpha\gets$ Analysis.analyzePattern($c_i$, $\alpha$)
+	    \State $memory_\alpha\gets$ Builder.makeAlphaCircuit($tests_\alpha$)
+	    \State $tests_\beta\gets$ Analysis.analyzePattern($c_i$, $\beta$)
+	    \State $parent\gets$ Builder.makeExistsCircuit($parent$, $memory_\alpha$, $tests_\beta$)
+	\EndIf
+	\State $prevConds\gets prevConds + 1$
+\EndFor
+\State \Return{$node$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+

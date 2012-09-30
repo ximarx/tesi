@@ -1,0 +1,19 @@
+
+\begin{algorithm}
+\caption{Esempio di metodo \emph{factory} per i nodi}\label{alg:builder-factory}
+\begin{algorithmic}
+\Function{Builder.factory}{nodeType: un tipo di nodo, parent: node, params: \textbf{list} of parametri di creazione del nodo}
+\State \textbf{siano} $child_1,\dots,child_k$ i nodi successori di $parent$
+\For{$i = 1 \to k$}
+	\State \textbf{siano} $params_{child_i}$ i parametri di creazioni usati per il nodo $child_i$
+	\If {$child_i$ is-a $nodeType$ $\wedge$ $params = params_{child_i}$}
+		\State \Return{$child_i$}
+	\EndIf
+\EndFor
+\State \textbf{sia} $newNode$ un nuovo nodo di tipo $nodeType$ creato con i parametri $params$
+\State aggiungi $newNode$ fra i successori di $parent$
+\State imposta $parent$ come padre di $newNode$
+\State \Return{$newNode$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}

@@ -1,0 +1,12 @@
+
+\begin{algorithm}
+\caption{Creazione di un circuito $\beta$ per il Join}\label{alg:builder-makeJoin}
+\begin{algorithmic}
+\Function{Builder.makeBetaJoinCircuit}{parent: node, $memory_\alpha$: node, $tests_\beta$: \textbf{list} of test}
+\State $parent\gets$ Builder.factory\_BetaMemory($parent$)
+\State $parent\gets$ Builder.factory\_JoinNode($parent$, $memory_\alpha$, $tests_\beta$)
+\State \Return{$lastNode$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+

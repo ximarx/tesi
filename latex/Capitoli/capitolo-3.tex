@@ -151,7 +151,7 @@ La gestione delle attivazioni viene affidata alla classe \emph{Agenda} e al \emp
 
 
 \subsubsection{Modulo Matcher}
-Lo scopo del modulo \emph{matcher} è quello di confrontare lo stato della \emph{working-memory} con il \emph{rule-set} identificando l'insieme di attivazioni disponibili e inserendole nell'\emph{agenda delle attivazioni}.
+Lo scopo del modulo \emph{matcher} è quello di confrontare lo stato della \emph{working-memory} con il \emph{rule-set}, identificando l'insieme di attivazioni disponibili e inserendole nell'\emph{agenda delle attivazioni}.
 
 \begin{figure}
 \centering
@@ -161,12 +161,34 @@ Lo scopo del modulo \emph{matcher} è quello di confrontare lo stato della \emph
 
 Il modulo si basa sull'utilizzo di un'implementazione interpretata dell'algoritmo RETE. Attraverso l'uso di due classi utility~(\figurename~\ref{fig:class-myclips-rete-builders}), per l'analisi dei \emph{pattern} delle regole e per la costruzione del grafo, il \emph{rules-set} viene convertito nel grafo esplicito di valutazione caratteristico dell'algoritmo RETE.
 
-In seguito all'aggiunta di una nuova definizione di regola, l'insieme di pattern che compongono la porzione \emph{LHS} viene scomposto e analizzato singolarmente. Per ognuno di essi viene creato, o condiviso, un circuito \emph{alpha} in grado di descrivere le espressioni
-
 La classe \emph{Analyzer} viene utilizzata per manipolare la forma dei pattern delle regole nel \emph{rules-set}, adattandole alla topologia del grafo di RETE, e individuare l'insieme dei test \emph{alpha} e \emph{beta} per i pattern, inizializzando le relative istanze delle classi di test organizzate nel package \emph{myclips.rete.tests}.
 
 La classe \emph{Builder} ha invece il compito di creare l'insieme di nodi necessari alla costituzione del grafo, associandoli dove necessario ai test ottenuti dall'\emph{Analyzer}.
 L'utilizzo dei metodi \emph{factory} per i nodi, come alternativa a normali costruttori, permette di utilizzare istanze condivise dei nodi quando possibile.
+
+\paragraph{Compilazione delle regole}
+
+L'algoritmo utilizzato per la compilazione delle regole segue quanto proposto in \cite{Doorenbos95productionmatching}, con alcune modifiche per permette l'utilizzo di pattern non previsti in origine come \emph{or-CE}, \emph{exists-CE} e \emph{test-CE}.
+
+La procedura principale di compilazione ha inizio all'interno del metodo \emph{Network::addRule}: utilizzando \emph{Analyzer}, l'insieme dei pattern della regola vengono trasformati in modo che l'insieme di condizioni sia presentato in una forma normalizzata dove il primo pattern sia un elemento \emph{or-CE} con al suo interno almeno un elemento \emph{and-CE} che racchiuda le condizioni originali. Durante la normalizzazione, l'eventuale presenza di condizioni \emph{or} poste all'interno dei pattern viene trasferita nella radice della nuova \emph{LHS} normalizzata.
+
+\input{Capitoli/capitolo-3/rete-make-network.tex}
+
+Ogni gruppo di condizioni \emph{and-CE} genera un nuovo circuito indipendente. La compilazione del circuito ha luogo all'interno del metodo \emph{Builder::makeNetwork}~(Algoritmo~\ref{alg:builder-makeNetwork}): viene verificato il tipo di ogni pattern e quindi avviata la procedura di compilazione più indicata per lo stesso.
+
+
+\input{Capitoli/capitolo-3/rete-make-alpha.tex}
+
+\input{Capitoli/capitolo-3/rete-make-join.tex}
+
+
+Ad ogni tipo di pattern corrisponde una procedura apposita. Nel caso più comune, un normale \emph{Pattern-CE}, questo viene prima analizzato per l'identificazione dei test \emph{alpha} e \emph{beta}: i primi vengono utilizzati per la generazione di un circuito che filtri gli elementi della \emph{working-memory} in base ai criteri del pattern~(Algoritmo~\ref{alg:builder-makeAlpha}), mentre quelli \emph{beta} per la creazione di un nodo \emph{Join} che riunisca il circuito \emph{alpha} appena creato con le porzioni \emph{beta} della regola create in precedenza~(Algoritmo~\ref{alg:builder-makeJoin}).
+
+\input{Capitoli/capitolo-3/rete-factory.tex}
+
+La procedura di generazione dei nodi~(Algoritmo~\ref{alg:builder-factory}) controlla prima la possibilità di condividere un nodo già esistente che verifichi condizioni analoghe a quelle desiderate, quindi provvede alla creazione di una nuova istanza nel caso la condivisione non sia possibile. La possibilità di condividere un nodo precedentemente creato dipende sia dall'esistenza di un nodo di tipo analogo a quello desiderato, sia dall'effettiva corrispondenza fra i test eseguiti dal nodo esistente con quelli che si desidera eseguiti dal nuovo nodo.
+
+
 
 \paragraph{Nodi del grafo di RETE}
 
@@ -491,7 +513,7 @@ Pyparsing\footnote{http://pyparsing.wikispaces.com/home}$^,$\footnote{http://sou
 \caption[Integrazione di PyParsing nel modulo Parser]{Integrazione di PyParsing nel modulo Parser}\label{fig:class-myclips-parser-pyparsing}
 \end{figure}
 
-Il modulo Parser è stato implementato facendo uso delle classi fornite da Pyparsing per la definizione delle regole di valutazione. L'interfaccia \emph{ParserRule} mostrata nella descrizione descrizione del modulo Parser è stata sostituita dall'uso delle classi fornite da PyParsing. La classe principale \emph{Parser} è stata conseguentemente adattata per l'uso delle nuove istanze (\figurename~\ref{fig:class-myclips-parser-pyparsing})~\cite{pyparsing-apidoc}.
+Il modulo Parser è stato implementato facendo uso delle classi fornite da Pyparsing per la definizione delle regole di valutazione. L'interfaccia \emph{ParserRule} mostrata nella descrizione del modulo Parser è stata sostituita dall'uso delle classi fornite da PyParsing. La classe principale \emph{Parser} è stata conseguentemente adattata per l'uso delle nuove istanze (\figurename~\ref{fig:class-myclips-parser-pyparsing})~\cite{pyparsing-apidoc}.
 
 \subsubsection{BList}
 
@@ -510,8 +532,8 @@ Le liste ordinate fornite da Blist sono state utilizzate nell'implementazione de
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{Immagini/Capitolo3/NetworkX-example.pdf}
-\caption[Esempio d'uso della libreria NetworkX]{Esempio d'uso della libreria NetworkX per la rappresentazione del circuito compilato ottenuto dalla regola ''(defrule Make\_Bird\_Fly (bird (type ?X)) $\Rightarrow$ (assert (bird (type ?X) (fly yes))''}\label{fig:networkx-example}
+\includegraphics[width=1\textwidth]{Immagini/Capitolo3/draw-circuit.png}
+\caption[Esempio d'uso della libreria NetworkX]{Esempio d'uso della libreria NetworkX per la rappresentazione del circuito compilato ottenuto dalla regola \emph{controlla\_input} in Codice~\ref{code:agricoltore-1}}\label{fig:networkx-example}
 \end{figure}
 
 NetworkX\footnote{http://networkx.lanl.gov/} è un pacchetto software per il linguaggio Python per la creazione, manipolazione e lo studio di strutture, dinamiche e funzioni di reti complesse.
@@ -645,7 +667,13 @@ MyCLIPS (server) & 0.779 \\
 
 \section{Conclusioni e sviluppi futuri}
 
-Grazie ai vari test effettuati sul prototipo è possibile affermare che le capacità del sistema prodotto risultano paragonabili a quelle del software di riferimento CLIPS. Sebbene il divario in termini prestazionali sia evidente, l'obiettivo di questo elaborato era quello di realizzare un \emph{environment} funzionate con finalità didattiche e di ricerca, una base per sviluppi futuri. La scelta stessa del linguaggio è stata effettuata trascurando le problematiche di tipo prestazionale e privilegiando invece criteri di selezione come la facilità e rapidità di sviluppo e le possibilità di estensione offerte. Come emerso da diverse comparazioni effettuate fra linguaggi~\cite{prashant2008}~\cite{prechelt2000}~\cite{naiditch1999}, la valutazione della prestazione pura espressa in termini di tempo non vede il linguaggio Python emergere fra i migliori~\cite{cpybench}~\cite{prashant2008}~\cite{prechelt2000}. Il divario misurato tramite l'utilizzo della \emph{benchmark suite} in~\cite{cpybench} vede il inguaggio C risultare fino a cento volte più rapido rispetto a Python (\figurename~\ref{fig:c-vs-python-bench}). Chiaramente si propongono questi dati consci del fatto che trarre conclusioni semplicemente basandosi su numeri e senza effettuare i dovuti distinguo non rappresenta un approccio efficace ad un problema tanto complesso quanto lo è la valutazione empirica delle prestazioni di un linguaggio di programmazione~\cite{algorithms}.
+Grazie ai vari test effettuati è possibile affermare che le capacità del sistema prodotto risultano paragonabili a quelle del software di riferimento CLIPS. 
+La capacità di utilizzare artefatti e sistemi originariamente realizzati per il sistema di riferimento senza la necessità di apportare modifiche (escludendo le estensioni del sottosistema COOL), dimostra la possibilità di sostituire il primo sistema in maniera trasparente. I test hanno mostrato un livello di compatibilità di sistema che va al di là della sola portabilità degli artefatti: la sequenza delle attivazioni ed i relativi processi di ragionamento simulati dai sistemi risultano costanti in entrambi gli \emph{environment}. Sia i risultati che le modalità con le quali sono stati ottenuti vengono replicati esattamente dal prototipo realizzato.
+
+Sebbene il divario in termini prestazionali sia evidente, l'obiettivo di questo elaborato era quello di realizzare un \emph{environment} funzionate con finalità didattiche e di ricerca, una base per sviluppi futuri. La scelta stessa del linguaggio è stata effettuata trascurando le problematiche di tipo prestazionale e privilegiando invece criteri di selezione come la facilità e rapidità di sviluppo e le possibilità di estensione offerte. Come emerso da diverse comparazioni effettuate fra linguaggi~\cite{prashant2008}~\cite{prechelt2000}~\cite{naiditch1999}, la valutazione della prestazione pura espressa in termini di tempo non vede il linguaggio Python emergere fra i migliori~\cite{cpybench}~\cite{prashant2008}~\cite{prechelt2000}. Il divario misurato tramite l'utilizzo della \emph{benchmark suite} in~\cite{cpybench} vede il inguaggio C risultare fino a cento volte più rapido rispetto a Python (\figurename~\ref{fig:c-vs-python-bench}). Chiaramente si propongono questi dati consci del fatto che trarre conclusioni semplicemente basandosi su numeri e senza effettuare i dovuti \emph{distinguo} non rappresenta un approccio efficace ad un problema tanto complesso quanto lo è la valutazione empirica delle prestazioni di un linguaggio di programmazione~\cite{algorithms}. 
+
+Le ridotte prestazioni offerte dal linguaggio, non sono state ritenute una ragione sufficiente ad invalidare la preferenza espressa, soprattutto tenendo conto dei vantaggi che la soluzione ha offerto durante lo sviluppo del prototipo e che può potenzialmente offrire durante l'ulteriore sviluppo del sistema, principale obiettivo di questa tesi. Il \emph{Vincolo-7} non poneva delle limitazioni di rapidità alla soluzione prodotta se non quella di rendere possibile un confronto fra il prototipo e CLIPS utilizzando strumenti già fruttati in passato per questa finalità~\cite{rbsbench}~\cite{ops5bench}~\cite{brantetal91}.
+
 
 \begin{figure}
 \centering
@@ -653,12 +681,10 @@ Grazie ai vari test effettuati sul prototipo è possibile affermare che le capac
 \caption{Python 3 vs C: esecuzione della \emph{benchmark suite}~\cite{cpybench}  }\label{fig:c-vs-python-bench}
 \end{figure}
 
-Di maggiore interesse è invece l'osservazione dell'andamento del \emph{gap} prestazionale evidenziato dai test differenti (\figurename~\ref{fig:myclips-vs-clips-bench}). Il prototipo MyCLIPS si è rivelato fra le 20 e le 130 volte più lento rispetto al software CLIPS utilizzando istanze locali, mentre fra le 60 e 200 volte usando istanze remote tramite modulo server. Il divario si è rivelato essere più marcato con l'aumento delle dimensioni dei dati gestiti nella \emph{working-memory}, è rimasto invece costante per i test relativi al benchmark \emph{Sudoku}.
+Analizzando i risultati in ambito locale, si può evidenziare come il prototipo risulti fra le 20 e le 130 volte più lento rispetto al software di riferimento. I risultati migliori sono stati ottenuti nel benchmark \emph{Monkey}, dove la relativa semplicità del test ha permesso di marcare risultati ben al di sotto della soglia attesa. Le differenze risultano lievemente al di sotto delle attese anche per i test \emph{Manners} con 8 e 16 ospiti. Il divario si fa più marcato nel momento in cui la dimensione del dataset e la complessità dei test cresce, evidenziando maggiormente i limiti della soluzione proposta.
 
-RISCRIVIMI!
-\begin{enumerate}
-\item Come rovescio della medaglia, la scelta ha determinato alcuni effetti sulle prestazioni complessive del sistema: nonostante le prestazioni teoricamente migliori ottenibili con linguaggi alternativi, il \emph{Vincolo-7} risulta egualmente soddisfatto. Le ridotte prestazioni offerte da Python (se messo in relazione con altri linguaggi), non sono state ritenute una ragione sufficiente ad invalidare la preferenza espressa, soprattutto tenendo conto dei vantaggi alternativi che la soluzione offre.
-\end{enumerate}
+Quello che invece risulta più interessante è l'analisi dell'andamento del \emph{gap} prestazionale evidenziato dai test differenti (\figurename~\ref{fig:myclips-vs-clips-bench}). Il rapporto fra il prototipo e il software di riferimento è rimasto pressoché costante (compreso fra le 100 e 130 volte) anche a fronte di un aumento dei tempi reali di esecuzione dell'ordine di 40 volte, dimostrando una corrispondenza di comportamento fra il software di riferimento ed il sistema proposto in rapporto all'aumento della complessità dei test.
+
 
 \begin{figure}
 \begin{minipage}[b]{6.5cm}
@@ -744,12 +770,18 @@ RISCRIVIMI!
 \end{figure}
 
 
-Il risultato di questo lavoro è un sistema che può rappresentare una buona base di partenza per ulteriori evoluzioni del sistema.
-Le capacità realizzate rappresentano una porzione delle funzionalità che vengono richieste ad un \emph{environment per sistemi esperti} della generazione attuale. Proprio l'approfondimento di alcune di queste mancanze potrebbe offrire lo spunto per ulteriori evoluzioni del sistema:
+L'analisi dei risultati ottenuti utilizzando il sistema tramite un'istanza server evidenzia una corrispondenza con i risultati ottenuti tramite utilizzo locale. L'unica eccezione risiede nei risultati del benchmark \emph{Monkey}, dove si riscontra un peggioramento delle prestazioni evidente. Bisogna però effettuare delle valutazioni particolari per comprendere a pieno il risultato del singolo test: il benchmark esegue durante il processo 42 operazioni di \emph{output} a fronte di un tempo di esecuzione di un decimo di secondo. In questo caso, i tempi richiesti per le operazioni di inoltro dei dati verso lo \emph{stream} remoto dominano quelli di esecuzione del test in sé. Lo stesso fenomeno non si presenta durante l'esecuzione del benchmark \emph{Sudoku}: sebbene, in termini assoluti, il test esegua un maggior numero di operazioni di output su \emph{stream} (oltre 200), i risultati non risultano influenzati data la maggior durata dello stesso. Si conclude quindi che l'utilizzo remoto del prototipo offra prestazioni e possibilità in linea con un utilizzo locale.
+
+Il risultato di questo lavoro è un sistema che può rappresentare una buona base di partenza per ulteriori evoluzioni del sistema. 
+Le capacità realizzate rappresentano una porzione delle funzionalità che vengono richieste ad un \emph{environment per sistemi esperti} della corrente generazione. Le scelte effettuate durante la progettazione e la realizzazione del sistema hanno avuto come priorità quella di rendere il sistema modificabile, analizzabile ed estendibile con facilità. Lo sviluppo della componente server è stato un modo per saggiarne la flessibilità trasferendo il normale modello di interazione anche attraverso un'architettura tanto differente quanto quella \emph{client-server}.
+
+Proprio l'approfondimento di alcune delle mancanze del prototipo o l'aggiunta di ulteriori funzionalità potrebbe offrire lo spunto per ulteriori evoluzioni del sistema:
 \begin{itemize}
-	\item l'integrazione nel sistema di un \emph{regime di controllo} alternativo basato sul \emph{backward-chaining} o su approcci ibridi, garantendo agli ingegneri della conoscenza maggiore flessibilità durante le fasi di progettazione.
+	\item l'integrazione di un \emph{regime di controllo} alternativo basato sul \emph{backward-chaining} o su approcci ibridi, garantendo agli ingegneri della conoscenza maggiore flessibilità durante le fasi di progettazione.
 	
 	\item l'integrazione del paradigma di programmazione basato su oggetti nel linguaggio di specifica.
+	
+	\item la valutazione delle prestazioni offerte dal sistema utilizzando algoritmi di matching differenti come ad esempio TREAT~\cite{Miranker:1987:TBM:899610}~\cite{Miranker:1987:TBM:1856670.1856678} o LEAPS~\cite{Batory:1994:LA:899216}.	
 	
 	\item approfondimento delle problematiche relative alle prestazioni generali del sistema, eseguendo una nuova valutazione sulle tecnologie impiegate per la realizzazione dell'artefatto.
 	

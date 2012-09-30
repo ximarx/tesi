@@ -1,0 +1,16 @@
+
+\begin{algorithm}
+\caption{Creazione di un circuito $\alpha$}\label{alg:builder-makeAlpha}
+\begin{algorithmic}
+\Function{Builder.makeAlphaCircuit}{$tests_\alpha$: \textbf{list} of test}
+\State \textbf{siano} $t_1,\dots,t_k$ le componenti di $tests_\alpha$
+\State \textbf{sia} $root$ il nodo radice del grafo di RETE
+\State $lastNode\gets root$
+\For{$i = 1 \to k$}
+	\State $lastNode\gets$ Builder.factory\_PropertyTestNode($lastNode$, $t_i$)
+\EndFor
+\State $lastNode\gets$ Builder.factory\_AlphaMemory($lastNode$)
+\State \Return{$lastNode$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
