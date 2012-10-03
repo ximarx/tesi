@@ -770,19 +770,19 @@ Quello che invece risulta più interessante è l'analisi dell'andamento del \emp
 
 L'analisi dei risultati ottenuti utilizzando il sistema tramite un'istanza server evidenzia una corrispondenza con i risultati ottenuti tramite utilizzo locale. L'unica eccezione risiede nei risultati del benchmark \emph{Monkey}, dove si riscontra un peggioramento delle prestazioni evidente. Bisogna però effettuare delle valutazioni particolari per comprendere appieno il risultato del singolo test: il benchmark esegue durante il processo 42 operazioni di \emph{output} a fronte di un tempo di esecuzione di un decimo di secondo. In questo caso, i tempi richiesti per le operazioni di inoltro dei dati verso lo \emph{stream} remoto dominano quelli di esecuzione del test in sé. Lo stesso fenomeno non si presenta durante l'esecuzione del benchmark \emph{Sudoku}: sebbene, in termini assoluti, il test esegua un maggior numero di operazioni di output su \emph{stream} (oltre 200), i risultati non risultano influenzati data la maggior durata dello stesso. Si conclude quindi che l'utilizzo remoto del prototipo offra prestazioni e possibilità in linea con un utilizzo locale.
 
-\section{Conclusioni}
+%\section{Conclusioni}
 
-L'integrazione degli strumenti di sviluppo per sistemi esperti con tecnologie orientate alla distribuzione degli stessi in ambito \emph{web} ha offerto lo spunto per questo lavoro di tesi. Prendendo come riferimento le funzionalità offerte da un \emph{environment} di grande adozione come CLIPS, è stata progettata e quindi realizzata una soluzione compatibile che enfatizzasse le capacità di estensibilità e integrazione offerte dal linguaggio di programmazione scelto per la realizzazione del prototipo: Python. Al fine di saggiare la flessibilità della soluzione proposta è stata eseguita l'integrazione della soluzione in un modello d'architettura \emph{client-server} e quindi valutato l'impatto che l'adozione di questa tecnologia ha avuto sulle prestazioni complessive del sistema.
+%L'integrazione degli strumenti di sviluppo per sistemi esperti con tecnologie orientate alla distribuzione degli stessi in ambito \emph{web} ha offerto lo spunto per questo lavoro di tesi. Prendendo come riferimento le funzionalità offerte da un \emph{environment} di grande adozione come CLIPS, è stata progettata e quindi realizzata una soluzione compatibile che enfatizzasse le capacità di estensibilità e integrazione offerte dal linguaggio di programmazione scelto per la realizzazione del prototipo: Python. Al fine di saggiare la flessibilità della soluzione proposta è stata eseguita l'integrazione della soluzione in un modello d'architettura \emph{client-server} e quindi valutato l'impatto che l'adozione di questa tecnologia ha avuto sulle prestazioni complessive del sistema.
 
-Durante questa trattazione è stata fornita una definizione di sistemi esperti, approfondendo le tematiche relative al loro processo di sviluppo e all'ambito di utilizzo degli stessi. L'attenzione è stata quindi focalizzata verso le tecniche utilizzate per la formalizzazione della conoscenza in strutture adeguate alla computazione e quindi offerta una classificazione generale degli strumenti di sviluppo per sistemi esperti.
-Nella seconda e terza parte sono state approfondite le problematiche relative alla progettazione e alla realizzazione di un prototipo funzionante di \emph{environment} multi-paradigmatico, successivamente sottoposto ad una valutazione per testarne la correttezza e le prestazioni.
+%Durante questa trattazione è stata fornita una definizione di sistemi esperti, approfondendo le tematiche relative al loro processo di sviluppo e all'ambito di utilizzo degli stessi. L'attenzione è stata quindi focalizzata verso le tecniche utilizzate per la formalizzazione della conoscenza in strutture adeguate alla computazione e quindi offerta una classificazione generale degli strumenti di sviluppo per sistemi esperti.
+%Nella seconda e terza parte sono state approfondite le problematiche relative alla progettazione e alla realizzazione di un prototipo funzionante di \emph{environment} multi-paradigmatico, successivamente sottoposto ad una valutazione per testarne la correttezza e le prestazioni.
 
-Da quanto osservato durante la sperimentazione si può affermare che i risultati ottenuti sono in linea con le attese. Il livello di compatibilità con il sistema di riferimento risulta soddisfacente, i costrutti più utilizzati e considerati indispensabili vengono resi disponibili dal prototipo e i comportamenti riscontrati risultano trovano corrispondenza fra i due sistemi. L'analisi della prestazione ha mostrato un \emph{gap} abbastanza evidente, ma il degrado delle prestazioni, superato un valore di soglia, replica esattamente il comportamento riscontrato nella soluzione di riferimento. Una delle cause alla base delle minori prestazioni è il linguaggio utilizzato per l'implementazione del prototipo, ma non è l'unica. L'analisi del grafico delle chiamate (\figurename~\ref{fig:profile-sudoku}) generato durante la profilazione del benchmark \emph{Sudoku} ha messo in luce due criticità, sicuramente concause delle scarse prestazioni ottenute nello specifico test:
-\begin{enumerate}
-	\item la realizzazione scelta per la rappresentazione dei Token nel sistema utilizza una struttura ad albero per ridurre il consumo di memoria e permettere una condivisione delle informazioni~\cite{Doorenbos95productionmatching}. Questo approccio ha comportato un maggior dispendio di tempo per l'esecuzione delle procedure di \emph{matching} a causa della forma utilizzata per serializzazione delle regole nello specifico test.
+%Da quanto osservato durante la sperimentazione si può affermare che i risultati ottenuti sono in linea con le attese. Il livello di compatibilità con il sistema di riferimento risulta soddisfacente, i costrutti più utilizzati e considerati indispensabili vengono resi disponibili dal prototipo e i comportamenti riscontrati risultano trovano corrispondenza fra i due sistemi. L'analisi della prestazione ha mostrato un \emph{gap} abbastanza evidente, ma il degrado delle prestazioni, superato un valore di soglia, replica esattamente il comportamento riscontrato nella soluzione di riferimento. Una delle cause alla base delle minori prestazioni è il linguaggio utilizzato per l'implementazione del prototipo, ma non è l'unica. L'analisi del grafico delle chiamate (\figurename~\ref{fig:profile-sudoku}) generato durante la profilazione del benchmark \emph{Sudoku} ha messo in luce due criticità, sicuramente concause delle scarse prestazioni ottenute nello specifico test:
+%\begin{enumerate}
+%	\item la realizzazione scelta per la rappresentazione dei Token nel sistema utilizza una struttura ad albero per ridurre il consumo di memoria e permettere una condivisione delle informazioni~\cite{Doorenbos95productionmatching}. Questo approccio ha comportato un maggior dispendio di tempo per l'esecuzione delle procedure di \emph{matching} a causa della forma utilizzata per serializzazione delle regole nello specifico test.
 	
-	\item l'implementazione dei pattern \emph{Test-CE} prevede l'esecuzione di chiamate a funzione senza prevedere alcun sistema di \emph{caching} dei risultati. Verifiche successive richiedono una nuova esecuzione della funzione anche nei casi in cui gli input siano identici a quelli di valutazioni precedenti.
-\end{enumerate}
+%	\item l'implementazione dei pattern \emph{Test-CE} prevede l'esecuzione di chiamate a funzione senza prevedere alcun sistema di \emph{caching} dei risultati. Verifiche successive richiedono una nuova esecuzione della funzione anche nei casi in cui gli input siano identici a quelli di valutazioni precedenti.
+%\end{enumerate}
 
 
 
@@ -790,19 +790,19 @@ Da quanto osservato durante la sperimentazione si può affermare che i risultati
 %Le capacità realizzate rappresentano una porzione delle funzionalità che vengono richieste ad un \emph{environment per sistemi esperti} della corrente generazione. Le scelte effettuate durante la progettazione e la realizzazione del sistema hanno avuto come priorità quella di rendere il sistema modificabile, analizzabile ed estendibile con facilità. Lo sviluppo della componente server è stato un modo per saggiarne la flessibilità trasferendo il normale modello di interazione anche attraverso un'architettura tanto differente quanto quella \emph{client-server}.
 
 
-\subsection{Sviluppi futuri}
+%\subsection{Sviluppi futuri}
 
-L'approfondimento di alcune delle mancanze del prototipo o l'aggiunta di ulteriori funzionalità potrebbe offrire lo spunto per ulteriori evoluzioni del sistema e nuovi ambiti di ricerca:
-\begin{itemize}
-	\item l'integrazione di un \emph{regime di controllo} alternativo basato sul \emph{backward-chaining} o su approcci ibridi, garantendo agli ingegneri della conoscenza maggiore flessibilità durante le fasi di progettazione.
+%L'approfondimento di alcune delle mancanze del prototipo o l'aggiunta di ulteriori funzionalità potrebbe offrire lo spunto per ulteriori evoluzioni del sistema e nuovi ambiti di ricerca:
+%\begin{itemize}
+%	\item l'integrazione di un \emph{regime di controllo} alternativo basato sul \emph{backward-chaining} o su approcci ibridi, garantendo agli ingegneri della conoscenza maggiore flessibilità durante le fasi di progettazione.
 	
-	\item l'integrazione del paradigma di programmazione basato su oggetti nel linguaggio di specifica.
+%	\item l'integrazione del paradigma di programmazione basato su oggetti nel linguaggio di specifica.
 	
-	\item la valutazione delle prestazioni offerte dal sistema utilizzando algoritmi di matching differenti come ad esempio TREAT~\cite{Miranker:1987:TBM:899610}~\cite{Miranker:1987:TBM:1856670.1856678} o LEAPS~\cite{Batory:1994:LA:899216}.	
+%	\item la valutazione delle prestazioni offerte dal sistema utilizzando algoritmi di matching differenti come ad esempio TREAT~\cite{Miranker:1987:TBM:899610}~\cite{Miranker:1987:TBM:1856670.1856678} o LEAPS~\cite{Batory:1994:LA:899216}.	
 	
-	\item approfondimento delle problematiche relative alle prestazioni generali del sistema, eseguendo una nuova valutazione sulle tecnologie impiegate per la realizzazione dell'artefatto.
+%	\item approfondimento delle problematiche relative alle prestazioni generali del sistema, eseguendo una nuova valutazione sulle tecnologie impiegate per la realizzazione dell'artefatto.
 	
-	\item l'integrazione di funzionalità che agevolino lo svolgimento di attività comuni  dei sistemi esperti come la spiegazione dell'inferenza.
+%	\item l'integrazione di funzionalità che agevolino lo svolgimento di attività comuni  dei sistemi esperti come la spiegazione dell'inferenza.
 	
-	\item la fusione nel motore inferenziale di strumenti per la gestione dell'incertezza e della logica \emph{Fuzzy}.
-\end{itemize}
+%	\item la fusione nel motore inferenziale di strumenti per la gestione dell'incertezza e della logica \emph{Fuzzy}.
+%\end{itemize}
