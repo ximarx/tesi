@@ -1,6 +1,6 @@
 \documentclass[a4paper,%
-				12pt,%
-				oneside%
+				11pt,%
+				twoside%
 				]{book}
 				
 \usepackage[english,italian]{babel}
@@ -32,6 +32,7 @@
 \usepackage{pgfplots}
 \usepackage{algpseudocode}
 \usepackage[chapter]{algorithm}
+\usepackage{arydshln}
 
 
 
@@ -48,16 +49,15 @@
 
 \input{Sezioni/Frontespizio}
 
+
+\onehalfspacing
 \pagestyle{fancy}
-
-\singlespacing
-
-\singlespacing
 \rhead{}
 \input{Sezioni/Indici}
-\doublespacing
 
 \rhead{\thesection \sectionmark}
+
+\onehalfspacing
 
 \mainmatter
 \input{Capitoli/capitolo-2}

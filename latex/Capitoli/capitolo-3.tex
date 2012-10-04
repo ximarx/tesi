@@ -80,6 +80,7 @@ La composizione dei tipi di base realizza un insieme di costrutti complessi prin
 
 A titolo d'esempio si propone la struttura della classe \emph{DefRuleConstruct}~(\figurename~\ref{fig:class-myclips-parser-types-DefRuleConstruct})  insieme ad i relativi sotto-costrutti utilizzati per la conversione e rappresentazione di pozioni di quest'ultima.
 
+\clearpage
 
 \subsubsection{Modulo Motore Inferenziale}
 
@@ -98,6 +99,7 @@ A livello logico, le classi che lo realizzano possono essere raggruppate in due 
 \includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_Scope-ModulesManager.png}
 \caption{Package \emph{myclips}: vista delle classi per la gestione dei moduli}\label{fig:class-myclips-scope-mm}
 \end{figure}
+
 
 \paragraph{Gestione delle definizioni}
 
@@ -129,12 +131,13 @@ Lo scambio di definizioni non ancora esplicitate avviene attraverso l'utilizzo d
 La memorizzazione delle definizioni è affidata alle classi \emph{GlobalsManager}, \emph{TemplatesManager} e \emph{FunctionsManager}~(\figurename~\ref{fig:class-myclips-restricted-manager}). 
 Ogni \emph{manager} memorizza un preciso tipo di definizioni che possono essere utilizzate nell'ambito di uno \emph{Scope} specifico. L'eventuale presenza di \emph{promesse di export} viene valutata durante l'aggiunta di nuove definizioni nei \emph{manager}~(\figurename~\ref{fig:sequence-def-import-export-promise}).
 
+\clearpage
 
 \paragraph{Gestione dell'inferenza}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_rete_Network.png}
+\includegraphics[width=0.9\textwidth]{Immagini/Capitolo3/Classi/myclips_rete_Network.png}
 \caption{Package \emph{myclips}: vista della classe \emph{Network}}\label{fig:class-myclips-network}
 \end{figure}
 
@@ -143,11 +146,13 @@ La classe principale per la gestione dell'inferenza è la classe \emph{fa\c{c}ad
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_Agenda-Strategies.png}
+\includegraphics[width=0.9\textwidth]{Immagini/Capitolo3/Classi/myclips_Agenda-Strategies.png}
 \caption{Package \emph{myclips}: vista delle classi e interfacce relative ad  \emph{Agenda} e \emph{Strategie} (CRS)}\label{fig:class-myclips-agenda-strategies}
 \end{figure}
 
 La gestione delle attivazioni viene affidata alla classe \emph{Agenda} e al \emph{package} \emph{myclips.strategies}~(\figurename~\ref{fig:class-myclips-agenda-strategies}). La classe organizza le attivazioni, offrendo servizi per l'aggiunta o la rimozione delle stesse, e gestendo le strategie di risoluzione dei conflitti. La collaborazione fra \emph{Agenda} e \emph{Strategy} viene realizzata attraverso l'utilizzo del pattern \emph{Factory}: la creazione dell'istanza di strategia viene delegata ad una istanza \emph{Singleton} della classe \emph{StrategiesFactory}, la quale inizializza un'implementazione dell'interfaccia \emph{Strategy} fornita basandosi su un id di strategia. L'implementazione dell'\emph{Agenda} viene realizzata tenendo conto dei metodi forniti dall'interfaccia, astraendo dall'implementazione concreta. Le strutture dati adibite alla memorizzazione delle sequenze di attivazioni vengono inizializzate e concretamente gestite dalla specifica implementazione della \emph{Strategy}.
+
+\clearpage
 
 
 \subsubsection{Modulo Matcher}
@@ -155,7 +160,7 @@ Lo scopo del modulo \emph{matcher} è quello di confrontare lo stato della \emph
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{Immagini/Capitolo3/Classi/myclips_rete_Builders.png}
+\includegraphics[width=0.9\textwidth]{Immagini/Capitolo3/Classi/myclips_rete_Builders.png}
 \caption{Package \emph{myclips.rete}: vista delle classi utility per la conversione delle regole in strutture di RETE}\label{fig:class-myclips-rete-builders}
 \end{figure}
 
@@ -188,7 +193,39 @@ Ad ogni tipo di pattern corrisponde una procedura apposita. Nel caso più comune
 
 La procedura di generazione dei nodi~(Algoritmo~\ref{alg:builder-factory}) controlla prima la possibilità di condividere un nodo già esistente che verifichi condizioni analoghe a quelle desiderate, quindi provvede alla creazione di una nuova istanza nel caso la condivisione non sia possibile. La possibilità di condividere un nodo precedentemente creato dipende sia dall'esistenza di un nodo di tipo analogo a quello desiderato, sia dall'effettiva corrispondenza fra i test eseguiti dal nodo esistente con quelli che si desidera eseguiti dal nuovo nodo.
 
+Di seguito sono mostrati gli algoritmi per la generazione delle varie tipologie di circuito
 
+\input{Capitoli/capitolo-3/rete-make-negative.tex}
+
+\input{Capitoli/capitolo-3/rete-make-exists.tex}
+
+\input{Capitoli/capitolo-3/rete-make-ncc.tex}
+
+\input{Capitoli/capitolo-3/rete-make-test.tex}
+
+\input{Capitoli/capitolo-3/rete-test-alpha.tex}
+
+\input{Capitoli/capitolo-3/rete-test-beta.tex}
+
+%\input{Capitoli/capitolo-3/rete-test-tetha.tex}
+
+\input{Capitoli/capitolo-3/rete-factory-property.tex}
+
+%\input{Capitoli/capitolo-3/rete-factory-alpham.tex}
+
+%\input{Capitoli/capitolo-3/rete-factory-betam.tex}
+
+%\input{Capitoli/capitolo-3/rete-factory-join.tex}
+
+%\input{Capitoli/capitolo-3/rete-factory-negative.tex}
+
+%\input{Capitoli/capitolo-3/rete-factory-exists.tex}
+
+%\input{Capitoli/capitolo-3/rete-factory-ncc.tex}
+
+%\input{Capitoli/capitolo-3/rete-factory-test.tex}
+
+\clearpage
 
 \paragraph{Nodi del grafo di RETE}
 
@@ -262,6 +299,10 @@ La prima tipologia (\figurename~\ref{fig:class-myclips-rete-tests-alpha}) esegue
 \end{figure}
 
 La seconda tipologia (\figurename~\ref{fig:class-myclips-rete-tests-beta}) esegue verifiche su gruppi di \emph{WME}, rappresentati da \emph{Token}, valutando la coerenza del valore di variabili comuni a più pattern, il risultato dell'esecuzione di funzioni o valutando i risultato di test di tipo \emph{alpha} eseguiti nella porzione \emph{beta} del grafo. Al fine di poter eseguire i test di tipo \emph{alpha} nei nodi di tipo \emph{beta} è stata adottata una strategia facente riferimento al \emph{design pattern} strutturale \emph{Adapter} (anche noto con il nome di \emph{Wrapper} o \emph{Translator}): la classe \emph{AlphaInBetaNetworkTest}, che realizza l'interfaccia \emph{BetaTest}, incapsula oggetti con interfaccia \emph{AlphaTest} al suo interno. Le operazioni di traduzione degli argomenti dei test vengono eseguite all'interno dell'implementazione della classe.
+
+
+
+\clearpage
 
 \subsubsection{Modulo Interprete}
 
@@ -402,7 +443,9 @@ La prima realizza il ciclo principale di immissione e valutazione dei comandi te
 
 La fase di implementazione ha richiesto la conversione delle strutture progettate e mostrate nei paragrafi precedenti tramite l'utilizzo di un linguaggio di programmazione. Inoltre è stata necessaria la selezione del protocollo da utilizzare per le comunicazioni \emph{client-server}.
 
-\subsection{Scelta del linguaggio: Python}
+\subsection{Tecnologie Utilizzate}
+
+\subsubsection{Python}
 
 \begin{figure}[h]
 \centering
@@ -427,7 +470,7 @@ La scelta del linguaggio di programmazione da utilizzare per l'implementazione d
 
 %Come rovescio della medaglia, la scelta ha determinato alcuni effetti sulle prestazioni complessive del sistema: nonostante le prestazioni teoricamente migliori ottenibili con linguaggi alternativi, il \emph{Vincolo-7} risulta egualmente soddisfatto. Le ridotte prestazioni offerte da Python (se messo in relazione con altri linguaggi), non sono state ritenute una ragione sufficiente ad invalidare la preferenza espressa, soprattutto tenendo conto dei vantaggi alternativi che la soluzione offre.
 
-\subsection{Protocollo: XML-RPC}
+\subsubsection{Protocollo: XML-RPC}
 
 \emph{Remote Procedure Call}, o \emph{RPC}, è un meccanismo tramite il quale un'applicazione posizionata su una \emph{macchina} richiede l'utilizzo di servizi forniti da un'altra applicazione residente su una \emph{macchina} differente. Con il termine \emph{macchina} non viene unicamente inteso un \emph{host}, un'installazione fisicamente separata, ma anche un processo residente in una porzione di memoria indipendente e che rende l'accesso alle risorse del servizio impossibile se non tramite il meccanismo \emph{RPC}. 
 
@@ -501,9 +544,6 @@ A supporto della scelta di utilizzare \emph{XML-RPC} come protocollo RPC si prop
 	\item[Disponibilità:] l'utilizzo del protocollo è possibile in molti linguaggi di programmazione e piattaforme attraverso le implementazioni fornite da librerie apposite. Una stima approssimativa suggerisce la disponibilità di oltre 40 implementazioni differenti per un totale di oltre 25 piattaforme e linguaggi di programmazione~\cite{wikipedia-xmlrpc}.
 \end{description}
 
-
-\subsection{Tecnologie utilizzate}
-
 \subsubsection{Pyparsing}
 Pyparsing\footnote{http://pyparsing.wikispaces.com/home}$^,$\footnote{http://sourceforge.net/projects/pyparsing} è un modulo completamente scritto in linguaggio Python che fornisce un insieme di classi per la creazione di parser di espressioni, sia elementari che complesse e che prevedono l'uso di componenti variabili. Le espressioni sono combinate usando gruppi di operatori (come ad esempio ''+'' per definire la sequenzialità o ''$\mid$'' per le alternative), prevedendo l'utilizzo di espressioni replicate o ricorsive~\cite{pyparsing-gs}.
 
@@ -540,269 +580,1218 @@ NetworkX\footnote{http://networkx.lanl.gov/} è un pacchetto software per il lin
 
 La libreria viene utilizzata per l'implementazione del \emph{Listener} \emph{NetworkPlotter}, usato per offrire una rappresentazione grafica della RETE compilata (\figurename~\ref{fig:networkx-example}), e per la generazione degli script in formato \emph{dot}\footnote{http://en.wikipedia.org/wiki/DOT\_language} contenenti una serializzazione della rappresentazione di RETE da trasmettere ai \emph{client}.
 
-\section{Valutazione}
+\subsection{Specifica delle classi \emph{Core}}
 
-Al fine di valutare il prototipo di sistema realizzato, sono stati prodotti o adattati una serie di sistemi esperti in modo che risultassero compatibili con l'\emph{environment}. L'analisi del prototipo si è concentrata nella valutazione di due aspetti fondamentali: la correttezza di funzionamento, sia in ambiti di utilizzo locale che tramite modulo server, e le prestazioni, effettuando un confronto con CLIPS.
 
-Per la sperimentazione di utilizzo locale si è fatto uso del modulo Terminale prodotto e descritto in questa trattazione. Per la sperimentazione di utilizzo remoto, si è fatto uso di un terminale remoto realizzato in linguaggio Java che consentisse di replicare le funzionalità del modulo Terminale locale.
+\subsubsection{Package \texttt{myclips}}
 
-\subsection{Correttezza}
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
 
-Il primo gruppo di test effettuati ha come obiettivo quello di valutare la correttezza del funzionamento del prototipo e del motore inferenziale. I test sono stati condotti utilizzando una serie di sistemi esperti, analizzando il comportamento del prototipo alla variazione degli input offerti. Si protone una descrizione sommaria degli artefatti con un riferimento all'implementazione utilizzata:
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Agenda.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Agenda} & Organizza le strutture di memorizzazione delle attivazioni fornite dalle strategie CRS e le strategie stesse\\ 
+	\hdashline[1pt/5pt]
+		\texttt{AgendaNoMoreActi\-vationError} & Eccezione utilizzata l'assenza di ulteriori attivazioni per il focusStack selezionato\\ 
+	\hline\\
 
-\begin{enumerate}
-	\item \textbf{Problema dell'agricoltore, realizzazione 1}: ''un agricoltore deve attraversare un fiume portando con sé un cavolo, una pecora ed un lupo. La barca che può utilizzare per l'operazione è in grado di trasportare non più di due attori per volta. Durante l'attraversamento deve prestare attenzione agli spostamenti da effettuare: è risaputo che, se lasciati soli, la pecora mangia il cavolo e il lupo mangia la pecora''. La prima formulazione proposta per la soluzione del problema prevede l'utilizzo di fatti in notazione \emph{Ordered-Fact}~(Codice~\ref{code:agricoltore-1}).
+\multicolumn{2}{c}{\emph{Modulo} \texttt{EventsManager.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{EventsManager} & Gestore degli eventi e dei listener\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Fact.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Fact} & Rappresenta un fatto\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Fact\-Length\-Not\-Computable\-Error} & Eccezione utilizzata per notificare l'impossibilità di computare la lunghezza delle componenti di un'istanza \\ 
+	\hdashline[1pt/5pt]
+		\texttt{Fact\-Slot\-Value\-Can\-not\-Be\-Set\-Er\-ror} & Eccezione utilizzata per notificare l'errore relativo al tentativo di modificare lo slot di un fatto non di tipo \emph{TemplateFact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Fact\-Slots\-Not\-Com\-pu\-ta\-ble\-Error} & Eccezione utilizzata per notificare l'impossibilità di valutare l'insieme degli slot\\
+	\hdashline[1pt/5pt]
+		\texttt{Fact\-InvalidIndex} & Eccezione utilizzata per notificare l'errore nella richiesta di un indice non valido per un \emph{OrderedFact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Fact\-InvalidSlotName} & Eccezione utilizzata per notificare l'errore nella richiesta di uno slot non valido per un \emph{TemplateFact}\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{FunctionsManager.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{FunctionsManager} & Manager delle definizioni di funzione utilizzabili in uno \emph{Scope}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{FunctionDefinition} & Rappresenta una definizione di funzione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{FunctionConstraint} & Rappresenta una restrizione definita nella firma di funzione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Contraint\_MinArgsLength} & Definisce una restrizione sul numero minimo di parametri richiesti dalla chiamata a funzione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Contraint\_MaxArgsLength} & Definisce una restrizione sul numero massimo di parametri richiesti dalla chiamata a funzione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Contraint\_ExactArgsLength} & Definisce una restrizione sull'esatto numero di parametri richiesti dalla chiamata a funzione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Contraint\_ArgType} & Definisce una restrizione sul un tipo di un parametro richiesto dalla chiamata a funzione\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{GlobalsManager.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{GlobalsManager} & Manager delle definizioni di variabili globali utilizzabili in uno \emph{Scope}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{GlobalVarDefinition} & Rappresenta una definizione di variabile globale\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{ModulesManager.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{ModulesManager} & Manager degli \emph{Scope} definiti\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Modules\-Manager\-Re\-de\-fi\-ni\-tion\-Er\-ror} & Eccezione usata per notificare il tentativo di ridefinire un modulo già definito\\ 
+	\hdashline[1pt/5pt]
+		\texttt{UnknownModulesError} & Eccezione usata per notificare il tentativo di sostituire lo \emph{Scope} corrente con uno non definito\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{MyClipsException.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{MyClipsException} & Classe base di tutte le eccezioni propagate in MyCLIPS\\ 
+	\hdashline[1pt/5pt]
+		\texttt{MyClipsBugException} & Classe utilizzata per notificare una condizione errata del sistema dovuta a errori di implementazione\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Observable.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Observable} & Classe astratta per la realizzazione della componente \emph{Observable} del design pattern \emph{Observer}\\ 
+	\hline\\
+
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Observer.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Observer} & Classe astratta per la realizzazione della componente \emph{Observer} del design pattern \emph{Observer}\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{RestrictedManager.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{RestrictedManager} & Classe astratta che generalizza la gestione delle definizioni sottoposte a vincoli di \emph{Scope}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{RestrictedDefinition} & Classe astratta che generalizza le definizioni gestibili da \emph{RestrictedManager}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{MultipleDefinitionError} & Eccezione utilizzata per notificare il tentativo di ridefinire un elemento già esplicitato\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Scope.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Scope} & Rappresenta una definizione di modulo e gestisce i manager delle definizioni disponibili nel modulo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ScopeImport} & Rappresenta una direttiva di importazione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ScopeExport} & Rappresenta una definizione di esportazione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{\_ScopeExportPromise} & Rappresenta una definizione di promessa di esportazione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ScopeDefinitionNotFound} & Eccezione utilizzata per notificare il tentativo di accedere ad uno \emph{Scope} non definito\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ScopeDefinitionConflict} & Eccezione utilizzata per notificare un conflitto di definizioni importante o esportate\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Settings.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Settings} & Gestisce le impostazioni di sessione del motore inferenziale\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{TemplatesManager.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{TemplatesManager} & Manager delle definizioni di template utilizzabili in uno \emph{Scope}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TemplateDefinition} & Rappresenta una definizione di template\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SlotDefinition} & Rappresenta una definizione di slot di template\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Attribute} & Generalizzazione di un attributo associabile ad una definizione di slot di template\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Attribute\_DefaultValue} & Rappresenta la definizione del valore di default associato ad uno slot di template\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Attribute\_TypeConstraint} & Rappresenta la definizione di restrizione di tipo associata ad uno slot di template\\ 
+	\hline\\
+
+\end{longtable} 
+
+
+\subsubsection{Package \texttt{myclips.parser}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Parser.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Parser} & Organizza e gestisce le regole di \emph{parsing} del linguaggio di definizione e esegue la conversione in istanze utilizzabili nel motore inferenziale \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Types.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{ParsedType} & Classe base per le entità riconosciute tramite \emph{Parser}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{BaseParsedType} & Classe base per i tipi atomici\\ 
+	\hdashline[1pt/5pt]
+		\texttt{HasScope} & Classe astratta per le entità che richiedono uno \emph{Scope} per validare o aggiungere una definizione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Number} & Classe base per i tipi numerici\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Lexeme} & Classe base per i tipi simbolici\\
+	\hdashline[1pt/5pt]
+		\texttt{Integer} & Mappa un elemento Integer\\
+	\hdashline[1pt/5pt]
+		\texttt{Float} & Mappa un element Float\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Symbol} & Mappa un elemento Symbol\\ 
+	\hdashline[1pt/5pt]
+		\texttt{String} & Mappa una stringa compresa fra doppi apici\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Variable} & Classe base per le entità variabili\\ 	
+	\hdashline[1pt/5pt]
+		\texttt{SingleFieldVariable} & Mappa una variabile di tipo \emph{single-field}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{MultiFieldVariable} & Mappa una variabile di tipo \emph{multi-field}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{UnnamedSingleFieldVariable} & Mappa un wildcard \emph{single-field}\\
+	\hdashline[1pt/5pt]
+		\texttt{UnnamedMultiFieldVariable} & Mappa un wildcard \emph{multi-field}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{GlobalVariable} & Mappa una variable globale\\ 
+	\hdashline[1pt/5pt]
+		\texttt{FunctionCall} & Mappa una chiamata a funzione\\
+	\hdashline[1pt/5pt]
+		\texttt{DefFactsConstruct} & Mappa un costrutto \emph{deffacts}\\
+	\hdashline[1pt/5pt]
+		\texttt{OrderedRhsPattern} & Mappa una definizione di fatto in notazione \emph{Ordered-Fact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TemplateRhsPattern} & Mappa una definizione di fatto in notazione \emph{Template-Fact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{FieldRhsSlot} & Classe astratta per la definizione di un valore di uno slot di un fatto in notazione \emph{Template-Fact} \\ 
+	\hdashline[1pt/5pt]
+		\texttt{MultiFieldRhsSlot} & Mappa un valore \emph{multi-field} in uno slot di un fatto in notazione \emph{Template-Fact} \\ 
+	\hdashline[1pt/5pt]
+		\texttt{SingleFieldRhsSlot} & Mappa un valore \emph{single-field} in uno slot di un fatto in notazione \emph{Template-Fact} \\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefRuleConstruct} & Mappa un costrutto \emph{defrule}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{RuleProperty} & Mappa una definizione di proprietà di una regola\\
+	\hdashline[1pt/5pt]
+		\texttt{PatternCE} & Classe base per i \emph{PatternCE}\\
+	\hdashline[1pt/5pt]
+		\texttt{OrderedPatternCE} & Mappa una definizione di pattern per il ritrovamento di un \emph{Ordered-Fact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TemplatePatternCE} & Mappa una definizione di pattern per il ritrovamento di un \emph{Template-Fact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{AssignedPatternCE} & Mappa una definizione di pattern associato a variabile\\ 
+	\hdashline[1pt/5pt]
+		\texttt{NotPatternCE} & Mappa una definizione di pattern negata\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ExistsPatternCE} & Mappa una definizione di pattern \emph{exists-CE}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{AndPatternCE} & Mappa una definizione di congiunzione di pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{OrPatternCE} & Mappa una definizione di pattern \emph{or-CE}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TestPatternCE} & Mappa una definizione di pattern \emph{test-CE}\\
+	\hdashline[1pt/5pt]
+		\texttt{Constraint} & Mappa una definizione di condizione in un pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ConnectedConstraint} & Mappa una definizione di condizione collegata in un pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Term} & Classe astratta per i termini di un pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{NotTerm} & Mappa un termine negato di un pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{PositiveTerm} & Mappa un termine di un pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{FieldLhsSlot} & Classe astratta per la definizione di slot per i pattern per fatti \emph{Template-Fact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SingleFieldLhsSlot} & Mappa una definizione di slot \emph{single-field} in un pattern \emph{TemplatePatternCE}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{MultiFieldLhsSlot} & Mappa una definizione di slot \emph{multi-field} in un pattern \emph{TemplatePatternCE}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SlotDefinition} & Classe base per le definizioni di slot nei costrutti \emph{deftemplate}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SingleSlotDefinition} & Mappa una definizione di slot singolo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{MultiSlotDefinition} & Mappa una definizione di slot multiplo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Attribute} & Classe base per le definizioni di attributi di slot\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefaultAttribute} & Mappa una definizione di attributo di tipo default per uno slot\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TypeAttribute} & Mappa una definizione di attributo per restrizione di tipo per uno slot\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefTemplateConstruct} & Mappa un costrutto \emph{deftemplate}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefGlobalConstruct} & Mappa un costrutto \emph{defglobal}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{GlobalAssignment} & Mappa un'assegnazione di valore ad una variabile globale\\ 
+	\hdashline[1pt/5pt]
+		\texttt{PortItem} & Mappa una definizione di elemento importabile o esportabile\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ImportSpecification} & Mappa una definizione di specifica di importazione di costrutti per un modulo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ExportSpecification} & Mappa una definizione di specifica di esportazione di costrutti per un modulo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefModuleConstruct} & Mappa un costrutto \emph{defmodule}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefFunctionConstruct} & Mappa un costrutto \emph{deffunction}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TypeInstanceCreationError} & Eccezione usata per indicare l'impossibilità di creazione di un'istanza definizione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Type\-Recoverable\-Instance\-Creation\-Error} & Eccezione usata per indicare un errore recuperabile nella creazione di un'istanza di definizione\\ 
+	\hline\\
+
+\end{longtable}
+
+
+\subsubsection{Package \texttt{myclips.listeners}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{EventsManagerListener.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{EventsManagerListener} & Classe astratta per la definizione dell'interfaccia richiesta ai listener utilizzabili con \emph{EventsManager} \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{ActionWatcher.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{ActionWatcher} & Controlla il realizzarsi di eventi legati all'esecuzione di azioni \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{ActivationsWatcher.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{ActivationsWatcher} & Controlla il realizzarsi di eventi legati all'aggiunta o rimozione di attivazioni nel \emph{conflict-set} \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{FactsWatcher.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{FactsWatcher} & Controlla il realizzarsi di eventi legati all'asserzione o ritrattazione di fatti nella \emph{working-memory} \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{FocusWatcher.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{FocusWatcher} & Controlla il realizzarsi di eventi legati al cambiamento del focus \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{RulesWatcher.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{RulesWatcher} & Controlla il realizzarsi di eventi legati all'esecuzione di regole \\ 
+	\hline\\
 	
-	\item \textbf{Problema dell'agricoltore, realizzazione 2}: la seconda soluzione proposta utilizza soltanto fatti in notazione \emph{Template-Fact}~(Codice~\ref{code:agricoltore-2}).
+\multicolumn{2}{c}{\emph{Modulo} \texttt{StrategyWatcher.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{StrategyWatcher} & Controlla il realizzarsi di eventi legati al cambiamento della strategia di risoluzione dei conflitti \\ 
+	\hline\\
 
-	\item \textbf{Sistema per la diagnosi medica}: si propone la formulazione di un basilare sistema esperto per la diagnosi delle malattie del fegato. La realizzazione prevede l'utilizzo di fatti in notazione \emph{Template-Fact}, l'utilizzo del costrutto \emph{DefFunction}, per la realizzazione di funzioni utente di supporto alla richiesta di informazioni e alla validazione degli input forniti, e l'utilizzo del costrutto \emph{DefGlobal}~(Codice~\ref{code:diagnosi}).
+\multicolumn{2}{c}{\emph{Modulo} \texttt{\_\_init\_\_.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{NetworkPlotter} & Controlla il realizzarsi di eventi legati alla costruzione del \emph{network} e li inoltra ad un adattatore per la visualizzazione grafica\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{\_NetworkPlotterAdapter\_NetworkX.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{\_NetworkPlotterAdapter\_NetworkX} & Inoltra gli eventi di costruzione del \emph{network} alla libreria \emph{NetworkX} per la generazione del grafo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{\_NetworkXWrapper} & Incapsula l'interfaccia della libreria \emph{NetworkX} in una utilizzabile da \emph{\_NetworkPlotterAdapter\_NetworkX}\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{NetworkBuildPrinter.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{NetworkBuildPrinter} & Controlla il realizzarsi di eventi legati alla costruzione del \emph{network} e li visualizza su console \emph{stdout} \\ 
+	\hline\\
+
+
+\end{longtable}
+
+\subsubsection{Package \texttt{myclips.functions}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{\_\_init\_\_.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{SystemFunctionBroker} & Manager delle definizioni di funzioni di sistema \\ 
+	\hdashline[1pt/5pt]
+		\texttt{FunctionEnv} & Incapsula le informazioni riguardanti il contesto d'uso di una funzione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SystemFunctionRedefinitionError} & Eccezione utilizzata per notificare il tentativo di caricare (senza ammettere ridefinizione) una definizione con un nome di funzione già utilizzato nel sistema\\
+	\hline\\
 	
-	\item \textbf{Sistema per la diagnosi meccanica}: si propone la formulazione di un basilare sistema esperto per la diagnosi dei malfunzionamenti di un'automobile. La realizzazione\footnote{http://clipsrules.svn.sourceforge.net/viewvc/clipsrules/examples/auto.clp?revision=93}, distribuita insieme al software CLIPS, esegue valuta i possibili malfunzionamenti interrogando l'utente per ottenere le informazioni necessarie.
-
-\end{enumerate}
-
-I risultati delle prove vengono valutati confrontando l'esecuzione dei medesimi artefatti nell'ambiente CLIPS.
-
-\subsection{Prestazioni}
-
-Il secondo gruppo di test eseguiti ha come obiettivo quello di valutare il sistema dal punto di vista prestazionale. I test sono stati condotti utilizzando implementazioni delle soluzioni per il problema \emph{Manners}~\cite{brantetal91}~\cite{ops5bench}, per il problema \emph{Scimmia e banane}~\cite{clipsmab} e del gioco del \emph{Sudoku}~\cite{clipssudoku}.
-
-Le formulazioni utilizzate per la soluzione dei problemi sono quelle distribuite insieme al software CLIPS. Le valutazioni e i confronti fra i due sistemi vengono effettuate osservando i tempi di esecuzioni sulle medesime implementazioni. Per ogni istanza di test sono stati eseguiti dieci \emph{run} indipendenti, riavviando l'\emph{environment} al termine di ognuno. \`E stata quindi utilizzata la media dell'esecuzione dei dieci run per i confronti.
-
-
-\subsubsection{Manners}
-
-Il benchmark \emph{Manners} fa riferimento al problema di individuare una disposizione dei posti accettabile per un gruppo di invitati ad una cena. La soluzione dovrebbe garantire che ogni ospite sia seduto vicino a qualcuno di sesso opposto che condivida con lui almeno uno dei suoi hobby.
-
-Il processo di soluzione è basato su una ricerca in profondità fra le soluzioni al problema per individuare una disposizione accettabile. Il programma \emph{Manners} può essere esteso per gestire differenti criteri di organizzazione dei posti, inoltre rende possibile modificare la complessità d'esecuzione controllando la distribuzione degli hobby associati agli invitati. I dati usati per questa valutazione utilizzano una distribuzione uniforme degli hobby, da un minimo di 2 ad un massimo di 5, per ogni invitato. 
-La verifica ha interessato l'utilizzo di quattro dataset differenti: per 8, 16, 32 e 64 invitati~\cite{kiernan:inria-00075406}~\cite{brantetal91}. 
-
-Di seguito (\tablename~\ref{tab:bench-manners}) sono proposti i risultati dei test effettuati sui sistemi CLIPS, MyCLIPS (localmente, tramite Terminale) e MyCLIPS (in remoto, tramite una RemoteShell).
-
-\begin{table}[h]
-\caption{Tempi d'esecuzione del benchmark \emph{Manners} variando il numero di ospiti}\label{tab:bench-manners}
-\centering
-\begin{tabular}{|c||c|c|c|c|}
-\hline 
-\multicolumn{5}{|c|}{Manners} \\ 
-\hline 
- & \multicolumn{4}{c|}{Ospiti} \\ 
-\hline 
-Sistema & 8 & 16 & 32 & 64 \\ 
-\hline\hline
-CLIPS (6.24) & 0.005 & 0.092 & 1.321 & 40.38 \\ 
-\hline 
-MyCLIPS (locale) & 0.311 & 5.461 & 149.1 & 4580 \\ 
-\hline 
-MyCLIPS (server) & 0.327 & 5.642 & 157.1 & 4771 \\ 
-\hline 
-\end{tabular} 
-\end{table}
-
-\subsubsection{Sudoku}
-
-Il \emph{Sudoku} è un gioco di logica nel quale al risolutore viene proposta una griglia di $n^2 \times n^2$ celle, ciascuna delle quali può contenere un numero compreso nella sequenza fra $1$ e $n^2$ o essere vuota. La griglia è suddivisa in righe e colonne di lunghezza $n^2$ e in sotto-griglie, chiamate regioni, di $n \times n$ celle contigue. Lo scopo del gioco è quello di risolvere il puzzle inserendo un numero nelle celle vuote in modo tale che ogni riga, colonna o regione della scacchiera contenga ognuno dei numeri della sequenza $1 \dots n^2$ senza ripetizioni~\cite{sudokuwikipedia}.
-
-\begin{figure}
-\centering
-\includegraphics[width=1.3\textwidth, angle=270, viewport=0 0 718 456]{Immagini/Capitolo3/Profile-sudoku.pdf}
-\caption[Profilazione dell'esecuzione del benchmark \emph{Sudoku}]{Profilazione dell'esecuzione del benchmark \emph{Sudoku}: grafico delle chiamate, dettaglio su \emph{VariableBindingTest}}\label{fig:profile-sudoku}
-\end{figure}
-
-
-Il benchmark \emph{Sudoku}, nell'implementazione distribuita insieme al software CLIPS~\cite{clipssudoku}, consente di valutare le prestazioni dei sistemi stressando i nodi della \emph{Beta-Network} generando una grande attività nei nodi Join positivi e negativi (\figurename~\ref{fig:profile-sudoku}). Le regole utilizzate per la formalizzazione delle strategie utilizzano condizioni simili, garantendo un'alta percentuale di condivisione dei nodi \emph{alpha}~\cite{rbsbench}. I test sono stati eseguiti utilizzando griglie di dimensioni $9 \times 9$ ($n = 3$) e due dataset differenti\footnote{grid3x3-p13: http://clipsrules.svn.sourceforge.net/viewvc/clipsrules/examples/sudoku/ puzzles/grid3x3-p13.clp?revision=93}$^,$\footnote{grid3x3-p15: http://clipsrules.svn.sourceforge.net/viewvc/clipsrules/examples/sudoku/ puzzles/grid3x3-p15.clp?revision=93}.
-
-Di seguito (\tablename~\ref{tab:bench-sudoku}) sono proposti i risultati dei test effettuati sui sistemi CLIPS, MyCLIPS (localmente, tramite Terminale) e MyCLIPS (in remoto, tramite una RemoteShell).
-
-
-\begin{table}[h]
-\caption{Tempi d'esecuzione del benchmark \emph{Sudoku} per i dataset \emph{grid3x3-p13} e \emph{grid3x3-p15}}\label{tab:bench-sudoku}
-\centering
-\begin{tabular}{|c||c|c|}
-\hline 
-\multicolumn{3}{|c|}{Sudoku} \\ 
-\hline 
- & \multicolumn{2}{c|}{Puzzle} \\ 
-\hline 
-Sistema & grid3x3-p13 & grid3x3-p15 \\ 
-\hline\hline
-CLIPS (6.24) & 5.315 & 8.488 \\ 
-\hline 
-MyCLIPS (locale) & 712.4 & 981.2 \\ 
-\hline 
-MyCLIPS (server) & 705.8 & 974.8 \\ 
-\hline 
-\end{tabular} 
-\end{table}
-
-
-\subsubsection{Monkey}
-
-Il benchmark \emph{Monkey} fa riferimento ad un problema classico di pianificazione: l'obiettivo del problema è individuare la sequenza di azioni che consentono ad una scimmia di mangiare un casco di banane nascosto all'interno di un forziere chiuso a chiave posto in cima ad una pila di oggetti. La chiave che consente l'apertura del forziere è nascosta all'interno di un secondo forziere, anch'esso posto su una pila di oggetti. La scimmia è in grado di spostarsi nell'ambiente prendere, scaraventare e trasportare oggetti, oltre che utilizzare le chiavi per aprire i forzieri. 
-
-L'implementazione utilizzata per la risoluzione è quella distribuita insieme al software CLIPS~\cite{clipsmab}: durante la risoluzione del problema vengono visualizzate sullo schermo le operazioni svolte dalla scimmia\footnote{La soluzione consiste di 42 operazioni consecutive}.
-
-Di seguito (\tablename~\ref{tab:bench-monkey}) sono proposti i risultati dei test effettuati sui sistemi CLIPS, MyCLIPS (localmente, tramite Terminale) e MyCLIPS (in remoto, tramite una RemoteShell).
-
-
-\begin{table}[h]
-\caption{Tempi d'esecuzione del benchmark \emph{Monkey}}\label{tab:bench-monkey}
-\centering
-\begin{tabular}{|c||c|}
-\hline 
-\multicolumn{2}{c|}{Monkey} \\ 
-\hline 
-Sistema & Tempo \\ 
-\hline\hline
-CLIPS (6.24) & 0.004 \\ 
-\hline 
-MyCLIPS (locale) & 0.111 \\ 
-\hline 
-MyCLIPS (server) & 0.779 \\ 
-\hline 
-\end{tabular} 
-\end{table}
-
-\subsection{Osservazioni}
-
-Grazie ai vari test effettuati è possibile affermare che le capacità del sistema prodotto risultano paragonabili a quelle del software di riferimento CLIPS. 
-%La capacità di utilizzare artefatti e sistemi originariamente realizzati per il sistema di riferimento senza la necessità di apportare modifiche (escludendo le estensioni del sottosistema COOL), dimostra la possibilità di sostituire il primo sistema in maniera trasparente. 
-I test hanno mostrato un livello di compatibilità di sistema che va al di là della sola portabilità degli artefatti: la sequenza delle attivazioni ed i relativi processi di ragionamento simulati dai sistemi risultano costanti in entrambi gli \emph{environment}. Sia i risultati che le modalità con le quali sono stati ottenuti vengono replicati esattamente dal prototipo realizzato.
-
-Sebbene il divario in termini prestazionali sia evidente, l'obiettivo di questo elaborato era quello di realizzare un \emph{environment} funzionate con finalità didattiche e di ricerca, una base per sviluppi futuri. La scelta stessa del linguaggio è stata effettuata trascurando le problematiche di tipo prestazionale e privilegiando invece criteri di selezione come la facilità e rapidità di sviluppo e le possibilità di estensione offerte. Come emerso da diverse comparazioni effettuate fra linguaggi~\cite{prashant2008}~\cite{prechelt2000}~\cite{naiditch1999}, la valutazione della prestazione pura espressa in termini di tempo non vede Python emergere fra i migliori~\cite{cpybench}~\cite{prashant2008}~\cite{prechelt2000}. Il divario misurato tramite l'utilizzo della \emph{benchmark suite} in~\cite{cpybench} vede il linguaggio C risultare fino a cento volte più rapido rispetto a Python (\figurename~\ref{fig:c-vs-python-bench}). Chiaramente si propongono questi dati consci del fatto che trarre conclusioni semplicemente basandosi su numeri e senza effettuare i dovuti \emph{distinguo} non rappresenta un approccio efficace ad un problema tanto complesso quanto lo è la valutazione empirica delle prestazioni di un linguaggio di programmazione~\cite{algorithms}. 
-
-Le ridotte prestazioni offerte dal linguaggio, non sono state ritenute una ragione sufficiente ad invalidare la preferenza espressa, soprattutto tenendo conto dei vantaggi che la soluzione ha offerto durante lo sviluppo del prototipo e che può potenzialmente offrire durante l'ulteriore sviluppo del sistema, principale obiettivo di questa tesi. Il \emph{Vincolo-7} non poneva delle limitazioni di rapidità alla soluzione prodotta se non quella di rendere possibile un confronto fra il prototipo e CLIPS utilizzando strumenti già fruttati in passato per questa finalità~\cite{rbsbench}~\cite{ops5bench}~\cite{brantetal91}.
-
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{Immagini/Capitolo3/c-vs-python.png}
-\caption{Python 3 vs C: esecuzione della \emph{benchmark suite}~\cite{cpybench}  }\label{fig:c-vs-python-bench}
-\end{figure}
-
-Analizzando i risultati in ambito locale, si può evidenziare come il prototipo risulti fra le 20 e le 130 volte più lento rispetto al software di riferimento. I risultati migliori sono stati ottenuti nel benchmark \emph{Monkey}, dove la relativa semplicità del test ha permesso di marcare risultati ben al di sotto della soglia attesa. Le differenze risultano lievemente al di sotto delle attese anche per i test \emph{Manners} con 8 e 16 ospiti. Il divario si fa più marcato nel momento in cui la dimensione del dataset e la complessità dei test cresce, evidenziando maggiormente i limiti della soluzione proposta.
-
-Quello che invece risulta più interessante è l'analisi dell'andamento del \emph{gap} prestazionale evidenziato dai test differenti (\figurename~\ref{fig:myclips-vs-clips-bench}). Il rapporto fra il prototipo e il software di riferimento è rimasto pressoché costante (compreso fra le 100 e 130 volte) anche a fronte di un aumento dei tempi reali di esecuzione dell'ordine di 40 volte, dimostrando una corrispondenza di comportamento fra il software di riferimento ed il sistema proposto in rapporto all'aumento della complessità dei test.
-
-
-\begin{figure}
-\begin{minipage}[b]{6.5cm}
-	\centering
-	\resizebox{6cm}{!}{
-	\begin{tikzpicture}
-	\begin{axis}[ylabel={MyCLIPS usa (tempo)},
-				ybar,
-				ymin=20,
-				ymax=200,
-				xtick=data,
-				ymajorgrids=true,
-				%xtick pos=left,
-				x tick label style=%
-					{rotate=45,	anchor=east	},
-				%xticklabel interval boundaries,
-				symbolic x coords={
-					$manners-8$,
-					$manners-16$,
-					$manners-32$,
-					$manners-64$,
-					$sudoku-p13$,
-					$sudoku-p15$,
-					$monkey$},
-				title style={align=center},
-				title={MyCLIPS (locale) $\div$ CLIPS}]
-	\addplot [%ybar interval,
-				fill=grigio-chiarissimo,
-				draw=black] coordinates
-	{($manners-8$, 62.2) 
-	($manners-16$, 59.3)
-	($manners-32$, 112.8)
-	($manners-64$, 113.4)
-	($sudoku-p13$, 134) 
-	($sudoku-p15$, 115.5)
-	($monkey$, 27.7)
-	};
-	\end{axis}
-	\end{tikzpicture}
-	}
-\end{minipage}
-\ \hspace{2mm} \hspace{3mm} \
-\begin{minipage}[b]{6.5cm}
-	\centering
-	\resizebox{6cm}{!}{
-	\begin{tikzpicture}
-	\begin{axis}[ylabel={MyCLIPS usa (tempo)},
-				ybar,
-				ymin=20,
-				ymax=200,
-				xtick=data,
-				ymajorgrids=true,
-				%xtick pos=left,
-				x tick label style=%
-					{rotate=45,	anchor=east	},
-				%xticklabel interval boundaries,
-				symbolic x coords={
-					$manners-8$,
-					$manners-16$,
-					$manners-32$,
-					$manners-64$,
-					$sudoku-p13$,
-					$sudoku-p15$,
-					$monkey$},
-				title style={align=center},
-				title={MyCLIPS (server) $\div$ CLIPS}]
-	\addplot [%ybar interval,
-				fill=grigio-chiarissimo,
-				draw=black] coordinates
-	{($manners-8$, 65.4) 
-	($manners-16$, 61.3)
-	($manners-32$, 118.9)
-	($manners-64$, 118)
-	($sudoku-p13$, 132.7) 
-	($sudoku-p15$, 114.8)
-	($monkey$, 194)
-	};
-	\end{axis}
-	\end{tikzpicture}
-	}
-\end{minipage}
-\caption[Grafici dei rapporti prestazionali fra MyCLIPS e CLIPS]{Grafici dei rapporti prestazionali fra MyCLIPS e CLIPS: a sinistra il confronto con un'istanza locale di MyCLIPS, a destra con una server}\label{fig:myclips-vs-clips-bench}
-\end{figure}
-
-L'analisi dei risultati ottenuti utilizzando il sistema tramite un'istanza server evidenzia una corrispondenza con i risultati ottenuti tramite utilizzo locale. L'unica eccezione risiede nei risultati del benchmark \emph{Monkey}, dove si riscontra un peggioramento delle prestazioni evidente. Bisogna però effettuare delle valutazioni particolari per comprendere appieno il risultato del singolo test: il benchmark esegue durante il processo 42 operazioni di \emph{output} a fronte di un tempo di esecuzione di un decimo di secondo. In questo caso, i tempi richiesti per le operazioni di inoltro dei dati verso lo \emph{stream} remoto dominano quelli di esecuzione del test in sé. Lo stesso fenomeno non si presenta durante l'esecuzione del benchmark \emph{Sudoku}: sebbene, in termini assoluti, il test esegua un maggior numero di operazioni di output su \emph{stream} (oltre 200), i risultati non risultano influenzati data la maggior durata dello stesso. Si conclude quindi che l'utilizzo remoto del prototipo offra prestazioni e possibilità in linea con un utilizzo locale.
-
-%\section{Conclusioni}
-
-%L'integrazione degli strumenti di sviluppo per sistemi esperti con tecnologie orientate alla distribuzione degli stessi in ambito \emph{web} ha offerto lo spunto per questo lavoro di tesi. Prendendo come riferimento le funzionalità offerte da un \emph{environment} di grande adozione come CLIPS, è stata progettata e quindi realizzata una soluzione compatibile che enfatizzasse le capacità di estensibilità e integrazione offerte dal linguaggio di programmazione scelto per la realizzazione del prototipo: Python. Al fine di saggiare la flessibilità della soluzione proposta è stata eseguita l'integrazione della soluzione in un modello d'architettura \emph{client-server} e quindi valutato l'impatto che l'adozione di questa tecnologia ha avuto sulle prestazioni complessive del sistema.
-
-%Durante questa trattazione è stata fornita una definizione di sistemi esperti, approfondendo le tematiche relative al loro processo di sviluppo e all'ambito di utilizzo degli stessi. L'attenzione è stata quindi focalizzata verso le tecniche utilizzate per la formalizzazione della conoscenza in strutture adeguate alla computazione e quindi offerta una classificazione generale degli strumenti di sviluppo per sistemi esperti.
-%Nella seconda e terza parte sono state approfondite le problematiche relative alla progettazione e alla realizzazione di un prototipo funzionante di \emph{environment} multi-paradigmatico, successivamente sottoposto ad una valutazione per testarne la correttezza e le prestazioni.
-
-%Da quanto osservato durante la sperimentazione si può affermare che i risultati ottenuti sono in linea con le attese. Il livello di compatibilità con il sistema di riferimento risulta soddisfacente, i costrutti più utilizzati e considerati indispensabili vengono resi disponibili dal prototipo e i comportamenti riscontrati risultano trovano corrispondenza fra i due sistemi. L'analisi della prestazione ha mostrato un \emph{gap} abbastanza evidente, ma il degrado delle prestazioni, superato un valore di soglia, replica esattamente il comportamento riscontrato nella soluzione di riferimento. Una delle cause alla base delle minori prestazioni è il linguaggio utilizzato per l'implementazione del prototipo, ma non è l'unica. L'analisi del grafico delle chiamate (\figurename~\ref{fig:profile-sudoku}) generato durante la profilazione del benchmark \emph{Sudoku} ha messo in luce due criticità, sicuramente concause delle scarse prestazioni ottenute nello specifico test:
-%\begin{enumerate}
-%	\item la realizzazione scelta per la rappresentazione dei Token nel sistema utilizza una struttura ad albero per ridurre il consumo di memoria e permettere una condivisione delle informazioni~\cite{Doorenbos95productionmatching}. Questo approccio ha comportato un maggior dispendio di tempo per l'esecuzione delle procedure di \emph{matching} a causa della forma utilizzata per serializzazione delle regole nello specifico test.
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Function.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Function} & Classe base per la definizione del corpo di funzione \\ 
+	\hdashline[1pt/5pt]
+		\texttt{FunctionImplError} & Eccezione utilizzata per notificare un errore d'implementazione nel corpo di funzione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{HaltException} & Eccezione utilizzata per notificare la richiesta di arresto di ogni operazione del motore inferenziale\\
+	\hdashline[1pt/5pt]
+		\texttt{ReturnException} & Eccezione utilizzata per notificare la richiesta di arresto dell'esecuzione di un corpo di funzione e di ritorno al flusso chiamante\\
+	\hdashline[1pt/5pt]
+		\texttt{BreakException} & Eccezione utilizzata per notificare la richiesta di arresto della valutazione di un ciclo procedurale e di ritorno al flusso chiamante\\
+	\hdashline[1pt/5pt]
+		\texttt{InvalidArgValueError} & Eccezione utilizzata per notificare l'utilizzo di un valore non valido come argomento di funzione\\
+	\hdashline[1pt/5pt]
+		\texttt{InvalidArgTypeError} & Eccezione utilizzata per notificare l'utilizzo di un tipo di valore non valido come argomento di funzione\\
+	\hdashline[1pt/5pt]
+		\texttt{InvalidArgsNumberError} & Eccezione utilizzata per notificare l'utilizzo di un numero di parametri non coerente con la firma di funzione\\
+	\hdashline[1pt/5pt]
+		\texttt{FunctionInternalError} & Eccezione utilizzata per incapsulare un'eccezione provocata da una specifica implementazione all'interno di un'interfaccia consistente\\
+	\hline\\
 	
-%	\item l'implementazione dei pattern \emph{Test-CE} prevede l'esecuzione di chiamate a funzione senza prevedere alcun sistema di \emph{caching} dei risultati. Verifiche successive richiedono una nuova esecuzione della funzione anche nei casi in cui gli input siano identici a quelli di valutazioni precedenti.
-%\end{enumerate}
+\multicolumn{2}{c}{\emph{Modulo} \texttt{UserFunction.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{UserFunction} & Permette la definizione del corpo di funzioni utente definite tramite il costrutto \emph{deffunction} \\ 
+	\hline	
+\end{longtable}
 
+Si elencano brevemente i \emph{package} e una descrizione delle funzioni di sistema definite e contenute nei singoli \emph{package}
 
+\begin{longtable}{p{3.5cm}p{8.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
 
-%Il risultato di questo lavoro è un sistema che può rappresentare una buona base di partenza per ulteriori evoluzioni del sistema. 
-%Le capacità realizzate rappresentano una porzione delle funzionalità che vengono richieste ad un \emph{environment per sistemi esperti} della corrente generazione. Le scelte effettuate durante la progettazione e la realizzazione del sistema hanno avuto come priorità quella di rendere il sistema modificabile, analizzabile ed estendibile con facilità. Lo sviluppo della componente server è stato un modo per saggiarne la flessibilità trasferendo il normale modello di interazione anche attraverso un'architettura tanto differente quanto quella \emph{client-server}.
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{agenda}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Focus} & Implementazione della funzione \texttt{focus}: accoda un elenco di moduli nel \emph{focus-stack} \\ 
+	\hdashline[1pt/5pt]
+		\texttt{GetFocus} & Implementazione della funzione \texttt{get-focus}: restituisce il focus corrente \\ 
+	\hdashline[1pt/5pt]
+		\texttt{GetFocusStack} & Implementazione della funzione \texttt{get-focus-stack}: restituisce il contenuto del \emph{focus-stack} \\ 
+	\hdashline[1pt/5pt]
+		\texttt{GetStrategy} & Implementazione della funzione \texttt{get-strategy}: restituisce l'identificativo della strategia CRS in uso \\ 
+	\hdashline[1pt/5pt]
+		\texttt{Halt} & Implementazione della funzione \texttt{halt}: arresta il ciclo \emph{recognize-act} e le valutazioni del motore inferenziale \\ 
+	\hdashline[1pt/5pt]
+		\texttt{PopFocus} & Implementazione della funzione \texttt{pop-focus}: estrae l'elemento in testa al \emph{focus-stack}, alterando il focus stesso \\ 
+	\hdashline[1pt/5pt]
+		\texttt{SetStrategy} & Implementazione della funzione \texttt{set-strategy}: altera la strategia CRS\\ 
+	\hline\\
+		
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{command}}\\
+	\hdashline[1pt/5pt]
+		\texttt{Agenda} & Implementazione della funzione \texttt{agenda}: visualizza una descrizione del contenuto dell'agenda delle attivazioni \\ 
+	\hdashline[1pt/5pt]
+		\texttt{Batch} & Implementazione della funzione \texttt{batch}: legge il contenuto di un file, valutando ed eseguendo i comandi contenuti\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Clear} & Implementazione della funzione \texttt{clear}: elimina qualsiasi definizione presente nel motore inferenziale\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Load} & Implementazione della funzione \texttt{load}: legge il contenuto di un file, valutando ed interpretando i costrutti contenuti\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Reset} & Implementazione della funzione \texttt{reset}: ripristina lo stato iniziale del motore inferenziale \\ 
+	\hdashline[1pt/5pt]
+		\texttt{Run} & Implementazione della funzione \texttt{run}: esegue il ciclo \emph{recognize-act}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Watch} & Implementazione della funzione \texttt{watch}: permette il tracciamento di eventi\\
+	\hdashline[1pt/5pt]
+		\texttt{Unwatch} & Implementazione della funzione \texttt{unwatch}: disattiva il tracciamento di eventi\\
+	\hline\\	
 
-
-%\subsection{Sviluppi futuri}
-
-%L'approfondimento di alcune delle mancanze del prototipo o l'aggiunta di ulteriori funzionalità potrebbe offrire lo spunto per ulteriori evoluzioni del sistema e nuovi ambiti di ricerca:
-%\begin{itemize}
-%	\item l'integrazione di un \emph{regime di controllo} alternativo basato sul \emph{backward-chaining} o su approcci ibridi, garantendo agli ingegneri della conoscenza maggiore flessibilità durante le fasi di progettazione.
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{fact}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Assert} & Implementazione della funzione \texttt{assert}: asserisce nuovi fatti \\ 
+	\hdashline[1pt/5pt]
+		\texttt{AssertString} & Implementazione della funzione \texttt{assert-string}: asserisci nuovi fatti interpretati da una stringa\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Duplicate} & Implementazione della funzione \texttt{duplicate}: asserisce un nuovo fatto sulla base di uno già asserito, specificando solo le differenze\\ 
+	\hdashline[1pt/5pt]
+		\texttt{FactIndex} & Implementazione della funzione \texttt{fact-index}: restituisce l'indice di un fatto\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Modify} & Implementazione della funzione \texttt{modify}: ritratta e asserisce una versione modificata del medesimo fatto\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Retract} & Implementazione della funzione \texttt{retract}: ritratta un fatto nella \emph{working-memory}\\ 
+	\hline\\
 	
-%	\item l'integrazione del paradigma di programmazione basato su oggetti nel linguaggio di specifica.
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{io}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Close} & Implementazione della funzione \texttt{close}: chiude un handler di risorsa\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Format} & Implementazione della funzione \texttt{format}: inoltra verso un handler di risorsa una stringa formattata\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Open} & Implementazione della funzione \texttt{open}: inizializza un handler di risorsa\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Printout} & Implementazione della funzione \texttt{printout}: inoltra verso un handler di risorsa una serializzazione di parametri\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Read} & Implementazione della funzione \texttt{read}: legge un'entità da un handler di risorsa \\ 
+	\hdashline[1pt/5pt]
+		\texttt{ReadLine} & Implementazione della funzione \texttt{readline}: legge una riga da un handler di risorsa restituendo una stringa che lo rappresenti\\ 
+	\hline\\		
 	
-%	\item la valutazione delle prestazioni offerte dal sistema utilizzando algoritmi di matching differenti come ad esempio TREAT~\cite{Miranker:1987:TBM:899610}~\cite{Miranker:1987:TBM:1856670.1856678} o LEAPS~\cite{Batory:1994:LA:899216}.	
 	
-%	\item approfondimento delle problematiche relative alle prestazioni generali del sistema, eseguendo una nuova valutazione sulle tecnologie impiegate per la realizzazione dell'artefatto.
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{math.extended}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Modulus} & Implementazione della funzione \texttt{mod}: calcola il modulo\\ 
+	\hline\\		
 	
-%	\item l'integrazione di funzionalità che agevolino lo svolgimento di attività comuni  dei sistemi esperti come la spiegazione dell'inferenza.
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{math.standard}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Absolute} & Implementazione della funzione \texttt{abs}: calcola il valore assoluto \\ 
+	\hdashline[1pt/5pt]
+		\texttt{Addition} & Implementazione della funzione \texttt{+}: esegue una somma\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Division} & Implementazione della funzione \texttt{/}: esegue una divisione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Float} & Implementazione della funzione \texttt{float}: esegue una conversione in \emph{Float}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Integer} & Implementazione della funzione \texttt{integer}: esegue una conversione in \emph{Integer}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{IntegerDivision} & Implementazione della funzione \texttt{div}: esegue una divisione intera\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Max} & Implementazione della funzione \texttt{max}: calcola il massimo\\
+	\hdashline[1pt/5pt]
+		\texttt{Min} & Implementazione della funzione \texttt{min}: calcola il minimo\\
+	\hdashline[1pt/5pt]
+		\texttt{Multiplication} & Implementazione della funzione \texttt{*}: esegue una moltiplicazione\\
+	\hdashline[1pt/5pt]
+		\texttt{Subtraction} & Implementazione della funzione \texttt{-}: esegue una sottrazione\\
+	\hline\\
 	
-%	\item la fusione nel motore inferenziale di strumenti per la gestione dell'incertezza e della logica \emph{Fuzzy}.
-%\end{itemize}
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{multifield}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Create} & Implementazione della funzione \texttt{create\$}: crea un multi-field\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Delete} & Implementazione della funzione \texttt{delete\$}: rimuove elementi da un multi-field\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Explode} & Implementazione della funzione \texttt{explode\$}: converte una stringa in un multi-field\\ 
+	\hdashline[1pt/5pt]
+		\texttt{First} & Implementazione della funzione \texttt{first\$}: restituisce il primo valore di un multi-field\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Implode} & Implementazione della funzione \texttt{implode\$}: converte un multi-field in una stringa\\
+	\hdashline[1pt/5pt]
+		\texttt{Insert} & Implementazione della funzione \texttt{insert\$}: inserisce un elemento in un multi-field\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Length} & Implementazione della funzione \texttt{length\$}: calcola la lunghezza di un multi-field\\
+	\hdashline[1pt/5pt]
+		\texttt{\_Length} & Implementazione della funzione \texttt{length}: calcola la lunghezza di un multi-field\\
+	\hdashline[1pt/5pt]
+		\texttt{Nth} & Implementazione della funzione \texttt{nth}: restituisce un elemento del multi-field\\
+	\hdashline[1pt/5pt]
+		\texttt{Member} & Implementazione della funzione \texttt{member\$}: verifica la presenza di un elemento nel multi-field\\
+	\hdashline[1pt/5pt]
+		\texttt{Replace} & Implementazione della funzione \texttt{replace\$}: sostituisce elementi di multi-field\\
+	\hdashline[1pt/5pt]
+		\texttt{Rest} & Implementazione della funzione \texttt{rest\$}: restituisce tutti i valori tranne il primo di un multi-field\\
+	\hdashline[1pt/5pt]
+		\texttt{Subseqp} & Implementazione della funzione \texttt{subseqp}: verifica se  un multi-field è una sotto-sequenza di un altro\\
+	\hline\\
+	
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{other}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Bind} & Implementazione della funzione \texttt{bind}: assegna un valore ad una variabile\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Refresh} & Implementazione della funzione \texttt{refresh}: rivaluta le attivazioni già eseguite di una regola\\ 
+	\hline\\
+	
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{predicate}}\\
+	\hdashline[5pt/5pt]
+		\texttt{\_TypeTesting} & Classe base per le funzioni di verifica del tipo di un valore \\ 
+	\hdashline[1pt/5pt]
+		\texttt{And} & Implementazione della funzione \texttt{and}: valuta condizioni congiunte\\ 
+	\hdashline[1pt/5pt]
+		\texttt{And} & Implementazione della funzione \texttt{or}: valuta condizioni alternative\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Eq} & Implementazione della funzione \texttt{eq}: operatore d'uguaglianza generico\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Neq} & Implementazione della funzione \texttt{neq}: operatore di disuguaglianza generico\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Evenp} & Implementazione della funzione \texttt{evenp}: valuta se un numero è pari\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Oddp} & Implementazione della funzione \texttt{oddp}: valuta se un numero è dispari\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Floatp} & Implementazione della funzione \texttt{floatp}: valuta se un elemento è un \emph{Float}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{GreaterEqualThan} & Implementazione della funzione \texttt{>=}: operatore maggiore uguale\\ 
+	\hdashline[1pt/5pt]
+		\texttt{GreaterThan} & Implementazione della funzione \texttt{>}: operatore maggiore\\
+	\hdashline[1pt/5pt]
+		\texttt{LessEqualThan} & Implementazione della funzione \texttt{<=}: operatore minore uguale\\ 
+	\hdashline[1pt/5pt]
+		\texttt{LessThan} & Implementazione della funzione \texttt{<}: operatore minore\\
+	\hdashline[1pt/5pt]
+		\texttt{Integerp} & Implementazione della funzione \texttt{integerp}: valuta se un elemento è un \emph{Integer}\\
+	\hdashline[1pt/5pt]
+		\texttt{Lexemep} & Implementazione della funzione \texttt{lexemep}: valuta se un elemento è un \emph{Lexeme}\\
+	\hdashline[1pt/5pt]
+		\texttt{Symbolp} & Implementazione della funzione \texttt{symbolp}: valuta se un elemento è un \emph{Symbol}\\
+	\hdashline[1pt/5pt]
+		\texttt{Stringp} & Implementazione della funzione \texttt{stringp}: valuta se un elemento è un \emph{String}\\
+	\hdashline[1pt/5pt]
+		\texttt{Numberp} & Implementazione della funzione \texttt{numberp}: valuta se un elemento è un \emph{Number}\\
+	\hdashline[1pt/5pt]
+		\texttt{Multifieldp} & Implementazione della funzione \texttt{multifieldp}: valuta se un elemento è un \emph{MultiField}\\
+	\hdashline[1pt/5pt]
+		\texttt{Not} & Implementazione della funzione \texttt{not}: operatore di negazione\\
+	\hdashline[1pt/5pt]
+		\texttt{NumericEq} & Implementazione della funzione \texttt{=}: operatore di uguaglianza numerica\\
+	\hdashline[1pt/5pt]
+		\texttt{NumericNeq} & Implementazione della funzione \texttt{<>}: operatore di disuguaglianza numerica\\
+	\hline\\	
+	
+	
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{procedural}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Break} & Implementazione della funzione \texttt{break}: altera l'esecuzione di un ciclo o di uno switch\\ 
+	\hdashline[1pt/5pt]
+		\texttt{IfThenElse} & Implementazioni della funzione \texttt{if},\texttt{then} ed \texttt{else}: realizza il flusso di controllo \emph{if-then-else}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{LoopForCount} & Implementazione della funzione \texttt{loop-for-count}: realizza un flusso di controllo simile al \emph{for}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Return} & Implementazione della funzione \texttt{return}: operatore ritorno da funzione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SwitchCaseDefault} & Implementazione della funzione \texttt{switch}: realizza il flusso di controllo \emph{switch-case-default}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{WhileDo} & Implementazione della funzione \texttt{while}: realizza il ciclo \emph{while-do}\\ 
+	\hline\\
+	
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{string}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Build} & Implementazione della funzione \texttt{build}: valuta una stringa e interpreta la prima definizione di costrutto\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Eval} & Implementazioni della funzione \texttt{eval}: valuta una stringa e interpreta un comando\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Lowcase} & Implementazione della funzione \texttt{lowcase}: converte un \emph{Lexeme} in lettere minuscole\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Upcase} & Implementazione della funzione \texttt{upcase}: converte un \emph{Lexeme} in lettere maiuscole\\ 
+	\hdashline[1pt/5pt]
+		\texttt{StringCompare} & Implementazione della funzione \texttt{str-compare}: compara due stringhe\\ 
+	\hdashline[1pt/5pt]
+		\texttt{StringConcat} & Implementazione della funzione \texttt{str-cat}: concatena due stringhe\\ 
+	\hdashline[1pt/5pt]
+		\texttt{StringIndex} & Implementazione della funzione \texttt{str-index}: restituisce l'indice d'inizio di una sotto-stringa\\ 
+	\hdashline[1pt/5pt]
+		\texttt{StringLength} & Implementazione della funzione \texttt{str-length}: calcola la lunghezza di una stringa\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SubString} & Implementazione della funzione \texttt{sub-string}: estrae una porzione di una stringa\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SymbolConcat} & Implementazione della funzione \texttt{sym-cat}: concatena due \emph{Symbol}\\ 
+	\hline\\	
+
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{myclips-debug}}\\
+	\hdashline[5pt/5pt]
+		\texttt{DrawCircuit} & Implementazione della funzione \texttt{draw-circuit}: restituisce una visualizzazione grafica del circuito compilato di una regola\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SetLogLevel} & Implementazioni della funzione \texttt{set-log-level}: modifica il livello di dettaglio delle informazioni visualizzate nel log di esecuzione\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TraceScope} & Implementazione della funzione \texttt{trace-scope}: visualizza informazioni riguardanti le definizioni (di qualsiasi tipo) importate, esportate e definite in un modulo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TraceWme} & Implementazione della funzione \texttt{trace-wme}: visualizza informazioni sulle Memorie, Token e NegativeJoinNode interessate da una specifica WME\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{myclips-events}}\\
+	\hdashline[5pt/5pt]
+		\texttt{TriggerEvent} & Implementazione della funzione \texttt{trigger-event}: notifica il verificarsi di un evento\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Sub-Package} \texttt{myclips-profile}}\\
+	\hdashline[5pt/5pt]
+		\texttt{BenchRun} & Implementazione della funzione \texttt{bench-run}: esegue la funzione \emph{run} valutando il tempo globale utilizzato\\ 
+	\hline\\
+	
+\end{longtable}
+
+
+\subsubsection{Package \texttt{myclips.rete}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{AlphaInputs.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{AlphaInputs} & Interfaccia per nodi con input da \emph{alpha-network} \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{BetaInputs.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{BetaInputs} & Interfaccia per nodi con input da \emph{beta-network} \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{HasJoinTests.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{HasJoinTests} & Interfaccia per nodi che eseguono \emph{test beta} \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{HasTests.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{HasTests} & Interfaccia per nodi che eseguono \emph{test alpha} \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{HasMemory.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{HasMemory} & Interfaccia per nodi con link diretto a una memoria \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Memory.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Memory} & Memorizza MemoryItem, classe astratta per le memorie\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Node.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Node} & Classe base per i nodi \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Token.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Token} & Rappresenta una sequenza di elementi della WME che hanno eseguito una attivazione parziale di un circuito della \emph{beta-network}\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{WME.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{WME} & Rappresenta un elemento della \emph{working-memory}\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{MemoryItem.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{MemoryItem} & Interfaccia per gli elementi memorizzabili nelle classi derivate da Memory \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Network.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Network} & Classe principale di accesso alle funzioni del motore inferenziale\\ 
+	\hdashline[1pt/5pt]
+		\texttt{FactNotFoundError} & Eccezione utilizzata per notificare il tentativo di ottenere un riferimento ad un fatto utilizzando un indice non esistente\\ 
+	\hdashline[1pt/5pt]
+		\texttt{InvalidFactFormatError} & Eccezione utilizzata per notificare il tentativo di asserzione di un fatto non coerente con il formato atteso\\ 
+	\hdashline[1pt/5pt]
+		\texttt{RuleNotFoundError} & Eccezione utilizzata per notificare il tentativo di ottenere informazioni su una regola non definita\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefFactsNotFound} & Eccezione utilizzata per notificare il tentativo di ottenere informazioni su gruppo \emph{deffacts} non definito\\ 
+	\hdashline[1pt/5pt]
+		\texttt{InvalidWmeOwner} & Eccezione utilizzata per notificare il tentativo di accesso ad una WME da uno \emph{Scope} non coerente con la definizione\\ 
+
+	\hline\\
+
+\end{longtable}
+
+
+\subsubsection{Package \texttt{myclips.rete.nodes}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{AlphaMemory.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{AlphaMemory} & Memoria che organizza gli elementi WME coerenti con un circuito di \emph{test alpha} \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{BetaMemory.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{BetaMemory} & Memoria che organizza gli elementi Token coerenti con un circuito di \emph{test beta} \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{ExistsNode.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{ExistsNode} & Nodo per la realizzazione dei pattern \emph{exists-CE}: propaga una attivazione solo se esiste almeno un elemento nella memoria alpha collegata come input destro \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{JoinNode.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{JoinNode} & Nodo per la realizzazione dei test di coerenza sulle variabili e la congiunzione di pattern differenti \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{NccNode.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{NccNode} & Nodo sinistro della coppia di nodi Ncc che realizzano la negazione di un circuito beta \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{NccPartnerNode.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{NccPartnerNode} & Nodo destro della coppia di nodi Ncc che realizzano la negazione di un circuito beta \\ 
+	\hline\\
+
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{NegativeJoinNode.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{NegativeJoinNode} & Realizza la negazione di un pattern, propagando le attivazioni solo quando non ci sono elementi nella memoria alpha collegata come input destro\\ 
+	\hdashline[1pt/5pt]
+		\texttt{NegativeJoinResult} & Struttura per la memorizzazione temporanea dei riscontri negativi che bloccano una propagazione nei nodi NegativeJoinNode\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{PNode.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{PNode} & Nodo terminale di un circuito che conserva l'elenco di azioni associate ad una regola e ne consente l'attivazione \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{PropertyTestNode.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{PropertyTestNode} & Nodo per la realizzazione dei test su elementi costanti dei pattern nell'\emph{alpha-network}\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{RootNode.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Root} & Nodo radice del grafo di RETE\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{TestNode.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{TestNode} & Nodo che realizza i pattern \emph{test-CE}\\ 
+	\hline\\
+
+\end{longtable}
+
+
+\subsubsection{Package \texttt{myclips.rete.tests}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{AlphaTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{AlphaTest} & Interfaccia dei test realizzabili nei PropertyTestNode \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{BetaTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{BetaTest} & Interfaccia dei test realizzabili nei nodi beta \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{ConstantValueAtIndexTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{ConstantValueAtIndexTest} & Verifica la presenza di un elemento costante in una coordinata specifica \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{DynamicFunctionTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{DynamicFunctionTest} & Valuta il risultato di una chiamata di funzione \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{MultislotLengthTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{MultislotLengthTest} & Verifica la lunghezza di uno slot multi-field \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{NegativeAlphaTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{NegativeAlphaTest} & Nega il risultato di un \emph{AlphaTest}\\ 
+	\hline\\
+	
+\multicolumn{2}{c}{\emph{Modulo} \texttt{NegativeBetaTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{NegativeBetaTest} & Nega il risultato di un \emph{BetaTest}\\ 
+	\hline\\
+
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{OrConnectiveTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{OrConnectiveTest} & Raggruppa un insieme di test e verifica che almeno uno sia positivo\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{OrderedFactLengthTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{OrderedFactLengthTest} & Verifica la lunghezza di un fatto ordered \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{ScopeTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{ScopeTest} & Verifica la visibilità di un fatto\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{TemplateNameTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{TemplateNameTest} & Verifica il template associato ad un fatto\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{VariableBindingTest.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{VariableBindingTest} & Verifica la coerenza del valore di una variabile\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{locations.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{AtomLocation} & Rappresenta la coordinata di un termine in una regola\\ 
+	\hdashline[1pt/5pt]
+		\texttt{VariableLocation} & Rappresenta la coordinata di una variabile in una regola\\ 
+	\hdashline[1pt/5pt]
+		\texttt{VariableReference} & Rappresenta una coordinata di una variabile relativa ad una seconda posizione\\ 
+	\hline\\
+
+
+\end{longtable}
+
+\subsubsection{Package \texttt{myclips.strategies}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{\_\_init\_\_.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Strategy} & Interfaccia delle strategie CRS \\ 
+	\hdashline[1pt/5pt]
+		\texttt{factory} & Factory delle strategie CRS \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Breadth.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Breadth} & Realizzazione della strategia Breadth\\ 
+	\hline\\
+	
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Depth.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Depth} & Realizzazione della strategia Depth \\
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Complexity.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Complexity} & Realizzazione della strategia Complexity \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Simplicity.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Simplicity} & Realizzazione della strategia Simplicity \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Lex.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Lex} & Realizzazione della strategia Lex \\ 
+	\hline\\
+	
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Mea.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Mea} & Realizzazione della strategia Mea \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Random.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Random} & Realizzazione della strategia Random \\ 
+	\hline\\
+
+
+\end{longtable}
+
+\subsubsection{Package \texttt{myclips.shell}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Interpreter.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Interpreter} & Valuta un stringa ed esegue comando associato \\ 
+	\hline\\
+
+\end{longtable}
+
+\subsection{Specifica delle classi \emph{Server}}
+
+\subsubsection{Package \texttt{myclips\_server.xmlrpc}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{server.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{MyClipsXMLRPCServer} & Realizza il demone per le connessioni XMLRPC \\ 
+	\hdashline[1pt/5pt]
+		\texttt{MyClipsDocXMLRPCServer} & Realizza il demone http per fornire la documentazione delle api fornite dal server XMLRPC \\ 
+	\hdashline[1pt/5pt]
+		\texttt{MyClipsDocXMLDocGenerator} & Esegue operazioni di riflessione sui servizi e le api per la generazione automatica della documentazione delle interfacce fornite dal server XMLRPC \\ 
+	\hline\\
+	
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Broker.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Broker} & Broker dei servizi del server XMLRPC \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Broker.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Broker} & Broker dei servizi del server XMLRPC \\ 
+	\hline\\
+	
+
+\end{longtable}
+
+
+\subsubsection{Package \texttt{myclips\_server.xmlrpc.services}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Service.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Service} & Interfaccia dei servizi \\ 
+	\hline\\
+	
+\multicolumn{2}{c}{\emph{Modulo} \texttt{\_\_init\_\_.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Factory} & Factory dei servizi \\ 
+	\hdashline[1pt/5pt]
+		\texttt{ServiceNotFoundError} & Eccezione utilizzata per notificare la richiesta di un servizio non installato \\ 
+	\hline\\
+
+
+\end{longtable}
+
+\subsubsection{Package \texttt{myclips\_server.xmlrpc.admin}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Services.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Services} & Servizio di amministrazione dei servizi attivi \\ 
+	\hline\\
+
+
+\end{longtable}
+
+
+\subsubsection{Package \texttt{myclips\_server.xmlrpc.clientevents}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{ClientEvents.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{ClientEvents} & Realizzazione del servizio di gestione dei listener remoti \\ 
+	\hdashline[1pt/5pt]
+		\texttt{ClientListener} & Rappresenta sul server un riferimento ad un listener remoto \\ 
+	\hline\\
+
+\end{longtable}
+
+\subsubsection{Package \texttt{myclips\_server.xmlrpc.clientio}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{ClientIO.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{ClientIO} & Realizzazione del servizio di gestione degli stream remoti \\ 
+	\hdashline[1pt/5pt]
+		\texttt{ClientIOStream} & Rappresenta sul server un riferimento ad uno stream remoto \\ 
+	\hline\\
+
+\end{longtable}
+
+\subsubsection{Package \texttt{myclips\_server.xmlrpc.myclips}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Engine.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Engine} & Realizzazione del servizio Engine per la fornitura dei servizi del motore inferenziale di MyCLIPS \\ 
+	\hdashline[1pt/5pt]
+		\texttt{SuppressStream} & Rappresenta un finto stream remoto utilizzato per sopprimere richieste di input o output su stream non definiti eseguite dal motore inferenziale\\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{RemoteShell.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{RemoteShell} & Realizzazione del servizio RemoteShell per la fornitura dei servizi dell'\emph{Interpreter} a client remoti \\ 
+	\hline\\
+
+
+\end{longtable}
+
+\subsubsection{Package \texttt{myclips\_server.xmlrpc.sessions}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Sessions.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Sessions} & Realizzazione del servizio Sessions per la gestione delle Sessioni persistenti \\ 
+	\hdashline[1pt/5pt]
+		\texttt{InvalidSessionError} & Eccezione utilizzata per notificare il tentativo di utilizzo di un token di sessione non valido\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Session} & Rappresenta una sessione, organizza le informazioni memorizzate fra richieste successive\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SessionsCleaner} & Verifica le condizioni di eliminazione delle sessioni ed elimina quelle scadute\\ 
+	\hline\\
+
+
+\end{longtable}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Registry.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Registry} & Realizzazione del servizio Registry per la gestione dei tipi complessi \\ 
+	\hline\\
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Skeleton.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Skeleton} & Classe base per gli Skeleton \\ 
+	\hline\\
+	
+\multicolumn{2}{c}{\emph{Modulo} \texttt{skeletons.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Integer} & Mappa un elemento Integer\\
+	\hdashline[1pt/5pt]
+		\texttt{Float} & Mappa un element Float\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Symbol} & Mappa un elemento Symbol\\ 
+	\hdashline[1pt/5pt]
+		\texttt{String} & Mappa una stringa compresa fra doppi apici\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Variable} & Classe base per le entità variabili\\ 	
+	\hdashline[1pt/5pt]
+		\texttt{SingleFieldVariable} & Mappa una variabile di tipo \emph{single-field}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{MultiFieldVariable} & Mappa una variabile di tipo \emph{multi-field}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{UnnamedSingleFieldVariable} & Mappa un wildcard \emph{single-field}\\
+	\hdashline[1pt/5pt]
+		\texttt{UnnamedMultiFieldVariable} & Mappa un wildcard \emph{multi-field}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{GlobalVariable} & Mappa una variable globale\\ 
+	\hdashline[1pt/5pt]
+		\texttt{FunctionCall} & Mappa una chiamata a funzione\\
+	\hdashline[1pt/5pt]
+		\texttt{DefFactsConstruct} & Mappa un costrutto \emph{deffacts}\\
+	\hdashline[1pt/5pt]
+		\texttt{OrderedRhsPattern} & Mappa una definizione di fatto in notazione \emph{Ordered-Fact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TemplateRhsPattern} & Mappa una definizione di fatto in notazione \emph{Template-Fact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{FieldRhsSlot} & Classe astratta per la definizione di un valore di uno slot di un fatto in notazione \emph{Template-Fact} \\ 
+	\hdashline[1pt/5pt]
+		\texttt{MultiFieldRhsSlot} & Mappa un valore \emph{multi-field} in uno slot di un fatto in notazione \emph{Template-Fact} \\ 
+	\hdashline[1pt/5pt]
+		\texttt{SingleFieldRhsSlot} & Mappa un valore \emph{single-field} in uno slot di un fatto in notazione \emph{Template-Fact} \\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefRuleConstruct} & Mappa un costrutto \emph{defrule}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{RuleProperty} & Mappa una definizione di proprietà di una regola\\
+	\hdashline[1pt/5pt]
+		\texttt{PatternCE} & Classe base per i \emph{PatternCE}\\
+	\hdashline[1pt/5pt]
+		\texttt{OrderedPatternCE} & Mappa una definizione di pattern per il ritrovamento di un \emph{Ordered-Fact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TemplatePatternCE} & Mappa una definizione di pattern per il ritrovamento di un \emph{Template-Fact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{AssignedPatternCE} & Mappa una definizione di pattern associato a variabile\\ 
+	\hdashline[1pt/5pt]
+		\texttt{NotPatternCE} & Mappa una definizione di pattern negata\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ExistsPatternCE} & Mappa una definizione di pattern \emph{exists-CE}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{AndPatternCE} & Mappa una definizione di congiunzione di pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{OrPatternCE} & Mappa una definizione di pattern \emph{or-CE}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TestPatternCE} & Mappa una definizione di pattern \emph{test-CE}\\
+	\hdashline[1pt/5pt]
+		\texttt{Constraint} & Mappa una definizione di condizione in un pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ConnectedConstraint} & Mappa una definizione di condizione collegata in un pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Term} & Classe astratta per i termini di un pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{NotTerm} & Mappa un termine negato di un pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{PositiveTerm} & Mappa un termine di un pattern\\ 
+	\hdashline[1pt/5pt]
+		\texttt{FieldLhsSlot} & Classe astratta per la definizione di slot per i pattern per fatti \emph{Template-Fact}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SingleFieldLhsSlot} & Mappa una definizione di slot \emph{single-field} in un pattern \emph{TemplatePatternCE}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{MultiFieldLhsSlot} & Mappa una definizione di slot \emph{multi-field} in un pattern \emph{TemplatePatternCE}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SlotDefinition} & Classe base per le definizioni di slot nei costrutti \emph{deftemplate}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{SingleSlotDefinition} & Mappa una definizione di slot singolo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{MultiSlotDefinition} & Mappa una definizione di slot multiplo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Attribute} & Classe base per le definizioni di attributi di slot\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefaultAttribute} & Mappa una definizione di attributo di tipo default per uno slot\\ 
+	\hdashline[1pt/5pt]
+		\texttt{TypeAttribute} & Mappa una definizione di attributo per restrizione di tipo per uno slot\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefTemplateConstruct} & Mappa un costrutto \emph{deftemplate}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefGlobalConstruct} & Mappa un costrutto \emph{defglobal}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{GlobalAssignment} & Mappa un'assegnazione di valore ad una variabile globale\\ 
+	\hdashline[1pt/5pt]
+		\texttt{PortItem} & Mappa una definizione di elemento importabile o esportabile\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ImportSpecification} & Mappa una definizione di specifica di importazione di costrutti per un modulo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{ExportSpecification} & Mappa una definizione di specifica di esportazione di costrutti per un modulo\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefModuleConstruct} & Mappa un costrutto \emph{defmodule}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{DefFunctionConstruct} & Mappa un costrutto \emph{deffunction}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{WME} & Mappa un elemento della \emph{working-memory}\\ 
+	\hdashline[1pt/5pt]
+		\texttt{Fact} & Mappa un fatto\\ 
+	\hline\\	
+
+\end{longtable}
+
+
+\subsection{Specifica delle classi \emph{Terminale}}
+
+\subsubsection{Package \texttt{myclips.shell}}
+
+\begin{longtable}{p{5.5cm}p{6.5cm}}
+\hline 
+\textbf{Classe} & \textbf{Descrizione} \\ 
+\hline\hline 
+\endhead
+
+\multicolumn{2}{c}{\emph{Modulo} \texttt{Shell.py}}\\
+	\hdashline[5pt/5pt]
+		\texttt{Shell} & Classe principale dell'applicazione Terminale. Realizza il ciclo di controllo principale per la valutazione dei comandi e la visualizzazione su schermo dei risultati \\ 
+	\hdashline[5pt/5pt]
+		\texttt{Completer} & Suggerisce un insieme di stringhe in base ad un prefisso valutando l'elenco di funzioni e variabili definite \\ 
+	\hline\\
+
+\end{longtable}
+
