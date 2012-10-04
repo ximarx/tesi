@@ -1,21 +1,23 @@
-\chapter*{Conclusioni}
+\chapter*{Conclusioni e sviluppi futuri}
 \addcontentsline{toc}{chapter}{Conclusioni e sviluppi futuri}
-\chaptermark{Conclusioni}
+\chaptermark{Conclusioni e sviluppi futuri}
+\sectionmark{Conclusioni e sviluppi futuri}
 \rhead{}
+\lhead{\emph{CONCLUSIONI E SVILUPPI FUTURI}}
 
 %\section{Conclusioni}
 
 
-L'integrazione degli strumenti di sviluppo per sistemi esperti con tecnologie orientate alla distribuzione degli stessi in ambito \emph{web} ha offerto lo spunto per questo lavoro di tesi. Prendendo come riferimento le funzionalità offerte da un \emph{environment} di grande adozione come CLIPS, è stata progettata e quindi realizzata una soluzione compatibile che enfatizzasse le capacità di estensibilità e integrazione offerte dal linguaggio di programmazione scelto per la realizzazione del prototipo: Python. Al fine di saggiare la flessibilità della soluzione proposta è stata eseguita l'integrazione della soluzione in un modello d'architettura \emph{client-server} e quindi valutato l'impatto che l'adozione di questa tecnologia ha avuto sulle prestazioni complessive del sistema.
+L'integrazione degli strumenti di sviluppo per sistemi esperti con tecnologie orientate alla distribuzione degli stessi in ambito \emph{Web} ha offerto lo spunto per questo lavoro di tesi. Prendendo come riferimento le funzionalità offerte da un \emph{environment} di larga adozione come CLIPS, è stata progettata e quindi realizzata una soluzione compatibile che enfatizzasse le capacità di estensibilità e integrazione dei sistemi sviluppati in software di tipo tradizionale. In particolare, a tale scopo, ci si è concentrati, per la realizzazione del prototipo, su un linguaggio di programmazione che offrisse supporto a tali requisiti: Python. Al fine di saggiare la flessibilità della soluzione proposta è stata eseguita l'integrazione della soluzione in un modello d'architettura \emph{client-server} e quindi è stato valutato l'impatto che l'adozione di questa tecnologia ha avuto sulle prestazioni complessive del sistema.
 
-Durante questa trattazione è stata fornita una definizione di sistemi esperti, approfondendo le tematiche relative al loro processo di sviluppo e all'ambito di utilizzo degli stessi. L'attenzione è stata quindi focalizzata verso le tecniche utilizzate per la formalizzazione della conoscenza in strutture adeguate alla computazione e quindi offerta una classificazione generale degli strumenti di sviluppo per sistemi esperti.
-Nella seconda e terza parte sono state approfondite le problematiche relative alla progettazione e alla realizzazione di un prototipo funzionante di \emph{environment} multi-paradigmatico, successivamente sottoposto ad una valutazione per testarne la correttezza e le prestazioni.
+Durante questa trattazione è stata fornita una definizione di sistemi esperti, approfondendo le tematiche relative al loro processo di sviluppo e all'ambito di utilizzo degli stessi. L'attenzione è stata quindi focalizzata verso le tecniche utilizzate per la formalizzazione della conoscenza in strutture adatte al calcolo e si è quindi offerta una classificazione generale degli strumenti di sviluppo per sistemi esperti.
+Sono state poi approfondite le problematiche relative alla progettazione e alla realizzazione di un prototipo funzionante di \emph{environment} multi-paradigmatico, successivamente sottoposto ad una valutazione per testarne la correttezza e le prestazioni.
 
-Da quanto osservato durante la sperimentazione si può affermare che i risultati ottenuti sono in linea con le attese. Il livello di compatibilità con il sistema di riferimento risulta soddisfacente, i costrutti più utilizzati e considerati indispensabili vengono resi disponibili dal prototipo e i comportamenti riscontrati risultano trovano corrispondenza fra i due sistemi. L'analisi della prestazione ha mostrato un \emph{gap} abbastanza evidente, ma il degrado delle prestazioni, superato un valore di soglia, replica esattamente il comportamento riscontrato nella soluzione di riferimento. Una delle cause alla base delle minori prestazioni è il linguaggio utilizzato per l'implementazione del prototipo, ma non è l'unica. L'analisi del grafico delle chiamate (\figurename~\ref{fig:profile-sudoku}) generato durante la profilazione del benchmark \emph{Sudoku} ha messo in luce due criticità, sicuramente concause delle scarse prestazioni ottenute nello specifico test:
+Da quanto osservato durante la sperimentazione si può affermare che i risultati ottenuti sono in linea con le attese. Il livello di compatibilità con il sistema di riferimento risulta soddisfacente, i costrutti più utilizzati e considerati indispensabili vengono resi disponibili dal prototipo e i comportamenti riscontrati trovano corrispondenza fra i due sistemi. L'analisi della prestazione ha mostrato un \emph{gap} a favore dello stato dell'arte, ma il degrado delle prestazioni, superato un valore di soglia, replica esattamente il comportamento riscontrato nella soluzione di riferimento. Una delle cause alla base delle minori prestazioni, ma non l'unica, è il linguaggio utilizzato per l'implementazione del prototipo. L'analisi del grafico delle chiamate (\figurename~\ref{fig:profile-sudoku}) generato durante la profilazione del benchmark \emph{Sudoku} ha messo in luce alcune criticità, che potranno essere oggetto di sviluppi futuri di questo lavoro:
 \begin{enumerate}
-	\item la realizzazione scelta per la rappresentazione dei Token nel sistema utilizza una struttura ad albero per ridurre il consumo di memoria e permettere una condivisione delle informazioni~\cite{Doorenbos95productionmatching}. Questo approccio ha comportato un maggior dispendio di tempo per l'esecuzione delle procedure di \emph{matching} a causa della forma utilizzata per serializzazione delle regole nello specifico test.
+	\item la realizzazione scelta per la rappresentazione dei Token nel sistema utilizza una struttura ad albero per ridurre il consumo di memoria e permettere una condivisione delle informazioni~\cite{Doorenbos95productionmatching}. Questo approccio ha comportato un maggior dispendio di tempo per l'esecuzione delle procedure di \emph{matching} a causa della forma utilizzata per serializzazione delle regole nello specifico test. Ulteriori lavori potranno approfondire i benefici dell'adozione di una struttura lineare~\cite{Doorenbos95productionmatching} per la memorizzazione dei Token, valutando sia l'impatto prestazionale che il consumo di memoria.
 	
-	\item l'implementazione dei pattern \emph{Test-CE} prevede l'esecuzione di chiamate a funzione senza prevedere alcun sistema di \emph{caching} dei risultati. Verifiche successive richiedono una nuova esecuzione della funzione anche nei casi in cui gli input siano identici a quelli di valutazioni precedenti.
+	\item l'implementazione dei pattern \emph{Test-CE} prevede l'esecuzione di chiamate a funzione senza prevedere alcun sistema di \emph{caching} dei risultati. Verifiche successive richiedono una nuova esecuzione della funzione anche nei casi in cui gli input siano identici a quelli di valutazioni precedenti. La progettazione di un meccanismo di memorizzazione dei risultati delle valutazioni, indicizzandolo in base ai dati di input, potrebbe ridurre il tempo globale di esecuzione dei sistemi che fanno largo uso di pattern di tipo \emph{Test-CE} su input costanti.
 \end{enumerate}
 
 
@@ -24,19 +26,15 @@ Da quanto osservato durante la sperimentazione si può affermare che i risultati
 %Le capacità realizzate rappresentano una porzione delle funzionalità che vengono richieste ad un \emph{environment per sistemi esperti} della corrente generazione. Le scelte effettuate durante la progettazione e la realizzazione del sistema hanno avuto come priorità quella di rendere il sistema modificabile, analizzabile ed estendibile con facilità. Lo sviluppo della componente server è stato un modo per saggiarne la flessibilità trasferendo il normale modello di interazione anche attraverso un'architettura tanto differente quanto quella \emph{client-server}.
 
 
-\section*{Sviluppi futuri}
-
-L'approfondimento di alcune delle mancanze del prototipo o l'aggiunta di ulteriori funzionalità potrebbe offrire lo spunto per ulteriori evoluzioni del sistema e nuovi ambiti di ricerca:
+%\section*{Sviluppi futuri}
+Altri sviluppi potranno interessare l'integrazione del prototipo con l'aggiunta di ulteriori funzionalità o la valutazione di tecniche algoritmiche alternative in sostituzione a componenti forniti dal sistema:
 \begin{itemize}
-	\item l'integrazione di un \emph{regime di controllo} alternativo basato sul \emph{backward-chaining} o su approcci ibridi, garantendo agli ingegneri della conoscenza maggiore flessibilità durante le fasi di progettazione.
+	\item l'integrazione di un \emph{regime di controllo} alternativo basato sul \emph{backward-chaining} o su approcci ibridi, garantendo agli ingegneri della conoscenza maggiore flessibilità durante le fasi di progettazione. L'integrazione di formalismi originali nel linguaggio di specifica e delle relative strutture per la gestione degli stessi nel motore inferenziale, potrà garantire il supporto a meccanismi di inferenza differenti~\cite{retehibrid}, mantenendo immutata la compatibilità con gli artefatti CLIPS.
 	
-	\item l'integrazione del paradigma di programmazione basato su oggetti nel linguaggio di specifica.
+	\item l'integrazione del paradigma di programmazione basato su oggetti nel linguaggio di specifica. L'aggiunta di un set di costrutti analoghi a quelli proposti nell'estensione COOL del linguaggio CLIPS estenderebbe ulteriormente il livello di compatibilità dei sistemi e fornirebbe al prototipo un meccanismo di specifica basato sugli oggetti.
 	
-	\item la valutazione delle prestazioni offerte dal sistema utilizzando algoritmi di matching differenti come ad esempio TREAT~\cite{Miranker:1987:TBM:899610}~\cite{Miranker:1987:TBM:1856670.1856678} o LEAPS~\cite{Batory:1994:LA:899216}.	
+	\item la sostituzione delle implementazioni dei moduli \emph{Builder} e \emph{Analyzer}, potrebbe offrire l'opportunità di approfondire le tematiche relative all'utilizzo di algoritmi di matching differenti da RETE come ad esempio TREAT~\cite{Miranker:1987:TBM:899610}~\cite{Miranker:1987:TBM:1856670.1856678} o LEAPS~\cite{Batory:1994:LA:899216}.	
 	
-	\item approfondimento delle problematiche relative alle prestazioni generali del sistema, eseguendo una nuova valutazione sulle tecnologie impiegate per la realizzazione dell'artefatto.
 	
-	\item l'integrazione di funzionalità che agevolino lo svolgimento di attività comuni  dei sistemi esperti come la spiegazione dell'inferenza.
-	
-	\item la fusione nel motore inferenziale di strumenti per la gestione dell'incertezza e della logica \emph{Fuzzy}.
+	\item aggiungendo nuovi formalismi nel linguaggio di specifica che consentano l'associazione di valori di confidenza a pattern e regole, aggiungendo inoltre nuovi test in grado di eseguire valutazioni basate su valori di soglia, sarebbe possibile integrare nel motore inferenziale degli strumenti per la gestione dell'incertezza e della logica \emph{Fuzzy}~\cite{fuzzyclips}.
 \end{itemize}
