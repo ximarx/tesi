@@ -1,0 +1,71 @@
+\documentclass[a4paper,%
+				12pt,%
+				oneside%
+				]{book}
+				
+\usepackage[english,italian]{babel}
+
+%\usepackage[T1]{fontenc} % Riga da togliere se si compila con PDFLaTeX
+\usepackage[utf8]{inputenc} % Consente l'uso caratteri accentati italiani
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage[backend=bibtex]{biblatex}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{moreverb}
+%\usepackage[hidelinks]{hyperref}
+\usepackage[bookmarks=true,pdfborder={0 0 0}]{hyperref}
+\usepackage{float}
+\usepackage{array}
+\usepackage{tabularx}
+%\usepackage{epstopdf}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage{color}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{pgfplots}
+\usepackage{algpseudocode}
+\usepackage[chapter]{algorithm}
+
+
+
+
+\bibliography{Bibliografia}
+
+\input{Configs}                  % file con le impostazioni personali
+
+				
+\begin{document}
+
+\pagenumbering{roman}
+\pagestyle{plain}
+
+\input{Sezioni/Frontespizio}
+
+\pagestyle{fancy}
+
+\singlespacing
+
+\singlespacing
+\rhead{}
+\input{Sezioni/Indici}
+\doublespacing
+
+\rhead{\thesection \sectionmark}
+
+\mainmatter
+\input{Capitoli/capitolo-2}
+\input{Capitoli/capitolo-3}
+
+\rhead{}
+\appendix
+\input{Sezioni/Bibliografia}
+\input{Sezioni/Appendici}
+
+\end{document}
