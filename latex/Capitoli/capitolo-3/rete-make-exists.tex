@@ -1,0 +1,12 @@
+
+\begin{algorithm}[h]
+\caption{Creazione di un circuito $\beta$ per Exists}\label{alg:builder-makeExists}
+\begin{algorithmic}
+\Function{Builder.makeBetaExistsCircuit}{parent: node, $memory_\alpha$: node}
+\State $parent\gets$ Builder.factory\_BetaMemory($parent$)
+\State $parent\gets$ Builder.factory\_ExistsNode($parent$, $memory_\alpha$)
+\State \Return{$parent$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+

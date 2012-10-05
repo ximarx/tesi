@@ -1,0 +1,24 @@
+
+\begin{algorithm}
+\caption{Algoritmo di generazione dei test $\beta$}\label{alg:analyzer-test-beta}
+\begin{algorithmic}
+\Function{Analyzer.analyzePatternBeta}{$c$: pattern, $pi$: integer}
+\State \textbf{sia} $tests$ un vettore di test $\beta$ inizialmente vuoto
+\State \textbf{sia} $vars$ un insieme di variabili identificate nel pattern inizialmente vuoto
+\State \textbf{siano} $p_i$ le proprietà definite dal pattern $c$
+\For{$i = 1 \to k$}
+	\If {$p_i$ is-a $Variabile$}
+		\If {$p_i$ e' gia contenuto in $vars$}
+			\State $prev_{p_i}\gets$ recupera le coordinate della precedente posizione di $p_i$ da $vars$
+			\State $t \gets$ un test adatto a verificare che il valore associato alla posizione $prev_{p_i}$ sia uguale a quella di $p_i$
+			\State accoda $t$ a $tests$
+		\Else
+			\State $t \gets$ un test adatto a descrivere $p_i$
+			\State inserisci le coordinate di $p_i$ all'interno di $vars$
+		\EndIf
+	\EndIf
+\EndFor
+\State \Return{$tests$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}

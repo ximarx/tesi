@@ -1,0 +1,11 @@
+
+\begin{algorithm}[h]
+\caption{Creazione di un circuito $\beta$ per il NegativeJoin}\label{alg:builder-makeNegativeJoin}
+\begin{algorithmic}
+\Function{Builder.makeNegativeJoinCircuit}{parent: node, $memory_\alpha$: node, $tests_\beta$: \textbf{list} of test}
+\State $parent\gets$ Builder.factory\_NegativeJoinNode($parent$, $memory_\alpha$, $tests_\beta$)
+\State \Return{$parent$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+

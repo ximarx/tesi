@@ -1,0 +1,18 @@
+
+\begin{algorithm}
+\caption{Metodo \emph{factory} per i \emph{PropertyTestNode}}\label{alg:builder-factory-property}
+\begin{algorithmic}
+\Function{Builder.factoryPropertyTestNode}{parent: node, t: un test di tipo $\alpha$}
+\State \textbf{siano} $child_1,\dots,child_k$ i nodi successori di $parent$
+\For{$i = 1 \to k$}
+	\If {$child_i$ is-a $PropertyTestNode$ $\wedge$ il test di $child_i = t$}
+		\State \Return{$child_i$}
+	\EndIf
+\EndFor
+\State \textbf{sia} $newNode$ un nuovo nodo di tipo $PropertyTestNode$ creato con il test $t$
+\State aggiungi $newNode$ fra i successori di $parent$
+\State imposta $parent$ come padre di $newNode$
+\State \Return{$newNode$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}

@@ -1,0 +1,17 @@
+
+\begin{algorithm}
+\caption{Algoritmo di generazione dei test $\alpha$}\label{alg:analyzer-test-alpha}
+\begin{algorithmic}
+\Function{Analyzer.analyzePatternAlpha}{$c$: pattern, $pi$: Integer}
+\State \textbf{sia} $tests$ un vettore di test $\alpha$ inizialmente vuoto
+\State \textbf{siano} $p_i$ le proprietà definite dal pattern $c$
+\For{$i = 1 \to k$}
+	\If {$p_i$ $\neg$ is-a $Variabile$}
+		\State $t \gets$ un test adatto a descrivere $p_i$
+		\State accoda $t$ a $tests$
+	\EndIf
+\EndFor
+\State \Return{$tests$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}

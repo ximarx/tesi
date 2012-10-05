@@ -1,0 +1,12 @@
+
+\begin{algorithm}
+\caption{Creazione di un circuito $\beta$ per il Test}\label{alg:builder-makeTest}
+\begin{algorithmic}
+\Function{Builder.makeBetaTestCircuit}{parent: node, $memory_\alpha$: node, $tests_\theta$: \textbf{list} of test}
+\State $parent\gets$ Builder.factory\_BetaMemory($parent$)
+\State $parent\gets$ Builder.factory\_TestNode($parent$, $memory_\alpha$, $tests_\theta$)
+\State \Return{$parent$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+

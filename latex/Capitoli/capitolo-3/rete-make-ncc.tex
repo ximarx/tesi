@@ -1,0 +1,11 @@
+
+\begin{algorithm}
+\caption{Creazione di un circuito $\beta$ per gruppi di negazioni (NCC)}\label{alg:builder-makeNcc}
+\begin{algorithmic}
+\Function{Builder.makeBetaNccCircuit}{parent: node, $ncc$: node, $l$: Integer}
+\State $parent\gets$ Builder.factory\_NccNode($parent$, $ncc$, $l$)
+\State \Return{$parent$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
