@@ -582,6 +582,24 @@ La libreria viene utilizzata per l'implementazione del \emph{Listener} \emph{Net
 
 \subsection{Specifica delle classi \emph{Core}}
 
+L'implementazione delle funzionalità previste dal componente Core del sistema è stata suddivisa in sette \emph{package} differenti:
+
+\begin{enumerate}
+	\item \texttt{myclips}: package di base che organizza le classi concrete e astratte d'utilità condivise da altri package
+	\item \texttt{myclips.parser}: sono organizzate al suo interno le classi relative alla valutazione del linguaggio di specifica e alle classi d'entità utilizzate per mappare i costrutti del linguaggio di specifica
+	\item \texttt{myclips.listener}: contiene le classi \emph{listener} per il monitoraggio degli eventi e l'implementazione dei comportamenti associati
+	\item \texttt{myclips.functions}: racchiude definizioni e implementazioni delle funzioni di sistema utilizzate nell\emph{environment}
+	\item \texttt{myclips.rete}: contiene le classi relative all'implementazione dell'algoritmo RETE per il \emph{matching}. Le classi sono strutturate ulteriormente in 3 \emph{sub-package}:
+		\begin{enumerate}
+			\item \texttt{myclips.rete}: contiene le classi astratte per la formalizzazione delle interfacce dei nodi e delle memorie
+			\item \texttt{mycllps.rete.nodes}: organizza le classi relative alle implementazioni dei nodi del grafo di RETE
+			\item \texttt{myclips.rete.tests}: organizza le interfacce e le realizzazioni delle classi di test utilizzate nei nodi
+		\end{enumerate}
+	\item \texttt{myclips.strategies}: organizza le interfacce e le classi relative alla gestione delle strategie di risoluzione dei conflitti, cosi come le realizzazioni delle strategie fornite dal sistema
+	\item \texttt{myclips.shell}: racchiude le classi relative alle funzionalità svolte dalla componente \emph{Interpreter}
+\end{enumerate}
+
+Di seguito si fornisce il dettaglio delle classi, organizzate in base al \emph{package} di appartenenza
 
 \subsubsection{Package \texttt{myclips}}
 
@@ -1498,7 +1516,26 @@ Si elencano brevemente i \emph{package} e una descrizione delle funzioni di sist
 
 \end{longtable}
 
+\clearpage
+
 \subsection{Specifica delle classi \emph{Server}}
+
+L'implementazione delle funzionalità previste dal componente Server del sistema è stata suddivisa in tre \emph{package} principali differenti:
+
+\begin{enumerate}
+	\item \texttt{myclips\_server.server\_functions}: package che organizza le definizioni e le implementazioni delle funzioni di sistema aggiuntive previste dalla componente server
+	\item \texttt{myclips\_server.xmlrpc}: organizza le classi relative alla gestione delle connessioni e del \emph{broker} di servizi
+	\item \texttt{myclips\_server.xmlrpc.services}: contiene le classi relative alla realizzazione dei servizi previsti dal server. Le classi sono strutturate ulteriormente in 3 \emph{sub-package}:
+		\begin{enumerate}
+			\item \texttt{myclips\_server.xmlrpc.services.clientevents}: organizza le classi del servizio \emph{ClientEvents}
+			\item \texttt{myclips\_server.xmlrpc.services.clientio}: organizza le classi del servizio \emph{ClientIO}
+			\item \texttt{myclips\_server.xmlrpc.services.sessions}: organizza le classi del servizio \emph{Sessions}
+			\item \texttt{myclips\_server.xmlrpc.services.types}: organizza le classi del servizio \emph{Registry} e le classi \emph{Skeleton}
+			\item \texttt{myclips\_server.xmlrpc.services.myclips}: organizza le classi dei servizi \emph{Engine} e \emph{RemoteShell}
+		\end{enumerate}
+\end{enumerate}
+
+Di seguito si fornisce il dettaglio delle classi, organizzate in base al \emph{package} di appartenenza
 
 \subsubsection{Package \texttt{myclips\_server.xmlrpc}}
 
@@ -1777,6 +1814,10 @@ Si elencano brevemente i \emph{package} e una descrizione delle funzioni di sist
 
 
 \subsection{Specifica delle classi \emph{Terminale}}
+
+L'implementazione delle funzionalità previste dal componente Terminale del sistema è racchiusa all'interno del \emph{package} \texttt{myclips.shell}
+
+Di seguito si fornisce il dettaglio delle classi.
 
 \subsubsection{Package \texttt{myclips.shell}}
 
