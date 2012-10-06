@@ -48,10 +48,15 @@ Si riassumono schematicamente le funzionalità principali richieste al sistema, 
 					\item fatti in notazione Template-Fact (\ref{par:linguaggio-fatti})
 				\end{enumerate}
 		\end{enumerate}
-	\item la possibilità di aggiungere strategie di risoluzione dei conflitti (\ref{par:motore-inferenziale})
+	\item la possibilità di aggiungere strategie di risoluzione dei conflitti (\ref{par:strategie-crs})
 	\item la possibilità di integrare nuove funzioni di sistema (\ref{par:motore-inferenziale})
-	\item compatibilità con i sistemi sviluppati per CLIPS (\ref{par:linguaggio})
-	\item l'utilizzo dell'algoritmo RETE per le operazioni di \emph{Pattern-Matching}~(\ref{par:motore-inferenziale})
+	\item compatibilità con i sistemi sviluppati per CLIPS:
+		\begin{enumerate}
+			\item compatibilità del linguaggio di specifica (\ref{par:linguaggio})
+			\item compatibilità delle strategie di risoluzione dei conflitti (\ref{par:strategie-crs})
+			\item compatibilità con un \emph{sub-set} delle funzioni di sistema
+		\end{enumerate}
+	\item l'utilizzo dell'algoritmo RETE per le operazioni di \emph{Pattern-Matching}~(\ref{par:algoritmo-rete})
 	\item la possibilità di accedere alle funzionalità del sistema tramite un terminale~(\ref{par:terminale})
 	\item la distribuzione delle funzionalità del software tramite un modulo server~(\ref{par:server})
 \end{enumerate}
@@ -172,11 +177,102 @@ L'utilizzo del motore inferenziale è regolato da quattro fasi:
 %Le fasi di preparazione ed esecuzione previste dal motore inferenziale garantiscono un utilizzo dello stesso
 La realizzazione del ciclo di controllo \emph{recognize-act} prevede il confronto fra le condizioni espresse nelle porzioni \emph{LHS} delle regole e l'insieme di fatti memorizzato all'interno della memoria di lavoro. La verifica dell'applicabilità delle regole deve essere ripetuta come conseguenza di ogni modifica, anche minima, della memoria di lavoro. Per ridurre lo sforzo elaborativo richiesto dalle operazioni di confronto è possibile utilizzare l'algoritmo RETE~\cite{forgy1979}~\cite{forgy1982}~\cite{Doorenbos95productionmatching}.
 
-L'algoritmo prevede la scomposizione dell'attività in due processi separati. In un primo, interpretabile come un processo di \emph{compilazione}, l'insieme delle condizioni presenti nelle porzioni \emph{LHS} delle regole vengono valutate e trasformare in un grafo orientato radicato. Ogni nodo eseguirà, in una fase successiva, una valutazione di uno o una sequenza di elementi della \emph{working-memory}. Il tipo di nodi che è possibile utilizzare durante il processo di conversione delle regole determina il tipo di confronti e operazioni che verranno effettuati nella seconda fase. Il processo di conversione può essere realizzato tramite la creazione di espressioni statiche che verranno eseguite per valutare le modifiche della \emph{working-memory}~\cite{forgy1979}~\cite{forgy1982} realizzando in questo modo una rappresentazione implicita di un grafo di valutazione. Questa forma di implementazione prende il nome di formulazione compilata. Una variante alternativa~\cite{Doorenbos95productionmatching} prevede la generazione esplicita del grafo attraverso la realizzazione di strutture che rappresentino i nodi, prendendo il nome di formulazione interpretata. La fase di valutazione delle regole e della relativa trasformazione ha luogo nella fase di \emph{preparazione} del motore inferenziale precedentemente esplicitata.
+\subsubsection{Algoritmo RETE}\label{par:algoritmo-rete}
 
-Durante la fase di esecuzione del ciclo \emph{recognize-act} ha invece luogo la seconda attività prevista dall'algoritmo RETE: la valutazione delle modifiche della \emph{working-memory}. L'aggiunta o la rimozione di elementi dalla memoria di lavoro viene valutata dall'algoritmo facendo attraversare all'elemento il grafo di valutazione generato nella fase di preparazione. L'output offerto dalla valutazione consiste nell'elenco di attivazioni da aggiungere o rimuovere dall'agenda delle attivazioni.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5, viewport=0 0 574 307]{Immagini/Capitolo2/Rete-blackbox.pdf}
+\caption[RETE come una \emph{black-box}]{RETE come una \emph{black-box}: immagine originale tratta da \cite{Doorenbos95productionmatching}.}\label{fig:rete-black-box}
+\end{figure}
 
-La selezione dell'attivazione da eseguire viene eseguita utilizzando una serie di criteri. L'entità che racchiude questi criteri e li organizza prende il nome di \emph{strategia di risoluzione dei conflitti} (CRS). La CRS organizza l'elenco di attivazioni disponibili per ogni stato del sistema in base ad un ordinamento specifico. L'aggiunta o la rimozione di un fatto può determinare l'aggiornamento dell'intera sequenza. Per ogni iterazione del ciclo \emph{recognize-act} possono essere aggiunte o rimosse un numero arbitrario di attivazioni determinate dalla modifica allo stato del sistema eseguita nella fase \emph{act}. All'inizio di ogni ciclo, l'attivazione con priorità maggiore (sempre determinata in base ai criteri della CRS in uso) viene selezionata, rimossa dalla sequenza e quindi eseguita.
+L'algoritmo di \emph{pattern-matching} RETE consente un confronto efficiente fra il \emph{rules-set} e lo stato della \emph{working-memory}. Le attività svolte dall'algoritmo sono assimilabili a quelle di una \emph{black-box}~(\figurename~\ref{fig:rete-black-box}) alla quale vengono sottoposte due categorie di eventi: l'aggiunta o rimozione di regole e la modifica della \emph{working-memory}, intesa come asserzioni e ritrattazioni di fatti. Il risultato è in ogni caso un \emph{delta} delle attivazioni, un insieme di attivazioni da aggiungere o rimuovere dal \emph{conflict-set}~\cite{Doorenbos95productionmatching}.
+
+Le attività legate alla modifica del \emph{rules-set} vengono normalmente svolte nelle fasi di preparazione del motore inferenziale, anche se questa assunzione non lede minimamente le possibilità di modifica del \emph{network} durante l'esecuzione. Le attività di valutazione delle modifiche alla \emph{working-memory} sono svolte sia nelle fasi di preparazione, valutando l'insieme di fatti iniziali, che di esecuzione, valutando asserzioni e ritrattazioni eseguite durante il ciclo \emph{recognize-act}.
+
+\paragraph{Compilazione delle regole}
+
+Il processo di \emph{compilazione} di una regola prevede la conversione dei \emph{pattern} presenti nella porzione \emph{LHS} delle regole in un grafo di valutazione. Ad ogni singolo \emph{pattern} deve essere fatto corrispondere un circuito che valuti le componenti statiche del pattern e che non richiedono un confronto con altri elementi della \emph{LHS}. Questo genere di confronti si definisce \emph{intra-element}. Le espressioni variabili vengono ignorate nell'esecuzione di questa classe di valutazioni.
+
+I singoli circuiti vengono riuniti attraverso strutture che consentano di verificare la coerenza dei valori associati alle parti variabili, qualora queste ultime siano presenti in più di un \emph{pattern}. Questa classe di confronti viene definita \emph{inter-element}.
+
+Il tipo di strutture che è possibile utilizzare durante il processo di conversione delle regole determina il tipo di confronti e operazioni che verranno effettuati durante fase di valutazione delle modifiche. Il processo di conversione può essere realizzato tramite la creazione di espressioni statiche, eseguite in sequenza per valutare le modifiche della \emph{working-memory}~\cite{forgy1979}~\cite{forgy1982} realizzando in questo modo una rappresentazione implicita di un grafo di valutazione. Questa forma di implementazione prende il nome di formulazione compilata. Una variante alternativa~\cite{Doorenbos95productionmatching} prevede la generazione esplicita del grafo attraverso la realizzazione di strutture che rappresentino i nodi, prendendo il nome di formulazione interpretata.
+
+Il linguaggio di specifica~(Codice~\ref{code:defrule}) permette di esplicitare sia \emph{pattern} che verifichino l'esistenza diretta di fatti nella \emph{working-memory} (\texttt{Template\--Pattern\--CE}, \texttt{Ordered-Pattern-CE} e \texttt{Assigned-Pattern-CE}), che utilizzare connettivi logici per alterare il significato delle \emph{pattern}. I connettivi vengono esplicitati tramite \texttt{Not-CE} (negazione), \texttt{And-CE} (congiunzione), \texttt{Or-CE} (disgiunzione inclusiva). Queste condizioni possono essere valutate realizzando strutture apposite che eseguano i test tenendo conto del contesto offerto dal connettivo logico nel quale sono valutati. La formulazione proposta in \cite{Doorenbos95productionmatching} copre questi casi.
+L'unica eccezione riguarda la disgiunzione inclusiva, la quale richiede invece una valutazione più approfondita per poter essere supportata dall'algoritmo.
+
+\subparagraph{Compilazione di disgiunzioni inclusive}
+
+La struttura della \emph{LHS} è implicitamente inclusa all'interno di un elemento condizionale \texttt{and} che verifichi la validità contemporanea di tutti i \emph{pattern}. La topologia dell'algoritmo RETE base~\cite{forgy1979}~\cite{forgy1982}~\cite{Doorenbos95productionmatching} però non consente la combinazione di elementi condizionali \texttt{and} e \texttt{or}. Per risolvere questo problema, garantendo l'utilizzo degli elementi \texttt{or-CE} nella specifica della \emph{LHS}, è possibile generare regole multiple per le quali sia garantita la conformità alla topologia di RETE da una singola regola contenente l'elemento \texttt{or}. 
+L'operazione di compilazione deve essere preceduta da tre fasi: trasformazione, riduzione e scomposizione.
+
+\begin{figure}[h]
+\centering
+\begin{minipage}[t]{5.5cm}
+\begin{lstlisting}[numbers=none]
+(and
+	(or <CE1> <CE2>)
+	(or <CE3> <CE4>))
+\end{lstlisting}
+\end{minipage}
+\ \hspace{2mm} \hspace{3mm} \
+\begin{minipage}[t]{5.5cm}
+\begin{lstlisting}[numbers=none]
+(or	
+	(or
+		(and <CE1> <CE3>)
+		(and <CE1> <CE4>))
+	(or
+		(and <CE2> <CE3>)
+		(and <CE2> <CE4>)))
+\end{lstlisting}
+\end{minipage}
+\caption[Applicazione delle proprietà dei connettivi logici]{Applicazione delle proprietà dei connettivi logici per eseguire una normalizzazione dei \emph{pattern}. A sinistra la forma iniziale, a destra quella convertita}\label{fig:esempio-normalizzazione}
+\end{figure}
+
+La fase di trasformazione consiste nello sfruttare le proprietà dei connettivi logici per eseguire una conversione dei \emph{pattern} della \emph{LHS}~(\figurename~\ref{fig:esempio-normalizzazione}) fino ad ottenere una forma normalizzata che assicuri l'eventuale presenza di elementi \texttt{or} solo come elementi radice o contenuti in ulteriori \texttt{or}.
+
+\begin{figure}[h]
+\centering
+\begin{minipage}[t]{5.5cm}
+\begin{lstlisting}[numbers=none]
+(or	
+	(or
+		(and <CE1> <CE3>)
+		(and <CE1> <CE4>))
+	(or
+		(and <CE2> <CE3>)
+		(and <CE2> <CE4>)))
+\end{lstlisting}
+\end{minipage}
+\ \hspace{2mm} \hspace{3mm} \
+\begin{minipage}[t]{5.5cm}
+\begin{lstlisting}[numbers=none]
+(or	
+	(and <CE1> <CE3>)
+	(and <CE1> <CE4>)
+	(and <CE2> <CE3>)
+	(and <CE2> <CE4>))
+\end{lstlisting}
+\end{minipage}
+\caption[Riduzione dei connettivi \texttt{or} adiacenti]{Riduzione dei connettivi \texttt{or} adiacenti. A sinistra la forma iniziale, a destra quella ridotta}\label{fig:esempio-riduzione}
+\end{figure}
+
+
+La fase di riduzione consente di eliminare connettivi logici ridondanti, riducendo connettivi \texttt{or} e \texttt{and} adiacenti~(\figurename~\ref{fig:esempio-riduzione}).
+
+Come ultima fase, quella della scomposizione, i singoli \texttt{and-CE} contenuti all'interno della clausola \texttt{or} vengono scomposti come fossero regole differenti. Ad ognuna di esse verrà associato la medesima porzione \emph{RHS}. Le regole scomposte verranno collegate alla regola principale e rimosse contemporaneamente come fossero una singola istanza.
+
+
+\paragraph{Valutazione delle modifiche}
+
+Durante la fase di esecuzione del ciclo \emph{recognize-act} ha invece luogo la seconda attività prevista dall'algoritmo RETE: la valutazione delle modifiche della \emph{working-memory}. L'aggiunta o la rimozione di elementi dalla memoria di lavoro viene valutata tramite l'\emph{attraversamento} del grafo di valutazione generato nella fase di preparazione. Gli elementi \emph{WME} verranno riuniti durante l'attraverso della regione \emph{beta} di valutazione all'interno di strutture complesse, i \emph{Token}.
+Le attivazioni parziali di pattern singoli vengono memorizzati in memorie locali poste come terminali della regione \emph{alpha}, realizzando una frontiera.
+Le attivazioni parziali di sequenze di pattern vengono riunite nei \emph{Token} e stoccate in memorie locali poste come conseguente della struttura che ha eseguito \emph{Join} fra i pattern.
+L'output offerto dalla valutazione, ottenuto dai nodi terminali, consiste nell'elenco di attivazioni da aggiungere o rimuovere dall'agenda delle attivazioni.
+
+\subsubsection{Risoluzione dei conflitti}\label{par:strategie-crs}
+
+La selezione dell'attivazione da eseguire viene effettuata utilizzando una serie di criteri. L'entità che racchiude questi criteri e li organizza prende il nome di \emph{strategia di risoluzione dei conflitti} (CRS). La CRS organizza l'elenco di attivazioni disponibili per ogni stato del sistema in base ad un ordinamento specifico. L'aggiunta o la rimozione di un fatto può determinare l'aggiornamento dell'intera sequenza. Per ogni iterazione del ciclo \emph{recognize-act} possono essere aggiunte o rimosse un numero arbitrario di attivazioni determinate dalla modifica allo stato del sistema eseguita nella fase \emph{act}. All'inizio di ogni ciclo, l'attivazione con priorità maggiore (sempre determinata in base ai criteri della CRS in uso) viene selezionata, rimossa dalla sequenza e quindi eseguita.
 
 Il software deve fornire diverse strategie di risoluzione di conflitti:
 \begin{description}
