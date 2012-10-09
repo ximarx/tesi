@@ -198,11 +198,11 @@ I singoli circuiti vengono riuniti attraverso strutture che consentano di verifi
 Il tipo di strutture che è possibile utilizzare durante il processo di conversione delle regole determina il tipo di confronti e operazioni che verranno effettuati durante fase di valutazione delle modifiche. Il processo di conversione può essere realizzato tramite la creazione di espressioni statiche, eseguite in sequenza per valutare le modifiche della \emph{working-memory}~\cite{forgy1979}~\cite{forgy1982} realizzando in questo modo una rappresentazione implicita di un grafo di valutazione. Questa forma di implementazione prende il nome di formulazione compilata. Una variante alternativa~\cite{Doorenbos95productionmatching} prevede la generazione esplicita del grafo attraverso la realizzazione di strutture che rappresentino i nodi, prendendo il nome di formulazione interpretata.
 
 Il linguaggio di specifica~(Codice~\ref{code:defrule}) permette di esplicitare sia \emph{pattern} che verifichino l'esistenza diretta di fatti nella \emph{working-memory} (\texttt{Template\--Pattern\--CE}, \texttt{Ordered-Pattern-CE} e \texttt{Assigned-Pattern-CE}), che utilizzare connettivi logici per alterare il significato delle \emph{pattern}. I connettivi vengono esplicitati tramite \texttt{Not-CE} (negazione), \texttt{And-CE} (congiunzione), \texttt{Or-CE} (disgiunzione inclusiva). Queste condizioni possono essere valutate realizzando strutture apposite che eseguano i test tenendo conto del contesto offerto dal connettivo logico nel quale sono valutati. La formulazione proposta in \cite{Doorenbos95productionmatching} copre questi casi.
-L'unica eccezione riguarda la disgiunzione inclusiva, la quale richiede invece una valutazione più approfondita per poter essere supportata dall'algoritmo.
+L'unica eccezione riguarda la disgiunzione inclusiva, la quale richiede invece una valutazione più approfondita per poter essere supportata dall'algoritmo~\cite{advacesrete}~\cite{Gordin:1991:SCR:115790.115797}.
 
 \subparagraph{Compilazione di disgiunzioni inclusive}
 
-La struttura della \emph{LHS} è implicitamente inclusa all'interno di un elemento condizionale \texttt{and} che verifichi la validità contemporanea di tutti i \emph{pattern}. La topologia dell'algoritmo RETE base~\cite{forgy1979}~\cite{forgy1982}~\cite{Doorenbos95productionmatching} però non consente la combinazione di elementi condizionali \texttt{and} e \texttt{or}. Per risolvere questo problema, garantendo l'utilizzo degli elementi \texttt{or-CE} nella specifica della \emph{LHS}, è possibile generare regole multiple per le quali sia garantita la conformità alla topologia di RETE da una singola regola contenente l'elemento \texttt{or}. 
+La struttura della \emph{LHS} è implicitamente inclusa all'interno di un elemento condizionale \texttt{and} che verifichi la validità contemporanea di tutti i \emph{pattern}. La topologia dell'algoritmo RETE base~\cite{forgy1979}~\cite{forgy1982}~\cite{Doorenbos95productionmatching} però non consente la combinazione di elementi condizionali \texttt{and} e \texttt{or}. Per risolvere questo problema, garantendo l'utilizzo degli elementi \texttt{or-CE} nella specifica della \emph{LHS}, è possibile generare regole multiple per le quali sia garantita la conformità alla topologia di RETE da una singola regola contenente l'elemento \texttt{or}~\cite{clipsarch1992}. 
 L'operazione di compilazione deve essere preceduta da tre fasi: trasformazione, riduzione e scomposizione.
 
 \begin{figure}[h]
@@ -272,7 +272,7 @@ L'output offerto dalla valutazione, ottenuto dai nodi terminali, consiste nell'e
 
 \subsubsection{Risoluzione dei conflitti}\label{par:strategie-crs}
 
-La selezione dell'attivazione da eseguire viene effettuata utilizzando una serie di criteri. L'entità che racchiude questi criteri e li organizza prende il nome di \emph{strategia di risoluzione dei conflitti} (CRS). La CRS organizza l'elenco di attivazioni disponibili per ogni stato del sistema in base ad un ordinamento specifico. L'aggiunta o la rimozione di un fatto può determinare l'aggiornamento dell'intera sequenza. Per ogni iterazione del ciclo \emph{recognize-act} possono essere aggiunte o rimosse un numero arbitrario di attivazioni determinate dalla modifica allo stato del sistema eseguita nella fase \emph{act}. All'inizio di ogni ciclo, l'attivazione con priorità maggiore (sempre determinata in base ai criteri della CRS in uso) viene selezionata, rimossa dalla sequenza e quindi eseguita.
+La selezione dell'attivazione da eseguire viene effettuata utilizzando una serie di criteri. L'entità che racchiude questi criteri e li organizza prende il nome di \emph{strategia di risoluzione dei conflitti} (CRS)~\cite{McDermott:1977:PSC:1045343.1045364}. La CRS organizza l'elenco di attivazioni disponibili per ogni stato del sistema in base ad un ordinamento specifico. L'aggiunta o la rimozione di un fatto può determinare l'aggiornamento dell'intera sequenza. Per ogni iterazione del ciclo \emph{recognize-act} possono essere aggiunte o rimosse un numero arbitrario di attivazioni determinate dalla modifica allo stato del sistema eseguita nella fase \emph{act}. All'inizio di ogni ciclo, l'attivazione con priorità maggiore (sempre determinata in base ai criteri della CRS in uso) viene selezionata, rimossa dalla sequenza e quindi eseguita.
 
 Il software deve fornire diverse strategie di risoluzione di conflitti:
 \begin{description}
@@ -280,16 +280,16 @@ Il software deve fornire diverse strategie di risoluzione di conflitti:
 	
 	\item[Breadth:] le nuove attivazioni vengono inserite nella sequenza con priorità inferiore a quelle già esistenti.
 	
-	\item[Simplicity:] viene utilizzato come criterio per determinarne la priorità un indice di generalità della regola. A quelle con un minor grado di specializzazione verrà attribuita una priorità maggiore. Il coefficiente di complessità di ogni regola viene determinato prendendo in esame il numero di pattern presenti nella LHS, il numero di variabili utilizzate in ogni pattern ed il numero di connettivi ed espressioni logiche presenti. Il coefficiente, espresso tramite un valore numerico intero, viene quindi computato sommando le singoli componenti.
+	\item[Simplicity:] viene utilizzato come criterio per determinarne la priorità un indice di generalità della regola~\cite{clipsarch1992}. A quelle con un minor grado di specializzazione verrà attribuita una priorità maggiore. Il coefficiente di complessità di ogni regola viene determinato prendendo in esame il numero di pattern presenti nella LHS, il numero di variabili utilizzate in ogni pattern ed il numero di connettivi ed espressioni logiche presenti. Il coefficiente, espresso tramite un valore numerico intero, viene quindi computato sommando le singoli componenti.
 	
-	\item[Complexity:] la specificità della regola a cui fa riferimento l'attivazione determina la priorità di attivazione. Il coefficiente di complessità viene calcolato in maniera analoga a quanto fatto per la CRS \emph{Simplicity}, ma valori di complessità maggiori determineranno una maggiore priorità.
-	\item[Lex:] la priorità di attivazione viene calcolata come segue:
+	\item[Complexity:] la specificità della regola a cui fa riferimento l'attivazione determina la priorità di attivazione~\cite{clipsarch1992}. Il coefficiente di complessità viene calcolato in maniera analoga a quanto fatto per la CRS \emph{Simplicity}, ma valori di complessità maggiori determineranno una maggiore priorità.
+	\item[Lex:] la priorità di attivazione viene calcolata come segue~\cite{forgyops5manual}:
 		\begin{itemize}
 			\item ad ogni fatto viene attribuita un'etichetta temporale per determinare una relazione d'ordine.
 			\item i fatti relativi ad ogni attivazione vengono quindi riordinati in modo decrescente.
 			\item le attivazioni vengono confrontate prendendo in esame le sequenze ordinate di etichette temporali e assegnando priorità maggiore alle attivazioni con sequenze più recenti.
 		\end{itemize}
-	\item[Mea:] la priorità di attivazione viene calcolata come segue:
+	\item[Mea:] la priorità di attivazione viene calcolata come segue~\cite{forgyops5manual}:
 		\begin{itemize}
 			\item ad ogni fatto componente l'attivazione viene attribuita un'etichetta temporale per determinare una relazione d'ordine fra i fatti nella \emph{working-memory}.
 			\item per ogni attivazione viene identificata l'etichetta temporale più recente

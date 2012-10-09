@@ -12,7 +12,16 @@
 \usepackage{setspace}
 \usepackage{subfig}
 \usepackage{caption}
-\usepackage[backend=bibtex]{biblatex}
+\usepackage[backend=biber,%
+			refsegment=chapter,%
+			style=alphabetic,%
+			maxnames=5,%
+			minnames=3,%
+			maxitems=5,%
+			minitems=3
+		]{biblatex}
+		
+%\usepackage[backend=bibtex,refsegment=chapter,sorting=none,style=alphabetic]{biblatex}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{moreverb}
@@ -36,7 +45,8 @@
 
 
 
-\bibliography{Bibliografia}
+%\bibliography{Bibliografia}
+\addbibresource{Bibliografia.bib}
 
 \input{Configs}                  % file con le impostazioni personali
 
@@ -65,15 +75,24 @@
 \doublespacing
 
 
-\rhead{\thesection \sectionmark}
+%\rhead{\thesection \sectionmark}
 
 \mainmatter
 \input{Capitoli/capitolo-1}
+\addcontentsline{toc}{chapter}{Bibliografia capitolo 1}
+\printbibliography[segment=\therefsegment,sorting=none,title={Bibliografia capitolo 1}]
 \input{Capitoli/capitolo-2}
+\addcontentsline{toc}{chapter}{Bibliografia capitolo 2}
+\printbibliography[segment=\therefsegment,sorting=none,title={Bibliografia capitolo 2}]
 \input{Capitoli/capitolo-3}
-
 \input{Sezioni/Conclusioni}
+\clearpage
+\lhead{\emph{BIBLIOGRAFIA CAPITOLO 3}}
+\addcontentsline{toc}{chapter}{Bibliografia capitolo 3}
+\printbibliography[segment=\therefsegment,sorting=none,title={Bibliografia capitolo 3}]
+
 \pagebreak
+\endrefsegment
 \lhead{\emph{BIBLIOGRAFIA}}
 \rhead{}
 \appendix

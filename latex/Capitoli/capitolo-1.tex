@@ -36,7 +36,7 @@ Proprio a causa della natura dinamica e incerta del ragionamento alla base dei \
 
 La capacità di apprendimento, che per Schank \cite{schank1984ia} è uno dei fattori determinanti per poter associare al ragionamento dei sistemi esperti l'attributo di \emph{intelligente}, rappresenta un'ulteriore componente chiave nella definizione di sistemi esperti. Alcune tecniche basate sull'aggiunta di nuovi elementi nella base di conoscenza o sull'aggiunta di nuove euristiche hanno permesso di integrare meccanismi di apprendimento automatico all'interno dei sistemi esperti~\cite{nasa1988flops}.
 
-Dalla metà degli anni '60 ad oggi  sono stati creati un gran numero di sistemi esperti con ambiti di utilizzo molto differenti fra loro. Per fare alcuni esempi è possibile citare quello aerospaziale (ad esempio per agevolare alcune operazioni in orbita), quello sanitario (ad esempio nell'assistenza al monitoraggio dei parametri dei pazienti nelle unità di terapia intensiva o nella diagnosi di malattie) o quello finanziario.~\cite{jackson1999}
+Dalla metà degli anni '60 ad oggi  sono stati creati un gran numero di sistemi esperti con ambiti di utilizzo molto differenti fra loro. Per fare alcuni esempi è possibile citare quello aerospaziale (ad esempio per agevolare alcune operazioni in orbita), quello sanitario (ad esempio nell'assistenza al monitoraggio dei parametri dei pazienti nelle unità di terapia intensiva o nella diagnosi di malattie) o quello finanziario~\cite{jackson1999}.
 
 Il primi sistemi esperti prodotti furono Dendral (1965), con lo scopo di determinare la struttura molecolare partendo da dati provenienti da uno spettrometro di massa, R1 (1978), usato per configurare sistemi informatici e MYCIN (1976), per assistere nella diagnosi di infezioni da batteri e proporre piani terapeutici per il trattamento delle stesse.
 
@@ -66,7 +66,7 @@ Come il processo di sviluppo di software tradizionale può essere scandito in fa
 \end{figure}
 
 
-Sebbene il confronto fra lo sviluppo di software tradizionale e quello di sistemi basati su conoscenza possa mostrare punti di contatto, le somiglianze sono solamente superficiali ed un'analisi approfondita rivelerebbe profonde differenze dettate dalle specifiche caratteristiche del tipo di artefatto in produzione.~\cite{esposito2012icse}
+Sebbene il confronto fra lo sviluppo di software tradizionale e quello di sistemi basati su conoscenza possa mostrare punti di contatto, le somiglianze sono solamente superficiali ed un'analisi approfondita rivelerebbe profonde differenze dettate dalle specifiche caratteristiche del tipo di artefatto in produzione~\cite{esposito2012icse}.
 
 Alla figura già descritta dell'esperto di dominio viene affiancata quella dell'\emph{ingegnere della conoscenza}: un esperto informatico addetto alla compilazione di una base di conoscenza.
 
@@ -183,7 +183,7 @@ La struttura dei \emph{frame} può essere immaginata come una rete di nodi e rel
 
 Le forme più semplici di condizioni possono richiedere l'intervento dell'utente per fornire dati da assegnare a specifici slot, condizioni più complesse possono invece essere utilizzate per collegare fra loro informazioni disponibili in diversi altri terminali. 
 
-Il contenuto degli slot può essere un'informazione atomica o un'ulteriore sotto-struttura \emph{frame}. L'utilizzo di strutture nidificate permette la creazione di ulteriori livelli gerarchici con estrema facilità.~\cite{minsky1974}
+Il contenuto degli slot può essere un'informazione atomica o un'ulteriore sotto-struttura \emph{frame}. L'utilizzo di strutture nidificate permette la creazione di ulteriori livelli gerarchici con estrema facilità~\cite{minsky1974}.
 
 \subsubsection{Oggetti}
 Nell'approccio \emph{object-oriented} alla rappresentazione della conoscenza, gli oggetti descrivono una strategia di rappresentazione derivata da quella dei \emph{frame}. Da quest'ultima strategia, essi ereditano i concetti di relazione, slot e l'organizzazione gerarchica fra gli elementi stessi~\cite{holsapple1994object}.
@@ -288,7 +288,7 @@ La scansione dell'intera \emph{working memory} viene evitata memorizzando, in un
 
 Quando un nuovo elemento viene asserito (\figurename~\ref{fig:asserzione}), e quindi entra a far parte della descrizione dello stato fornita dalla \emph{working memory}, l'algoritmo esegue una valutazione di ogni pattern singolarmente per il nuovo elemento aggiunto, e solo in caso di verifica positiva l'elemento stesso viene inserito all'interno dell'unità di memoria locale~\cite{forgy1982}.
 
-Quando un elemento fuoriesce dalla \emph{working memory}, lo stesso viene rimosso da tutte le unità di memoria locali dei pattern in cui l'elemento è memorizzato. Il processo di ricerca può avvenire ripetendo nuovamente le verifiche per i singoli pattern~\cite{forgy1982} oppure, più efficientemente, tenendo in una porzione di memoria separata una lista di collegamenti fra elementi e le memorie in cui essi sono contenuti.~\cite{Doorenbos95productionmatching}
+Quando un elemento fuoriesce dalla \emph{working memory}, lo stesso viene rimosso da tutte le unità di memoria locali dei pattern in cui l'elemento è memorizzato. Il processo di ricerca può avvenire ripetendo nuovamente le verifiche per i singoli pattern~\cite{forgy1982} oppure, più efficientemente, tenendo in una porzione di memoria separata una lista di collegamenti fra elementi e le memorie in cui essi sono contenuti~\cite{Doorenbos95productionmatching}.
 
 La scansione dell'intero \emph{rules-set} viene evitata attraverso l'utilizzo di una struttura a grafo per la rappresentazione delle regole. In seguito ad una fase di compilazione (\figurename~\ref{fig:grafo-regola}), la porzione \emph{LHS} delle regole viene scomposta nei singoli pattern. Per ognuno di essi viene realizzata, qualora non fosse possibile condividere una struttura analoga creata precedentemente, un circuito di nodi in grado di eseguire dei test su singoli elementi della \emph{working memory}. Come ultimo elemento del circuito viene aggiunta un'unità di memoria locale, denominata \emph{Alpha-Memory}, la quale accoglierà l'insieme di elementi che, singolarmente, hanno verificato l'elenco di condizioni che il circuito descrive~\cite{Doorenbos95productionmatching}.
 L'insieme di circuiti derivanti dalla compilazione dei singoli pattern prende il nome di \emph{Alpha-Network}.
@@ -459,7 +459,7 @@ Durante questo processo di conversione, la scelta di molti ricadde verso il ling
 Prendendo in esame CLIPS, il sistema poteva essere integrato all'interno di qualsiasi applicazione che fosse in grado di interfacciarsi direttamente con librerie scritte in linguaggio C. JESS estende ulteriormente queste possibilità tramite l'utilizzo di Java, linguaggio emergente negli ultimi anni sia in ambiente \emph{coorporate} che nei prodotti di largo consumo.
 
 Studi effettuati negli ultimi anni hanno analizzato l'efficienza, la facilità e le possibilità offerte dallo sviluppo di software con vari linguaggi di programmazione~\cite{naiditch1999}~\cite{Zeigler_95}~\cite{prechelt2000}~\cite{prashant2008}.
-Sebbene questi studi abbiamo mostrato, come prevedibile, che le caratteristiche di particolari linguaggi si adattino meglio ad alcuni ambiti di utilizzo rispetto che ad altri, un elemento comune emerso riguarda l'impatto che la scelta del linguaggio ha sui costi di sviluppo e l'affidabilità degli artefatti prodotti. Nonostante la grande flessibilità offerta dal linguaggio C, i costi affrontati per lo sviluppo, il testing e la manutenzione degli artefatti prodotti erano superiori rispetto a quelli imposti da altri linguaggi come Ada~\cite{Zeigler_95}, Java~\cite{prashant2008} o a linguaggi interpretati come Perl o Python\cite{prechelt2000}.
+Sebbene questi studi abbiamo mostrato, come prevedibile, che le caratteristiche di particolari linguaggi si adattino meglio ad alcuni ambiti di utilizzo rispetto che ad altri, un elemento comune emerso riguarda l'impatto che la scelta del linguaggio ha sui costi di sviluppo e l'affidabilità degli artefatti prodotti. Nonostante la grande flessibilità offerta dal linguaggio C, i costi affrontati per lo sviluppo, il testing e la manutenzione degli artefatti prodotti erano superiori rispetto a quelli imposti da altri linguaggi come Ada~\cite{Zeigler_95}, Java~\cite{prashant2008} o a linguaggi interpretati come Perl o Python~\cite{prechelt2000}.
 
 \section{Obiettivi di questa tesi}
 Negli ultimi anni Internet, e più specificamente il \emph{World Wide Web}, sta evolvendo da un medium per lo scambio di informazioni verso una piattaforma onnipresente per la distribuzione di qualsiasi genere di servizi come \emph{Web banking}, \emph{E-Commerce}, \emph{E-Government}, etc. La ragione alla base di questa rapida evoluzione del Web è il grande numero di possibilità che questa forma di distribuzione offre, unito al grande successo che questo genere di soluzioni sta riscontrando verso l'utenza.
@@ -479,5 +479,3 @@ Gli obiettivi perseguiti nell'ambito di questa tesi sono riassumibili come segue
 	\item fornire un \emph{expert system environment} dotato di una architettura flessibile in grado di permettere l'aggiunta di nuove caratteristiche;
 	\item estendere il sistema prodotto con funzionalità che consentano la distribuzione dei servizi offerti dall'\emph{environment} anche attraverso un modello d'architettura di tipo \emph{client-server}, che agevoli la creazione di soluzioni basate su calcolo distribuito.
 \end{itemize}
-
-
